@@ -1,0 +1,6 @@
+<?php
+echo $this->projectNavigation(array(), $this->getProject());
+echo "<div>Η εισαγωγή του έργου ολοκληρώθηκε με επιτυχία.</div>";
+//echo "<div><a href='".$this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'index'), null, true)."'>Επιστροφή</a></div>"
+echo "<div><a href='".$this->url(array('module' => $this->getModuleName(), 'controller' => 'Diaxeirisi', 'action' => 'review', 'section' => 'basicdetails', 'projectid' => $this->getProjectId()), null, true)."'>Επιστροφή</a></div>"
+?>

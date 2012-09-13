@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+    <home>
+        <label>Αρχική</label>
+        <module>default</module>
+        <controller>index</controller>
+        <action>index</action>
+        <resource>guestsection</resource>
+        <route>default</route>
+    </home>
+    <help>
+        <label>Βοήθεια</label>
+        <module>help</module>
+        <resource>guestsection</resource>
+        <visible>0</visible>
+        <route>help</route>
+    </help>
+    <profile>
+        <label>Προφίλ</label>
+        <module>default</module>
+        <controller>Profile</controller>
+        <action>index</action>
+        <resource>professorsection</resource>
+        <visible>0</visible>
+        <route>default</route>
+    </profile>
+    <report>
+        <label>Αναφορά Προβλήματος</label>
+        <module>default</module>
+        <controller>Report</controller>
+        <action>index</action>
+        <resource>usersection</resource>
+        <visible>0</visible>
+        <route>default</route>
+    </report>
+    <synedriaseisee>
+        <label>Ημερολόγιο ΕΕΕ</label>
+        <module>synedriaseisee</module>
+        <resource>guestsection</resource>
+        <route>default</route>
+        <pages>
+            <eventview>
+                <label>Αιτήσεις</label>
+                <module>synedriaseisee</module>
+                <controller>index</controller>
+                <action>eventview</action>
+                <visible>0</visible>
+            </eventview>
+        </pages>
+    </synedriaseisee>
+    <ekkremotites>
+        <label>Εκκρεμότητες</label>
+        <module>default</module>
+        <controller>Ekkremotites</controller>
+        <action>index</action>
+        <resource>elkesection</resource>
+        <route>default</route>
+    </ekkremotites>
+    <lists>
+        <label>Λίστες</label>
+        <module>default</module>
+        <controller>Lists</controller>
+        <resource>elkesection</resource>
+        <route>default</route>
+        <pages>
+            <katigoriesergwn>
+                <label>Κατηγορίες Έργων</label>
+                <module>default</module>
+                <controller>Lists</controller>
+                <action>index</action>
+                <params>
+                    <type>Application_Model_Lists_ProjectCategory</type>
+                </params>
+            </katigoriesergwn>
+            <katigoriesdapanwn>
+                <label>Κατηγορίες Δαπανών</label>
+                <module>default</module>
+                <controller>Lists</controller>
+                <action>index</action>
+                <params>
+                    <type>Application_Model_Lists_ExpenditureCategory</type>
+                </params>
+            </katigoriesdapanwn>
+            <foreis>
+                <label>Φορείς</label>
+                <module>default</module>
+                <controller>Lists</controller>
+                <action>index</action>
+                <params>
+                    <type>Application_Model_Lists_Agency</type>
+                </params>
+            </foreis>
+            <plaisiaxrimatodotisis>
+                <label>Πλαίσια Χρηματοδότησης</label>
+                <module>default</module>
+                <controller>Lists</controller>
+                <action>index</action>
+                <params>
+                    <type>Application_Model_Lists_FundingFramework</type>
+                </params>
+            </plaisiaxrimatodotisis>
+            <epixeirisiakaprogrammata>
+                <label>Επιχειρησιακά Προγράμματα</label>
+                <module>default</module>
+                <controller>Lists</controller>
+                <action>index</action>
+                <params>
+                    <type>Application_Model_Lists_OpProgramme</type>
+                </params>
+            </epixeirisiakaprogrammata>
+            <katigoriesapasxoloumenwn>
+                <label>Κατηγορίες Απασχολούμενων</label>
+                <module>default</module>
+                <controller>Lists</controller>
+                <action>index</action>
+                <params>
+                    <type>Application_Model_Lists_EmployeeCategory</type>
+                </params>
+            </katigoriesapasxoloumenwn>
+            <eidikotitesapasxoloumenwn>
+                <label>Ειδικότητες Απασχολούμενων</label>
+                <module>default</module>
+                <controller>Lists</controller>
+                <action>index</action>
+                <params>
+                    <type>Application_Model_Lists_EmployeeSpecialty</type>
+                </params>
+            </eidikotitesapasxoloumenwn>
+                <add>
+                    <label>Προσθήκη</label>
+                    <module>default</module>
+                    <controller>Lists</controller>
+                    <action>add</action>
+                    <visible>0</visible>
+                </add>
+                <edit>
+                    <label>Επεξεργασία</label>
+                    <module>default</module>
+                    <controller>Lists</controller>
+                    <action>edit</action>
+                    <visible>0</visible>
+                </edit>
+        </pages>
+    </lists>
+    <!--<epitropes>
+        <label>Επιτροπές</label>
+        <module>praktika</module>
+        <controller>epitropes</controller>
+        <resource>elkesection</resource>
+        <route>default</route>-->
+        <!--<id>epitropes</id>--> <!-- Για να μπορούμε να το βρούμε με τη συνάρτηση findOneBy στο populateNavigation -->
+        <!-- Οι τύποι επιτροπών γίνονται αυτόματα populate -->
+    <!--</epitropes>-->
+    <diagonismoi>
+        <label>Διαγωνισμοί</label>
+        <module>praktika</module>
+        <controller>diagonismoi</controller>
+        <resource>elkesection</resource>
+        <route>default</route>
+    </diagonismoi>
+    <!--<praktika>
+        <label>Πρακτικά</label>
+        <module>praktika</module>
+        <controller>praktika</controller>
+        <resource>priviledgedsection</resource>
+        <route>default</route>
+        <id>praktika</id>--><!-- Για να μπορούμε να το βρούμε με τη συνάρτηση findOneBy στο populateNavigation -->
+        <!-- Οι τύποι πρακτικών γίνονται αυτόματα populate -->
+    <!-- </praktika> -->
+    <aitiseis>
+        <label>Αιτήσεις</label>
+        <module>aitiseis</module>
+        <resource>priviledgedsection</resource>
+        <route>default</route>
+        <id>aitiseis</id> <!-- Για να μπορούμε να το βρούμε με τη συνάρτηση findOneBy στο populateNavigation -->
+        <pages>
+            <aitiseistypes>
+                <label>Τύποι Αιτήσεων</label>
+                <module>aitiseis</module>
+                <controller>index</controller>
+                <action>index</action>
+                <route>default</route>
+                <resource>priviledgedsection</resource>
+            </aitiseistypes>
+        </pages>
+        <!-- Οι τύποι αιτήσεων γίνονται αυτόματα populate -->
+    </aitiseis>
+    <mhniaiafyllaparakolouthisis>
+        <label>Μηνιαία Φύλλα Παρ.</label>
+        <module>timesheets</module>
+        <resource>employeesection</resource>
+        <route>default</route>
+        <pages>
+            <mytimesheets>
+                <label>Τα φύλλα μου</label>
+                <module>timesheets</module>
+                <controller>mytimesheets</controller>
+                <resource>employeesection</resource>
+                <route>default</route>
+            </mytimesheets>
+            <adminey>
+                <label>Διαχείρηση Φύλλων (ΕΥ)</label>
+                <module>timesheets</module>
+                <controller>adminey</controller>
+                <resource>professorsection</resource>
+                <route>default</route>
+            </adminey>
+            <adminelke>
+                <label>Διαχείρηση Φύλλων (ΕΛΚΕ)</label>
+                <module>timesheets</module>
+                <controller>adminelke</controller>
+                <resource>elkesection</resource>
+                <route>default</route>
+            </adminelke>
+        </pages>
+    </mhniaiafyllaparakolouthisis>
+    <erga>
+        <label>Έργα</label>
+        <module>erga</module>
+        <resource>priviledgedsection</resource>
+        <route>default</route>
+        <pages>
+            <elkeview>
+                <label>Διαχείριση Έργων</label>
+                <module>erga</module>
+                <controller>Diaxeirisi</controller>
+                <action>index</action>
+                <resource>elkesection</resource>
+            </elkeview>
+            <profview>
+                <label>Εμφάνιση Έργων</label>
+                <module>erga</module>
+                <controller>Professor_View</controller>
+                <action>index</action>
+                <resource>professorsection</resource>
+            </profview>
+            <!--<new>
+                <label>Προσθήκη Έργου</label>
+                <module>erga</module>
+                <controller>Diaxeirisi</controller>
+                <action>new</action>
+                <resource>elkesection</resource>
+            </new>-->
+            <review>
+                <label>Επεξεργασία Έργου</label>
+                <module>erga</module>
+                <controller>Diaxeirisi</controller>
+                <action>review</action>
+                <visible>0</visible>
+            </review>
+            <delete>
+                <label>Διαγραφή Έργου</label>
+                <module>erga</module>
+                <controller>Diaxeirisi</controller>
+                <action>delete</action>
+                <visible>0</visible>
+            </delete>
+            <apasxoloumenoi>
+                <label>Απασχολούμενοι/Ανάδοχοι</label>
+                <module>erga</module>
+                <controller>Apasxoloumenoi</controller>
+                <visible>0</visible>
+            </apasxoloumenoi>
+            <ypoerga>
+                <label>Υποέργα</label>
+                <module>erga</module>
+                <controller>Ypoerga</controller>
+                <visible>0</visible>
+            </ypoerga>
+            <paketaergasias>
+                <label>Πακέτα Εργασίας/Παραδοτέα</label>
+                <module>erga</module>
+                <controller>Paketaergasias</controller>
+                <visible>0</visible>
+            </paketaergasias>
+        </pages>
+    </erga>
+    <anafores>
+        <label>Αναφορές</label>
+        <module>anafores</module>
+        <resource>priviledgedsection</resource>
+        <route>default</route>
+        <pages>
+            <elkeapasxoloumenoi>
+                <label>Απασχολούμενοι</label>
+                <module>anafores</module>
+                <controller>Apasxoloumenoi</controller>
+                <resource>elkesection</resource>
+            </elkeapasxoloumenoi>
+            <elkefyllaapasxooumenoi>
+                <label>Στατιστικά ΜΦΠ (Α)</label>
+                <module>anafores</module>
+                <controller>Fylla</controller>
+                <resource>elkesection</resource>
+            </elkefyllaapasxooumenoi>
+            <elkeanadoxoi>
+                <label>Ανάδοχοι</label>
+                <module>anafores</module>
+                <controller>Anadoxoi</controller>
+                <resource>elkesection</resource>
+            </elkeanadoxoi>
+            <profapasxoloumenoi>
+                <label>Απασχολούμενοι</label>
+                <module>anafores</module>
+                <controller>Professor_Apasxoloumenoi</controller>
+                <resource>professorsection</resource>
+            </profapasxoloumenoi>
+            <professorfyllaapasxooumenoi>
+                <label>Στατιστικά ΜΦΠ (Α)</label>
+                <module>anafores</module>
+                <controller>Professor_Fylla</controller>
+                <resource>professorsection</resource>
+            </professorfyllaapasxooumenoi>
+            <profanadoxoi>
+                <label>Ανάδοχοι</label>
+                <module>anafores</module>
+                <controller>Professor_Anadoxoi</controller>
+                <resource>professorsection</resource>
+            </profanadoxoi>
+            <epistimonikaypeuthinoi>
+                <label>Επιστημονικά Υπεύθυνοι</label>
+                <module>anafores</module>
+                <controller>Epistimonikaypeuthinoi</controller>
+                <resource>elkesection</resource>
+            </epistimonikaypeuthinoi>
+            <ekprothesmaparadotea>
+                <label>Εκπρόθεσμα Παραδοτέα</label>
+                <module>anafores</module>
+                <controller>Ekprothesma</controller>
+                <resource>elkesection</resource>
+            </ekprothesmaparadotea>
+        </pages>
+    </anafores>
+    <!--<eggrafa>
+        <label>Έγγραφα</label>
+        <module>default</module>
+        <controller>egrafa</controller>
+        <action>index</action>
+        <resource>elkesection</resource>
+        <route>default</route>
+    </eggrafa>
+    <xristes>
+        <label>Χρήστες</label>
+        <module>default</module>
+        <controller>users</controller>
+        <resource>elkesection</resource>
+        <route>default</route>
+        <pages>
+            <diaxeirisidikaiomatwn>
+            <label>Δικαιώματα Χρηστών</label>
+            <module>default</module>
+            <controller>users</controller>
+            <action>index</action>
+            </diaxeirisidikaiomatwn>
+        </pages>
+    </xristes>-->
+</configdata>

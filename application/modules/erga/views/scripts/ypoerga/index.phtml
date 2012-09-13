@@ -1,0 +1,79 @@
+<?php $this->headLink()->appendStylesheet($this->baseUrl('media/css/jquery.treeTable.css')); ?>
+<?php $this->headScript()->appendFile($this->baseUrl('media/js/jquery.cookie.js', 'text/javascript')); ?>
+<?php $this->headScript()->appendFile($this->baseUrl('media/js/jquery.treeTable.js', 'text/javascript')); ?>
+<?php $this->headScript()->appendFile($this->baseUrl('media/js/erga/ypoerga/treeview.js', 'text/javascript')); ?>
+<?php echo $this->projectNavigation(array(), $this->getProject()); ?>
+<?php $name = $this->getProject()->get_subprojectsname(); ?>
+<br/>
+<input type="text" id="id_search" placeholder=" Αναζήτηση..."></input>
+
+<div id="listaUpoergwn">
+
+
+<table id="ypoergacollapsible" class="treeTable fatTable">
+    <thead>
+    <tr>
+        <th width="16">
+
+        </th>
+        <th width="450">
+            Τίτλος
+        </th>
+        <th width="54">
+            Ποσό
+        </th>
+        <th width="65">
+            Ενέργειες
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr id="project" class="projectRow expanded">
+        <td>
+            <?php echo $this->getCompletionIcon($this->project); ?>
+        </td>
+        <td>
+
+            <?php echo $this->project->get_basicdetails()->get_title(); ?>
+        </td>
+        <td>
+            <?php echo $this->project->get_financialdetails()->get_budgetWithFPA(); ?>
+        </td>
+        <td>
+            <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'new', 'parentprojectid' => $this->project->get_projectid()), null, true); ?>"
+               class="addNew"><img src="<?php echo $this->baseUrl('images/add.png'); ?>" alt="προσθήκη" title="Προσθήκη <?php echo $name['new'].' '.$name['gen']; ?>"/>
+            </a>
+        </td>
+
+    </tr>
+    <?php foreach($this->project->get_subprojects() as $curSubProject) { ?>
+        <tr id="subproject<?php echo $curSubProject->get_subprojectid(); ?>" class="subproject child-of-project">
+            <td>
+                <?php echo $this->getCompletionIcon($curSubProject); ?>
+            </td>
+            <td>
+                <?php
+                    if($curSubProject->get_subprojectdirectlabor() == 1) {
+                        echo '<strong>[A]</strong> ';
+                    }
+                ?>
+                <a class="treetablelink" href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'review', 'subprojectid' => $curSubProject->get_subprojectid()), null, true); ?>">
+                    <?php echo $curSubProject->get_subprojecttitle(); ?>
+                </a>
+                (<?php echo $curSubProject->get_subprojectnumber(); ?>)
+            </td>
+            <td>
+                <?php echo $curSubProject->get_subprojectbudgetWithFPA(); ?>
+
+            </td>
+            <td>
+                <a href="javascript:void(0);"  onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε το υποέργο <?php echo $curSubProject->get_subprojecttitle(); ?>;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'delete', 'subprojectid' => $curSubProject->get_subprojectid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>'}">
+                    <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή"  title="Διαγραφή <?php echo $name['gen']; ?>" />
+                </a>
+            </td>
+        </tr>
+    <?php } ?>
+</tbody>
+        </table>
+        </div>
+<br />

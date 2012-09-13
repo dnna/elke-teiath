@@ -1,0 +1,32 @@
+<?php echo $this->filterform; ?>
+<table id="apasxoloumenoitable" class="thinTable">
+    <thead>
+        <tr>
+            <th><?php echo $this->getOrderLink('name', 'Επωνυμία'); ?></th>
+            <th><?php echo $this->getOrderLink('projectscount', 'Αριθμός Έργων'); ?></th>
+            <th><?php echo $this->getOrderLink('totalamount', 'Συνολική Αμοιβή'); ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach($this->contractors as $curSupervisor) {
+            // Η μορφή του $curEmployee είναι στο documentation της κλάσης Erga_Model_Repositories_SubProjectEmployees
+            // στη μέθοδο getTotalEmployeesList
+            echo '<tr>';
+            echo '<td><a href="'.$this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'overview', 'afm' => $curSupervisor[0]->get_agency()->get_afm(), 'currentprojects' => $this->filters['currentprojects']), null, true).'" title="Επισκόπηση απασχολούμενου">
+                          <img src="'.$this->baseUrl('images/overview.png').'" alt="review" /> '.$curSupervisor[0]->get_agency()->get_name().'
+                       </a>
+                  </td>';
+            echo '<td>'.$curSupervisor['projectscount'].'</td>';
+            echo '<td>'.Zend_Locale_Format::toNumber($curSupervisor['totalamount'],array('precision' => 2,'locale' => Zend_Registry::get('Zend_Locale'))).'</td>';
+            echo '</tr>';
+        }
+        ?>
+    </tbody>
+</table>
+<?php
+// Links σελίδων (pagination)
+echo $this->contractors->__toString();
+?>
+<br/>
+<a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'export')); ?>" class="excel">Εξαγωγή πίνακα σε Excel</a>

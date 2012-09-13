@@ -1,0 +1,46 @@
+<div class="eventview">
+    <table>
+        <tr>
+        <th>Κωδ. Συνεδρίασης:</th>
+        <td>
+        <?php echo $this->synedriasi->get_title(); ?>
+        <td>
+        </tr>
+        <tr>
+        <th>Ημ/νία:</th>
+        <td>
+        <?php echo $this->synedriasi->get_start()->__toString(); ?>
+        <td>
+        </tr>
+        <tr>
+        <th>Ώρα Έναρξης:</th>
+        <td>
+        <?php echo $this->synedriasi->get_start()->__toStringTime(); ?>
+        <td>
+        </tr>
+        <tr>
+        <th>Ώρα Λήξης:</th>
+        <td>
+        <?php echo $this->synedriasi->get_end()->__toStringTime(); ?>
+        <td>
+        </tr>
+       </table>
+    <?php if($this->synedriasi->get_subjects() != null && count($this->synedriasi->get_subjects()) > 0) { ?>
+
+    <table>
+        <tr>
+            <th> Θέματα:</th>
+        </tr>
+        <tr>
+            <td>
+                <ol>
+                    <?php foreach($this->synedriasi->get_subjects() as $curSubject) { ?>
+                    <li value="<?php echo $curSubject->get_num(); ?>"><?php echo $curSubject->get_rawtitle(); ?></li>
+                    <?php } ?>
+                </ol>
+            </td>
+        </tr>
+    </table>
+    <?php } ?>
+
+</div>

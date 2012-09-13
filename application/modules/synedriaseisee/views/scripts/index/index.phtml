@@ -1,0 +1,36 @@
+<?php
+// Jquery UI load
+//$this->headLink()->appendStylesheet($this->baseUrl('media/css/jquery-ui-1.8.16.custom.css'));
+//$this->headScript()->appendFile($this->baseUrl("media/js/jquery-ui-1.8.16.custom.min.js"));
+
+$this->headLink()->appendStylesheet($this->baseUrl('media/css/jquery.weekcalendar.css'));
+$this->headScript()->appendFile($this->baseUrl("media/js/date.js"));
+$this->headScript()->appendFile($this->baseUrl("media/js/jquery.weekcalendar.js"));
+if($this->readonly == false) {
+    $this->headScript()->appendFile($this->baseUrl('media/js/collapsiblefields.js', 'text/javascript')); // Δε μπορεί να μπει στη φόρμα λόγω ajax
+    $this->headScript()->appendFile($this->baseUrl("media/js/synedriaseisee/indexelke.js"));
+} else {
+    $this->headScript()->appendFile($this->baseUrl("media/js/synedriaseisee/indexprofessor.js"));
+}
+if(isset($this->user)) {
+    $token = array('token' => $this->user->get_token());
+} else {
+    $token = array();
+}
+$url = $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'ical')+$token);
+?>
+<?php if(!Zend_Registry::isRegistered('stripped') && !Zend_Registry::isRegistered('barebone')) { ?>
+<div id="ical">
+    <div class="googlecalexport">
+        <a href="http://www.google.com/calendar/render?cid=<?php echo htmlspecialchars($url) ?>" class="gcal"><img src="<?php echo $this->baseUrl('images/gcal.png'); ?>" target="_blank" alt="gcal" title="gcal" />Προσθήκη ημερολογίου στο Google Calendar</a>
+    </div>
+    <div class="icalexport">
+        <a href="<?php echo $url; ?>" class="ical" title="Η μορφή iCalendar επιτρέπει την παρακολούθηση του ημερολογίου από εξωτερικές εφαρμογές ή από κινητά τηλέφωνα"><img src="<?php echo $this->baseUrl('images/ical.png'); ?>" alt="iCal" title="iCal" />Εξαγωγή σε μορφή iCalendar</a><br />
+    </div>
+    <div class="tableSimClear"></div>
+</div>
+<?php } ?>
+
+<div id="calendar" class="calendar"></div>
+<div id="loadingdialog" class="event_edit_container">Παρακαλώ περιμένετε...</div>
+<div id="event_edit_container" class="event_edit_container">Παρακαλώ περιμένετε...</div>

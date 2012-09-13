@@ -1,0 +1,31 @@
+<?php echo $this->filterform; ?>
+<table id="apasxoloumenoitable" class="thinTable">
+    <thead>
+        <tr>
+            <th><?php echo $this->getOrderLink('subproject_parentproject_basicdetails_title', 'Τίτλος Έργου'); ?></th>
+            <th><?php echo $this->getOrderLink('subproject_subprojecttitle', 'Τίτλος Υποέργου'); ?></th>
+            <th><?php echo $this->getOrderLink('competitiontype', 'Τύπος'); ?></th>
+            <th>Στάδιο</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach($this->competitions as $curCompetition) {
+            // Η μορφή του $curEmployee είναι στο documentation της κλάσης Erga_Model_Repositories_SubProjectEmployees
+            // στη μέθοδο getTotalEmployeesList
+            echo '<tr>';
+            echo '<td><a href="'.$this->url(array('module' => 'praktika', 'controller' => 'diagonismoi', 'action' => 'review', 'id' => $curCompetition->get_recordid()), 'default', true).'">'.$curCompetition->get_project().'</a></td>';
+            echo '<td><a href="'.$this->url(array('module' => 'praktika', 'controller' => 'diagonismoi', 'action' => 'review', 'id' => $curCompetition->get_recordid()), 'default', true).'">'.$curCompetition->__toString().'</a></td>';
+            echo '<td>'.constant(get_class($curCompetition).'::COMPETITIONTYPE_'.$curCompetition->get_competitiontype()).'</td>';
+            echo '<td>'.$this->getCompetitionStageText($curCompetition).'</td>';
+            echo '</tr>';
+        }
+        ?>
+    </tbody>
+</table>
+<?php
+// Links σελίδων (pagination)
+echo $this->competitions->__toString();
+?>
+<br/>
+<a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'export')); ?>" class="excel">Εξαγωγή πίνακα σε Excel</a>

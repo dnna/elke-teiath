@@ -1,0 +1,60 @@
+<div id="ekkremothtes">
+    <?php
+        $this->aitiseisCount = count($this->ekkremeisAitiseis);
+        $ekkremeisAitiseis = $this->partial('partials/viewAitiseis.phtml', 'aitiseis', array(
+                            'entries' => $this->ekkremeisAitiseis,
+                            'user' => $this->user,
+                            'enableAllagi' => false,
+                            'showType' => true,
+                            'showCreator' => true,
+                         ));
+
+        $epomeniSynedriasiAitiseis = $this->partial('partials/viewAitiseis.phtml', 'aitiseis', array(
+                            'entries' => $this->epomeniSynedriasiAitiseis,
+                            'user' => $this->user,
+                            'showType' => true,
+                            'showCreator' => true,
+                         ));
+
+        $sessionPassedAitiseis = $this->partial('partials/viewAitiseis.phtml', 'aitiseis', array(
+                            'entries' => $this->sessionPassedAitiseis,
+                            'user' => $this->user,
+                            'showType' => true,
+                            'showCreator' => true,
+                         ));
+    ?>
+
+    <?php
+        if($this->aitiseisCount || $this->paradoteaCount) {
+            echo 'Αυτήν την στιγμή ';
+            if ($this->aitiseisCount) {
+                if ($this->aitiseisCount ==1) {
+                    echo 'εκκρεμεί 1 αίτηση. ';
+                }else{
+                    echo 'εκκρεμούν '.$this->aitiseisCount. ' αιτήσεις. ';
+                }
+
+            }
+        } else{
+            echo' Καμία εκκρεμότητα';
+        }
+    ?>
+</div>
+<div class="ekkremothtesContent">
+<div>
+    <p>Δεν έχουν συνδεθεί με συνεδρίαση</p>
+    <?php echo $ekkremeisAitiseis; ?>
+</div>
+    <hr>
+
+<div>
+    <p>Εκκρεμότητες επόμενης συνεδρίασης</p>
+    <?php echo $epomeniSynedriasiAitiseis; ?>
+    <a href="<?php echo $this->url(array('action' => 'unifieddoc')); ?>"><span id="ekkremotites_createunifieddoc">Δημιουργία ενιαίου εγγράφου</span></a>
+</div>
+<hr>
+<div>
+    <p>Χρειάζονται ενημέρωση κατάστασης</p>
+    <?php echo $sessionPassedAitiseis; ?>
+</div>
+</div>

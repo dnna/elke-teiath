@@ -1,0 +1,10 @@
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL; ?>
+<error>
+    <code><?php echo $this->errorCode; ?></code>
+    <message><?php echo $this->exception->getMessage(); ?></message>
+    <params>
+        <?php foreach($this->request->getParams() as $paramName => $paramValue) { ?>
+            <<?php echo $paramName; ?>><?php echo $paramValue; ?></<?php echo $paramName; ?>>
+        <?php } ?>
+    </params>
+</error>

@@ -1,0 +1,22 @@
+<?php /* $this->headScript()->appendFile($this->baseUrl('media/js/aitiseis/aitiseisview.js', 'text/javascript')); */ ?>
+<?php echo $this->filterform; ?>
+<div class="newButton"><a href='<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'new', 'action' => 'index')); ?>'>Νέα αίτηση</a></div>
+<div id="rss">
+<a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'rss', 'type' => $this->reversetype, 'token' => $this->user->get_token())); ?>" class="feed"><img src="<?php echo $this->baseUrl('images/rss.png'); ?>" alt="RSS" title="RSS" /></a>
+<a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'atom', 'type' => $this->reversetype, 'token' => $this->user->get_token())); ?>" class="feed"><img src="<?php echo $this->baseUrl('images/atom.png'); ?>" alt="Atom" title="Atom" /></a>
+</div>
+<?php
+    if($this->user->hasRole('elke')) {
+        $showCreator = true;
+    } else {
+        $showCreator = false;
+    }
+    echo $this->partial('partials/viewAitiseis.phtml', 'aitiseis', array(
+                            'entries' => $this->entries,
+                            'user' => $this->user,
+                            'showCreator' => $showCreator,
+                         )); ?>
+<?php
+// Links σελίδων (pagination)
+echo $this->entries->__toString();
+?>

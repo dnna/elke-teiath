@@ -1,0 +1,39 @@
+<?php
+if($this->curSymvasi->get_subproject() != null) {
+    $this->curProject = $this->curSymvasi->get_subproject();
+} else if($this->curSymvasi->get_project() != null) {
+    $this->curProject = $this->curSymvasi->get_project();
+}
+if($this->curProject instanceof Erga_Model_SubProject) {
+    $projectname = $this->curProject->get_parentproject()->get_basicdetails()->get_title();
+    $subprojectnumber = 'Υποέργο '.$this->curProject->get_subprojectnumber();
+    $budget = $this->curProject->get_subprojectbudget();
+} else if($this->curProject instanceof Erga_Model_Project) {
+    $projectname = $this->curProject->get_basicdetails()->get_title();
+    $subprojectnumber = '-';
+    $budget = $this->curProject->get_financialdetails()->get_budget();
+}
+//$curSymvasi = $this->curProject->findEmployeeByEmployee($this->employee->get_employee());
+$curSymvasi = $this->curSymvasi;
+?>
+<tr>
+    <td>
+        <?php echo $projectname; ?>
+    </td>
+    <td>
+        <?php echo $subprojectnumber; ?>
+    </td>
+    <td>
+        <?php echo $curSymvasi->get_contractnum(); ?>
+    </td>
+    <td>
+        <?php echo $curSymvasi->get_startdate().' &ndash; '.$this->curProject->findEmployeeByEmployee($this->employee->get_employee())->get_enddate(); ?>
+    </td>
+    <td>
+        <?php echo $budget; ?>
+    </td>
+    <td>
+        <?php echo $curSymvasi->get_amount(); ?>
+    </td>
+    <td>
+</tr>

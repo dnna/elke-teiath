@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<title>Επισκόπηση Επιστημονικά Υπευθύνου</title>
+    <link href="<?php echo $this->baseUrl('media/css/overview.css'); ?>" media="screen" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->baseUrl('media/css/overviewPrint.css'); ?>" media="print" rel="stylesheet" type="text/css"   />
+
+</head>
+<body>
+<div id="wrap">
+<div id="a4">
+<table class="analutikos">
+
+  <thead><tr><th>Στοιχεία Επιστημονικά Υπευθύνου</th></tr></thead>
+    <tbody class="bigwidth">
+    <tr>
+        <td>
+            Ονοματεπώνυμο:
+        </td>
+        <td>
+            <?php echo $this->supervisor[0]->get_realnameLowercase(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Ιδιότητα:
+        </td>
+        <td>
+            <?php echo $this->supervisor[0]->get_capacity(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Βαθμίδα:
+        </td>
+        <td>
+            <?php echo $this->supervisor[0]->get_rank(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Τμήμα:
+        </td>
+        <td>
+            <?php echo $this->supervisor[0]->get_departmentname(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Τομέας:
+        </td>
+        <td>
+            <?php echo $this->supervisor[0]->get_sector(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Τηλ./Fax:
+        </td>
+        <td>
+            <?php echo $this->supervisor[0]->get_phone(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Email:
+        </td>
+        <td>
+            <?php echo $this->supervisor[0]->get_email(); ?>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<table class="analutikos">
+    <thead>
+        <tr><th>Έργα</th></tr>
+    </thead>
+    <tbody class="bigwidth">
+        <tr class="title">
+            <td>
+              Τίτλος Έργου
+            </td>
+            <td>
+              Κατηγορία
+            </td>
+            <td>
+              Διάρκεια
+            </td>
+            <td>
+              Προϋπολογισμός Έργου
+            </td>
+        </tr>
+        <?php foreach($this->projects as $curProject) { ?>
+        <tr>
+            <td>
+                <?php echo $curProject->get_basicdetails()->get_title(); ?>
+            </td>
+            <td>
+                <?php echo $curProject->get_financialdetails()->get_category()->get_name(); ?>
+            </td>
+            <td>
+               <?php echo $curProject->get_basicdetails()->get_startdate().' &ndash; '.$curProject->get_basicdetails()->get_enddate(); ?>
+            </td>
+            <td>
+               <?php echo $curProject->get_financialdetails()->get_budget(); ?>
+            </td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>
+<table class="analutikos">
+    <thead>
+        <tr><th>Υποέργα</th></tr>
+    </thead>
+    <tbody class="bigwidth">
+        <tr class="title">
+            <td>
+              Τίτλος Έργου
+            </td>
+            <td>
+              Αριθμός Υποέργου
+            </td>
+            <td>
+              Διάρκεια
+            </td>
+            <td>
+              Προϋπολογισμός Υποέργου
+            </td>
+        </tr>
+        <?php foreach($this->subprojects as $curSubProject) { ?>
+        <tr>
+            <td>
+                <?php echo $curSubProject->get_parentproject()->get_basicdetails()->get_title(); ?>
+            </td>
+            <td>
+                Υποέργο <?php echo $curSubProject->get_subprojectnumber(); ?>
+            </td>
+            <td>
+               <?php echo $curSubProject->get_subprojectstartdate().' &ndash; '.$curSubProject->get_subprojectenddate(); ?>
+            </td>
+            <td>
+               <?php echo $curSubProject->get_subprojectbudget(); ?>
+            </td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>
+</div>
+</div>
+</body>
+</html>

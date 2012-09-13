@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<title>Επισκόπηση Αναδόχου</title>
+    <link href="<?php echo $this->baseUrl('media/css/overview.css'); ?>" media="screen" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->baseUrl('media/css/overviewPrint.css'); ?>" media="print" rel="stylesheet" type="text/css"   />
+
+</head>
+<body>
+<div id="wrap">
+<div id="a4">
+<table class="analutikos">
+
+  <thead><tr><th>Στοιχεία Αναδόχου</th></tr></thead>
+    <tbody class="bigwidth">
+    <tr>
+        <td>
+            Ονοματεπώνυμο:
+        </td>
+        <td>
+            <?php echo $this->contractor[0]->get_agency()->get_name(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Διεύθυνση (οδός, αριθμός, ΤΚ, πόλη):
+        </td>
+        <td>
+            <?php echo $this->contractor[0]->get_agency()->get_address(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Α.Φ.Μ.:
+        </td>
+        <td>
+            <?php echo $this->contractor[0]->get_agency()->get_afm(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Δ.Ο.Υ.:
+        </td>
+        <td>
+            <?php echo $this->contractor[0]->get_agency()->get_doy(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Συνολική Αμοιβή:
+        </td>
+        <td>
+            <?php echo Zend_Locale_Format::toNumber($this->contractor['totalamount'],array('precision' => 2,'locale' => Zend_Registry::get('Zend_Locale'))); ?>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<table class="analutikos">
+    <thead>
+        <tr><th>Συμβάσεις</th></tr>
+    </thead>
+    <tbody class="bigwidth">
+        <tr class="title">
+            <td>
+              Τίτλος Έργου
+            </td>
+            <td>
+              Αριθμός Υποέργου
+            </td>
+            <td>
+              Αριθμός Σύμβασης
+            </td>
+            <td>
+              Διάρκεια Σύμβασης
+            </td>
+            <td>
+              Προϋπολογισμός Υποέργου
+            </td>
+            <td>
+              Ποσό Σύμβασης
+            </td>
+            <td>
+              Στάδιο
+            </td>
+        </tr>
+        <?php foreach($this->subprojects as $curSubProject) { ?>
+        <tr>
+            <td>
+                <?php echo $curSubProject->get_parentproject()->get_basicdetails()->get_title(); ?>
+            </td>
+            <td>
+                Υποέργο <?php echo $curSubProject->get_subprojectnumber(); ?>
+            </td>
+            <td>
+               <?php echo $curSubProject->findContractorByAgency($this->contractor[0]->get_agency())->get_contractnum(); ?>
+            </td>
+            <td>
+               <?php echo $curSubProject->findContractorByAgency($this->contractor[0]->get_agency())->get_startdate().' &ndash; '.$curSubProject->findContractorByAgency($this->contractor[0]->get_agency())->get_enddate(); ?>
+            </td>
+            <td>
+               <?php echo $curSubProject->get_subprojectbudget(); ?>
+            </td>
+            <td>
+               <?php echo $curSubProject->findContractorByAgency($this->contractor[0]->get_agency())->get_amount(); ?>
+            </td>
+            <td>
+               <?php echo $this->getContractorStageText($curSubProject->findContractorByAgency($this->contractor[0]->get_agency())); ?>
+            </td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>
+<table class="analutikos">
+    <thead>
+        <tr><th>Παραδοτέα</th></tr>
+    </thead>
+    <tbody class="bigwidth">
+        <tr class="title">
+            <td>
+              Τίτλος Έργου
+            </td>
+            <td>
+              Αριθμός Υποέργου
+            </td>
+            <td>
+              Τίτλος Παραδοτέου
+            </td>
+            <td>
+              Διάρκεια
+            </td>
+            <td>
+              Ποσό
+            </td>
+            <td>
+              Κατάσταση
+            </td>
+        </tr>
+        <?php foreach($this->deliverables as $curDeliverable) { ?>
+        <tr>
+            <td>
+                <?php echo $curDeliverable->get_workpackage()->get_subproject()->get_parentproject()->get_basicdetails()->get_title(); ?>
+            </td>
+            <td>
+                Υποέργο <?php echo $curDeliverable->get_workpackage()->get_subproject()->get_subprojectnumber(); ?>
+            </td>
+            <td>
+                <?php echo $curDeliverable->get_title(); ?>
+            </td>
+            <td>
+               <?php echo $curDeliverable->get_startdate().' &ndash; '.$curDeliverable->get_enddate(); ?>
+            </td>
+            <td>
+               <?php echo $curDeliverable->get_amount(); ?>
+            </td>
+            <td>
+               <?php echo $this->getCompletionText($curDeliverable); ?>
+            </td>
+            <td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>
+</div>
+</div>
+</body>
+</html>

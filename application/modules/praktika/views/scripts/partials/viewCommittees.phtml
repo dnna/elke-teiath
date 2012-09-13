@@ -1,0 +1,52 @@
+<?php
+// Default variables
+if(!isset($this->entries)) {
+    $this->entries = array();
+}
+if(!isset($this->user)) {
+    $this->entries = Zend_Auth::getInstance()->getStorage()->read();
+}
+if(!isset($this->enableAllagi)) {
+    $this->enableAllagi = true;
+}
+?>
+<table class="fatTable">
+    <thead>
+    <tr>
+        <th>Είδος Επιτροπής</th>
+        <th>Αίτηση</th>
+        <th>Μέλη</th>
+        <th>Διαγραφή</th>
+    </tr>
+    </thead>
+    <tbody>
+<?php if(is_array($this->entries) || $this->entries instanceof Zend_Paginator) {
+    foreach($this->entries as $entry) { ?>
+        <tr>
+            <td>
+                <?php echo $entry::type; ?>
+            </td>
+            <td>
+                <?php
+                if(($aitisi = $entry->get_aitisi()) != null) {
+                    echo '<a href="'.$this->url(array('module' => 'aitiseis', 'controller' => 'view', 'action' => 'export', 'aitisiid' => $aitisi->get_aitisiid())).'">
+                        <img src="'.$this->baseUrl('images/icons/docicon.png').'" alt="ΕξαγωγήDoc" title="Εξαγωγή σε Doc" />
+                    </a>';
+                }
+                ?>
+            </td>
+            <td>
+                <a href="<?php echo $this->url(array('module' => 'praktika', 'controller' => 'epitropes', 'action' => 'review', 'id' => $entry->get_id())); ?>">
+                    <?php echo $entry->getMembersText(); ?>
+                </a>
+            </td>
+            <td>
+                <a href="javascript:void(0);"  onclick="if( prompt('Αν η επιτροπή είναι συνδεδεμένη με αίτημα θα διαγραφεί και το σχετικό αίτημα. Θέλετε σίγουρα να συνεχίσετε;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => 'praktika', 'controller' => 'epitropes', 'action' => 'delete', 'id' => $entry->get_id(), 'return' => urlencode($this->getCurrentUrl()))); ?>'}">
+                    <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή"  title="Διαγραφή Επιτροπής" />
+                </a>
+            </td>
+        </tr>
+    <?php } ?>
+<?php } ?>
+    </tbody>
+</table>

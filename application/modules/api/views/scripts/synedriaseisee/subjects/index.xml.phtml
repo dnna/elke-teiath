@@ -1,0 +1,25 @@
+<?php
+// XML-related routine
+$xml = new DOMDocument('1.0', 'utf-8');
+$root = $xml->createElement('subjects');
+
+foreach($this->subjects as $curSubject) {
+    $subject = $xml->createElement('subject');
+    foreach($curSubject->getOptions() as $curOption => $curValue) {
+        if($curValue instanceof EDateTime && $this->timestamps == true) {
+            $subject->appendChild($xml->createElement($curOption, $curValue->getTimestamp()));
+        } else if($curValue instanceof EDateTime && $this->iso8601 == true) {
+            $subject->appendChild($xml->createElement($curOption, $curValue->format('c')));
+        } else {
+            $subject->appendChild($xml->createElement($curOption, $curValue));
+        }
+    }
+    $subject->appendChild($xml->createElement('allDay', false));
+    $subject->appendChild($xml->createElement('url', htmlspecialchars($this->serverUrl().$this->url(array('id' => $curSubject->get_id())))));
+    $root->appendChild($subject);
+}
+
+// Δημιουργία του output
+$xml->appendChild($root);
+echo $xml->saveXML();
+?>

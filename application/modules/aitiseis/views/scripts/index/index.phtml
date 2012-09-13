@@ -1,0 +1,7 @@
+<?php
+foreach($this->aitiseistypes as $curMapping => $curName) {
+    echo '<div class="request">';
+    echo '<a href="'.$this->url(array('module' => 'aitiseis', 'controller' => 'view', 'type' => $curMapping)).'">'.$curName.'</a>';
+    echo'</div>';
+}
+?>

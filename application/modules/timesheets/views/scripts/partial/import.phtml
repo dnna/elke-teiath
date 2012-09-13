@@ -1,0 +1,16 @@
+<?php echo $this->flexboxDependencies(); ?>
+<?php $this->headScript()->appendFile($this->baseUrl("media/js/timesheets/index.js")); ?>
+<div class="importinstructions">
+Οδηγίες χρήσης:
+<ol>
+    <li>Κατεβάστε το σχετικό template από <a id="dllink" href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'downloadtemplate'), null, true); ?>" target="_blank">εδώ</a>.</li>
+    <li>Τροποποιήστε το αρχείο ώστε να περιέχει τις ώρες έναρξης και λήξης κάθε δραστηριότητας σε μορφή 24ωρου (πχ. 10-14, 14-18 κτλ.).</li>
+    <li>Ανεβάστε το τροποποιημένο αρχείο μέσω της παρακάτω φόρμας.</li>
+</ol>
+</div>
+<br />
+<div class="large-form">
+<?php
+echo $this->form;
+?>
+</div>

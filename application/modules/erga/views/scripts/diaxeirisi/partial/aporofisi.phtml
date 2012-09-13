@@ -1,0 +1,63 @@
+<?php
+$categories = $this->tcategories;
+$workpackages = $this->tworkpackages;
+?>
+<?php foreach($workpackages as $curCategoryName => $curCategoryContents) { ?>
+<?php if(count($curCategoryContents) > 0) { ?>
+<?php if($curCategoryName === 'total') { $curCategoryName = 'Σύνολο'; $total = true; } else { $total = false; }; ?>
+<table class="analutikos fatTable">
+<tr><th>Απορρόφηση ΠΕ (<?php echo $curCategoryName; ?>)</th></tr>
+  <tbody>
+    <tr class="title">
+        <td>
+          Τίτλος Πακέτου
+        </td>
+        <td>
+          <?php
+          if($total == true) { ?>
+            Ποσό Παραδοτέων
+          <?php } else { ?>
+            Ποσό Κατηγορίας
+          <?php } ?>
+        </td>
+        <td>
+          Δεδουλευμένες Ώρες
+        </td>
+        <td>
+          Ποσό που Απορροφήθηκε
+        </td>
+        <td>
+          Ποσοστό Απορρόφησης
+        </td>
+    </tr>
+    <?php
+      foreach($curCategoryContents as $curWorkPackage) {
+          $workpackage = Zend_Registry::get('entityManager')->getRepository('Erga_Model_SubItems_WorkPackage')->find($curWorkPackage['workpackage']);
+          if(isset($categories[$curCategoryName])) {
+              $sumamount = $workpackage->getDeliverableSumAmount($categories[$curCategoryName]);
+          } else {
+              $sumamount = $workpackage->getDeliverableSumAmount();
+          }
+    ?>
+    <tr>
+        <td>
+           <?php echo $workpackage; ?>
+        </td>
+        <td>
+           <?php echo $sumamount; ?>
+        </td>
+        <td>
+           <?php echo $curWorkPackage['hours']; ?>
+        </td>
+        <td>
+           <?php echo $curWorkPackage['paidamount']; ?>
+        </td>
+        <td>
+           <?php echo (round($curWorkPackage['paidamount']/$sumamount, 3)*100).'%'; ?>
+        </td>
+    </tr>
+    <?php } ?>
+  </tbody>
+</table>
+<?php } ?>
+<?php } ?>

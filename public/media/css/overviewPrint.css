@@ -1,0 +1,112 @@
+/*Reset Css*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+    font-family: sans-serif;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+
+
+/*! Reset css*/
+
+
+.analutikos {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 12px;
+    background: #fff;
+    width: 780px;
+    border-collapse: collapse;
+    text-align: left;
+    margin: 0 30px;
+    float: left;
+}
+
+.analutikos th {
+    font-size: 14px;
+    font-weight: normal;
+    color: #039;
+    padding: 10px 8px;
+    border-bottom: 2px solid #6678b1;
+}
+
+.analutikos td {
+    color: #669;
+    padding: 9px 8px 0px 8px;
+    /*border-bottom: 1px solid #6678b1;*/
+    /*white-space:nowrap;*/
+
+}
+
+.analutikos tr {
+    /*background: #ddd;*/
+    border-bottom: 1px solid #ccccff;
+}
+
+.analutikos tbody tr:hover td {
+    color: #009;
+}
+
+.title td {
+    font-weight: bold;
+    border-bottom: 1px solid #6678B1;
+}
+
+
+/*#a4 {*/
+    /*width: 842px;*/
+    /*border: 1px solid white;*/
+    /*padding: 45px;*/
+    /*background: white;*/
+    /*margin: 30px;*/
+    /*-moz-border-radius: 10px; *//* Firefox */
+    /*-webkit-border-radius: 10px; *//* Safari, Chrome */
+    /*border-radius: 10px; *//* CSS3 */
+
+    /*-moz-box-shadow: -6px 4px 30px #667; *//* Firefox */
+    /*-webkit-box-shadow: -6px 4px 30px #667;*/
+    /*box-shadow: -6px 4px 30px #667;*/
+
+    /*float: left;*/
+/*}*/
+

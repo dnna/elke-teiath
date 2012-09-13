@@ -1,0 +1,20 @@
+<div id="ekkremothtes">
+    <?php
+        $this->paradoteaCount = count($this->paradotea);
+        $paradotea = $this->viewParadotea($this->paradotea);
+    ?>
+
+    <?php
+        if($this->aitiseisCount || $this->paradoteaCount) {
+            echo 'Αυτήν την στιγμή εκκρεμούν ';
+            if ($this->paradoteaCount) {
+                echo $this->paradoteaCount. ' παραδοτέα';
+            }
+        } else{
+            echo' Καμία εκκρεμότητα';
+        }
+    ?>
+</div>
+<div>
+    <?php echo $paradotea; ?>
+</div>

@@ -1,0 +1,22 @@
+<?php
+$subjects = array();
+$i = 0;
+foreach($this->subjects as $curSubject) {
+    if(isset($this->timestamps) && $this->timestamps == true) {
+        $subjects[$i] = $curSubject->toArray(false, true, array('timestamps' => true));
+    } else if(isset($this->iso8601) && $this->iso8601 == true) {
+        $subjects[$i] = $curSubject->toArray(false, true, array('iso8601' => true));
+    } else {
+        $subjects[$i] = $curSubject->toArray(false, true);
+    }
+    $subjects[$i]['allDay'] = false;
+    $subjects[$i]['url'] = htmlspecialchars($this->serverUrl().$this->url(array('id' => $curSubject->get_id())));
+    $i++;
+}
+if(!isset($this->nowrap) || $this->nowrap != true) {
+    $temp = $subjects;
+    $subjects = array();
+    $subjects['subjects'] = $temp;
+}
+echo json_encode($subjects);
+?>

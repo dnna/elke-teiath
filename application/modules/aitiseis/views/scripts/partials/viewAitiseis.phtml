@@ -1,0 +1,93 @@
+<?php
+// Default variables
+if(!isset($this->entries)) {
+    $this->entries = array();
+}
+if(!isset($this->user)) {
+    $this->entries = Zend_Auth::getInstance()->getStorage()->read();
+}
+if(!isset($this->enableAllagi)) {
+    $this->enableAllagi = true;
+}
+if(!isset($this->showType)) {
+    $this->showType = false;
+}
+if(!isset($this->showCreator)) {
+    $this->showCreator = false;
+}
+?>
+<table class="fatTable">
+    <thead>
+    <tr>
+        <th></th>
+        <?php if($this->user->hasRole('elke')) { ?> <th>Ενέργειες</th> <?php } ?>
+        <th>Τίτλος</th>
+        <?php if($this->showType == true) { ?>
+            <th>Τύπος</th>
+        <?php } ?>
+    <?php if($this->showCreator == true) { ?>
+        <th><?php echo $this->getOrderLink('creator_realname', 'Δημιουργός'); ?></th>
+    <?php } ?>
+        <th><?php echo $this->getOrderLink('creationdate', 'Ημ/νία Υποβολής'); ?></th>
+    </tr>
+    </thead>
+    <tbody>
+<?php if(is_array($this->entries) || $this->entries instanceof Zend_Paginator) {
+    foreach($this->entries as $entry) { ?>
+        <tr>
+            <td>
+        <?php echo $this->getApprovalIcon($entry); ?>
+            </td>
+        <?php if($this->user->hasRole('elke')) { ?>
+            <td>
+        <?php if($this->enableAllagi == true) { ?>
+                <a href="<?php echo $this->url(array('module' => 'aitiseis', 'controller' => 'review', 'action' => 'changeapproval', 'aitisiid' => $entry->get_aitisiid())); ?>">
+                    <img src="<?php echo $this->baseUrl('images/updatestatus.png'); ?>" alt="Αλλαγή Κατάστασης Έγκρισης"  title="Αλλαγή Κατάστασης Έγκρισης" />
+                </a>
+        <?php } ?>
+        <?php if($entry->get_approved() == Aitiseis_Model_AitisiBase::PENDING && count($entry->get_subjects()) <= 0) { ?>
+                <?php echo $this->chooseSynedriasi($entry); ?>
+        <?php } ?>
+        <?php if($entry->get_approved() == Aitiseis_Model_AitisiBase::APPROVED && in_array(Aitiseis_Model_AitisiBase::ACTION_EXPORT, $entry->getAvailableActions()) != false) { ?>
+                <a href="javascript:void(0);"  onclick="if( prompt('Θέλετε να δημιουργήσετε ένα έργο χρησιμοποιώντας τα στοιχεία της αίτησης <?php echo $entry; ?>;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => 'aitiseis', 'controller' => 'review', 'action' => 'exporttoproject', 'aitisiid' => $entry->get_aitisiid()), null, false); ?>'}">
+                    <img src="<?php echo $this->baseUrl('images/new_project.png'); ?>" alt="Εξαγωγή σε Έργο"  title="Εξαγωγή σε Έργο" />
+                </a>
+        <?php } ?>
+        <?php if($entry->isDeletable() == true) { ?>
+                <a href="javascript:void(0);"  onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε την αίτηση <?php echo $entry; ?>;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => 'aitiseis', 'controller' => 'delete', 'action' => 'index', 'aitisiid' => $entry->get_aitisiid(), 'return' => urlencode($this->getCurrentUrl()))); ?>'}">
+                    <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή"  title="Διαγραφή Αίτησης" />
+                </a>
+            <?php } ?>
+            </td>
+        <?php } ?>
+            <td>
+                <a href="<?php echo $this->url(array('module' => 'aitiseis', 'controller' => 'view', 'action' => 'export', 'aitisiid' => $entry->get_aitisiid())); ?>">
+                    <img src="<?php echo $this->baseUrl('images/icons/docicon.png'); ?>" alt="ΕξαγωγήDoc" title="Εξαγωγή σε Doc" />
+                </a>
+        <?php if(in_array(Aitiseis_Model_AitisiBase::ACTION_DOWNLOAD, $entry->getAvailableActions()) != false && $entry->get_attachmentname() != null) { ?>
+                <a href="<?php echo $this->url(array('module' => 'aitiseis', 'controller' => 'view', 'action' => 'getattachment', 'aitisiid' => $entry->get_aitisiid()), null, true); ?>">
+                    <img src="<?php echo $this->baseUrl('images/attachment.png'); ?>" alt="Συνημμένο αρχείο: <?php echo $entry->get_attachmentname(); ?>"  title="Συνημμένο αρχείο: <?php echo $entry->get_attachmentname(); ?>" />
+                </a>
+        <?php } ?>
+        <?php if($entry->get_approved() != Aitiseis_Model_AitisiBase::APPROVED) { ?>
+                <a href="<?php echo $this->url(array('module' => 'aitiseis', 'controller' => 'review', 'aitisiid' => $entry->get_aitisiid())); ?>">
+                    <?php echo $entry; ?>
+                </a>
+        <?php } else { ?>
+            <?php echo $entry; ?>
+        <?php } ?>
+            </td>
+        <?php if($this->showType == true) { ?>
+            <td>
+                <?php echo $entry::type; ?>
+            </td>
+        <?php } ?>
+        <?php if($this->showCreator == true) { ?>
+            <td><?php echo $entry->get_creator()->get_realnameLowercase(); ?></td>
+        <?php } ?>
+            <td><?php echo $entry->get_creationdate(); ?></td>
+        </tr>
+    <?php } ?>
+<?php } ?>
+    </tbody>
+</table>

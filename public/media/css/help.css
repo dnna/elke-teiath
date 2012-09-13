@@ -1,0 +1,30 @@
+.help {
+    margin-left: 1%;
+    padding: 0;
+    font-size: 12px;
+    width: 842px;
+}
+.help h2 {
+    font-size: 15px;
+    padding: 9px 15px 4px 0;
+    font-weight: bold;
+    color: #00529B;
+}
+.help h3 {
+    font-size: 14px;
+    padding: 9px 15px 4px 0;
+    /*line-height: 29px;*/
+    color: #1b62c0;
+}
+.help ol {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.help ol.nonumbering {
+    list-style-type: none;
+    padding-left: 0;
+}
+.help ol li:not(.nonumbering) {
+    list-style-type: decimal;
+    margin-left: 1%;
+}

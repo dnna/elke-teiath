@@ -1,0 +1,30 @@
+<?php
+// Jquery UI load
+$this->headScript()->prependFile($this->baseUrl("media/js/jquery-ui-1.8.16.custom.min.js"));
+$this->headScript()->prependFile($this->baseUrl("media/js/jquery.js"));
+$userObject = $this->getUserInfo();
+echo $this->doctype();
+?>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta http-equiv="Content-Language" content="el">
+        <title><?php echo $this->pageTitle; ?></title>
+        <?php $this->headLink()->appendStylesheet($this->baseUrl('media/css/global.css')); ?>
+        <?php $this->headLink()->appendStylesheet($this->baseUrl('images/start/jquery-ui-1.8.12.custom.css')); ?>
+		<?php $this->headLink(array('rel' => 'favicon',
+                                  'href' => 'favicon.ico'),
+                                  'PREPEND'); ?>
+        <?php echo $this->headLink(); ?>
+        <script type="text/javascript">
+            userLoggedIn = <?php if($userObject != false) { echo 'true'; } else { echo 'false'; } ?>;
+            sessionTimeout = <?php echo ini_get('session.gc_maxlifetime')*1000; ?>;
+            baseUrl = "<?php echo $this->baseUrl(); ?>";
+            barebone = true;
+        </script>
+    </head>
+    <body>
+        <div><?php echo $this->layout()->content ?></div>
+        <?php echo $this->headScript(); ?>
+    </body>
+</html>

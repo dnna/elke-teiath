@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+    <basicdetails>
+        <label>Βασικά Στοιχεία Έργου</label>
+        <module>erga</module>
+        <controller>Diaxeirisi</controller>
+        <action>review</action>
+        <params>
+            <section>basicdetails</section>
+        </params>
+    </basicdetails>
+    <financialdetails>
+        <label>Οικονομικά Στοιχεία Έργου</label>
+        <module>erga</module>
+        <controller>Diaxeirisi</controller>
+        <action>review</action>
+        <params>
+            <section>financialdetails</section>
+        </params>
+    </financialdetails>
+    <ypoerga>
+        <!--<label>Υποέργα</label>-->
+        <module>erga</module>
+        <controller>Ypoerga</controller>
+        <complexprojects>1</complexprojects>
+        <id>ypoerga</id>
+    </ypoerga>
+    <apasxoloumenoisimple>
+        <label>Απασχολούμενοι</label>
+        <module>erga</module>
+        <controller>Apasxoloumenoi</controller>
+        <complexprojects>0</complexprojects>
+    </apasxoloumenoisimple>
+    <apasxoloumenoi>
+        <label>Απασχολούμενοι/Ανάδοχοι</label>
+        <module>erga</module>
+        <controller>Apasxoloumenoi</controller>
+        <complexprojects>1</complexprojects>
+    </apasxoloumenoi>
+    <paketaergasias>
+        <label>Παραδοτέα</label>
+        <module>erga</module>
+        <controller>Paketaergasias</controller>
+    </paketaergasias>
+    <!--<aitiseis>
+        <label>Συνδεδεμένες Αιτήσεις</label>
+        <module>erga</module>
+        <controller>Diaxeirisi</controller>
+        <action>review</action>
+        <params>
+            <section>aitiseis</section>
+        </params>
+    </aitiseis>-->
+    <diagrafi>
+        <label>Διαγραφή</label>
+        <module>erga</module>
+        <controller>Diaxeirisi</controller>
+        <action>delete</action>
+        <class>deleteitem</class>
+    </diagrafi>
+</configdata>

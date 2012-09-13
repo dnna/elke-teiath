@@ -1,0 +1,28 @@
+<?php
+$events = array();
+$i = 0;
+foreach($this->events as $curEvent) {
+    if(isset($this->timestamps) && $this->timestamps == true) {
+        $events[$i] = $curEvent->toArray(false, false, array('timestamps' => true));
+    } else if(isset($this->iso8601) && $this->iso8601 == true) {
+        $events[$i] = $curEvent->toArray(false, false, array('iso8601' => true));
+    } else {
+        $events[$i] = $curEvent->toArray(false, false);
+    }
+    $events[$i]['url'] = htmlspecialchars($this->serverUrl().$this->url(array('id' => $curEvent->get_id())));
+    $i++;
+}
+if(!isset($this->nowrap) || $this->nowrap != true) {
+    $temp = $events;
+    $events = array();
+    $events['synedriaseis'] = $temp;
+}
+$callback = Zend_Controller_Front::getInstance()->getRequest()->getParam('callback');
+if($callback != null) {
+    // strip all non alphanumeric elements from callback
+    $callback = preg_replace('/[^a-zA-Z0-9_]/', '', $callback);
+    echo $callback.'('.json_encode($events).');';
+} else {
+    echo json_encode($events);
+}
+?>

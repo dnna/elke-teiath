@@ -1,0 +1,12 @@
+Τα παρακάτω παραδοτέα εισήχθησαν με επιτυχία:
+<table class="importeddeliverables fatTable">
+    <thead><tr><th>Τίτλος</th><th>Ποσό</th></tr></thead>
+    <tbody>
+    <?php
+    foreach($this->objects as $curObject) {
+        echo '<tr><td>'.$curObject->get_title().'</td><td>'.$curObject->get_amount().'</td></tr>';
+    }
+    ?>
+    </tbody>
+</table>
+<?php echo "<div><a href='".$this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'index', 'projectid' => $this->getProjectId()), null, true)."'>Επιστροφή</a></div>"; ?>

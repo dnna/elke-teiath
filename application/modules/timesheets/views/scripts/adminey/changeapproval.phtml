@@ -1,0 +1,6 @@
+<?php
+if($this->hoursafter > $this->hoursbefore && $this->hoursafter/$this->maxhours > $this->timesheet->get_month()/12) {
+    echo '<div class="fyllalimitwarning">Με την έγκριση του φύλλου θα έχετε καλύψει το '.(round($this->hoursafter/$this->maxhours, 3)*100).'% του ετήσιου ορίου για τον απασχολούμενο.</div>';
+}
+?>
+<?php echo $this->partial('partial/changeapproval.phtml', 'timesheets', array('form' => $this->form)); ?>

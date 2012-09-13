@@ -1,0 +1,9 @@
+<?php echo $this->projectNavigation(array(), $this->getProject()); ?>
+<br />
+<div>Πρόκειται να διαγράψετε το παρακάτω έργο:</div>
+<div style="font-weight: bold"><?php echo $this->project->get_basicdetails()->get_title(); ?></div>
+<p></p>
+Για να συνεχίσετε πληκτρολογίστε ΝΑΙ ή YES στο παρακάτω πεδίο και επιλέξτε το κουμπί Διαγραφή.
+<?php
+echo $this->form;
+?>

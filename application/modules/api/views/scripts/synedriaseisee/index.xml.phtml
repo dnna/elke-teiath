@@ -1,0 +1,26 @@
+<?php
+// XML-related routine
+$xml = new DOMDocument('1.0', 'utf-8');
+$xml->appendChild($xml->createComment('Start: '.$this->filters['start']));
+$xml->appendChild($xml->createComment('End: '.$this->filters['end']));
+$root = $xml->createElement('events');
+
+foreach($this->events as $curEvent) {
+    $event = $xml->createElement('event');
+    foreach($curEvent->getOptions() as $curOption => $curValue) {
+        if($curValue instanceof EDateTime && $this->timestamps == true) {
+            $event->appendChild($xml->createElement($curOption, $curValue->getTimestamp()));
+        } else if($curValue instanceof EDateTime && $this->iso8601 == true) {
+            $event->appendChild($xml->createElement($curOption, $curValue->format('c')));
+        } else if(is_scalar($curValue)) {
+            $event->appendChild($xml->createElement($curOption, $curValue));
+        }
+    }
+    $event->appendChild($xml->createElement('url', htmlspecialchars($this->serverUrl().$this->url(array('id' => $curEvent->get_id())))));
+    $root->appendChild($event);
+}
+
+// Δημιουργία του output
+$xml->appendChild($root);
+echo $xml->saveXML();
+?>

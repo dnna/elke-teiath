@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<title>Στατιστικά Φύλλων Παρακολούθησης Απασχολούμενου</title>
+
+<link href="<?php echo $this->baseUrl('media/css/overview.css'); ?>" media="screen" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->baseUrl('media/css/overviewPrint.css'); ?>" media="print" rel="stylesheet" type="text/css"   />
+
+</head>
+<body>
+<div id="wrap">
+<div id="a4">
+<table class="analutikos">
+  <thead><tr><th>Στοιχεία Απασχολούμενου</th></tr></thead>
+    <tbody class="bigwidth">
+    <tr>
+        <td>
+            Ονοματεπώνυμο:
+        </td>
+        <td>
+            <?php echo $this->employee->get_name(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Διεύθυνση Κατοικίας (οδός, αριθμός, ΤΚ, πόλη):
+        </td>
+        <td>
+            <?php echo $this->employee->get_address(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Α.Δ.Τ.:
+        </td>
+        <td>
+            <?php echo $this->employee->get_adt(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Α.Φ.Μ.:
+        </td>
+        <td>
+            <?php echo $this->employee->get_afm(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Δ.Ο.Υ.:
+        </td>
+        <td>
+            <?php echo $this->employee->get_doy(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Συνολικές Δεδουλευμένες Ώρες:
+        </td>
+        <td>
+            <?php echo $this->totalhours[0]['hours']; ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Συνολική Αμοιβή:
+        </td>
+        <td>
+            <?php echo Zend_Locale_Format::toNumber($this->totalhours[0]['paidamount'],array('precision' => 2,'locale' => Zend_Registry::get('Zend_Locale'))); ?>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<table class="analutikos">
+    <thead>
+        <tr><th>Ώρες ανα Μήνα</th></tr>
+    </thead>
+    <tbody class="bigwidth">
+        <tr class="title">
+            <td>
+              Μήνας
+            </td>
+            <td>
+              Δεδουλευμένες Ώρες
+            </td>
+            <td>
+              Αμοιβή
+            </td>
+        </tr>
+        <?php
+        foreach($this->monthlyhours as $curMonthNum => $curMonth) {
+            ?>
+        <tr>
+            <td>
+                <?php echo $this->getMonthName($curMonth['month']); ?>
+            </td>
+            <td>
+                <?php echo $curMonth['hours']; ?>
+            </td>
+            <td>
+                <?php echo $curMonth['paidamount']; ?>
+            </td>
+        </tr>
+            <?php
+        }
+        ?>
+    </tbody>
+</table>
+<table class="analutikos">
+    <thead>
+        <tr><th>Ώρες ανα Έργο</th></tr>
+    </thead>
+    <tbody class="bigwidth">
+        <tr class="title">
+            <td>
+              Τίτλος Έργου
+            </td>
+            <td>
+              Δεδουλευμένες Ώρες
+            </td>
+            <td>
+              Αμοιβή
+            </td>
+        </tr>
+        <?php
+        foreach($this->projecthours as $curProjectNum => $curProject) {
+            ?>
+        <tr>
+            <td>
+                <?php echo $curProject['timesheet']->get_project(); ?>
+            </td>
+            <td>
+                <?php echo $curProject['hours']; ?>
+            </td>
+            <td>
+                <?php echo $curProject['paidamount']; ?>
+            </td>
+        </tr>
+            <?php
+        }
+        ?>
+    </tbody>
+</table>
+</div>
+</div>
+</body>
+</html>

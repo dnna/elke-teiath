@@ -1,0 +1,20 @@
+<div>Το αρχείο περιέχει μη-έγκυρα δεδομένα. Το πρώτο βρέθηκε στην γραμμή: <?php echo $this->error['errorRow']; ?></div>
+<div>
+    Τα μηνύματα σφάλματος ήταν τα εξής:
+    <div class="importerrors">
+        <ul>
+            <?php
+            if(!isset($this->error['message'])) {
+                foreach(ArrayHandler::shorten($this->error['formElements']) as $curElementName => $curElement) {
+                    if($curElement->hasErrors()) {
+                        echo '<li><span class="label">'.$curElement->getLabel().'</span><span class="errormessage">'.implode(',', $curElement->getMessages()).'</span></li>';
+                    }
+                }
+            } else {
+                echo '<li><span class="errormessage">'.$this->error['message'].'</span></li>';
+            }
+            ?>
+        </ul>
+    </div>
+</div>
+<?php echo "<div><a href='".$this->url(array('action' => 'index'))."'>Επιστροφή</a></div>"; ?>

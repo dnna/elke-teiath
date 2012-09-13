@@ -1,0 +1,40 @@
+<?php
+$params = array();
+$params['contractid'] = $this->employee->get_recordid();
+if(isset($this->subproject)) {
+    $class = 'employee child-of-subproject'.$this->subproject->get_subprojectid();
+    $params['subprojectid'] = $this->subproject->get_subprojectid();
+} else if(isset($this->project)) {
+    $class = 'employee child-of-project';
+    $params['projectid'] = $this->project->get_projectid();
+}
+$paidAmount = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->getPaidAmount($params);
+$paidAmount = $paidAmount[0]['paidamount'];
+?>
+<tr id="employee<?php echo $this->employee->get_recordid(); ?>" class="<?php echo $class; ?>">
+    <td>
+
+    </td>
+    <td>
+        <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'review', 'employeeid' => $this->employee->get_recordid()), null, true); ?>">
+            <?php echo $this->employee->get_employee()->get_name(); ?>
+        </a>
+    </td>
+    <td>
+        <?php echo $this->employee->get_startdate(); ?>
+    </td>
+    <td>
+        <?php echo $this->employee->get_enddate(); ?>
+    </td>
+    <td>
+        <?php echo $this->employee->get_amount(); ?>
+    </td>
+    <td>
+        <?php echo $paidAmount; ?>
+    </td>
+    <td>
+        <a href="javascript:void(0);" onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε τον απασχολούμενο <?php echo $this->employee->get_employee()->get_name(); ?>', 'Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Apasxoloumenoi', 'action' => 'delete', 'employeeid' => $this->employee->get_recordid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>' }">
+            <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή" title='Διαγραφή Απασχολούμενου' class="alone"/>
+        </a>
+    </td>
+</tr>

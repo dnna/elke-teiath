@@ -1,0 +1,26 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},NC,L]
+RewriteRule ^.*$ index.php [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},NC,L]
+
+<IfModule mod_expires.c>
+     ExpiresActive On
+     # Set Expires header to current time by default
+     ExpiresDefault A0
+
+     <FilesMatch "\.(flv|ico|pdf|avi|mov|ppt|doc|mp3|wmv|wav)$">
+       ExpiresDefault "access plus 30 days"
+     </FilesMatch>
+
+     <FilesMatch "\.(jpg|jpeg|png|gif|swf|bmp|)$">
+       ExpiresDefault "access plus 7 days"
+     </FilesMatch>
+
+     <FilesMatch "\.(txt|xml|js|css)$">
+       ExpiresDefault "access plus 1 day"
+     </FilesMatch>
+</IfModule>
+
+Options -Indexes

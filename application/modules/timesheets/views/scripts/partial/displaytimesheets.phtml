@@ -1,0 +1,45 @@
+<?php
+if(!isset($this->enableAllagi)) {
+    $this->enableAllagi = false;
+}
+?>
+<table class="fatTable">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Ενέργειες</th>
+        <th>Έργο</th>
+        <th>Απασχολούμενος</th>
+        <th>Μήνας & Έτος</th>
+    </tr>
+    </thead>
+    <tbody>
+<?php if(is_array($this->entries) || $this->entries instanceof Zend_Paginator) {
+    foreach($this->entries as $entry) { ?>
+        <tr>
+            <td>
+                <?php echo $this->getApprovalIcon($entry); ?>
+            </td>
+            <td><?php if($this->enableAllagi == true) { ?>
+                    <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'changeapproval', 'id' => $entry->get_id())); ?>">
+                        <img src="<?php echo $this->baseUrl('images/updatestatus.png'); ?>" alt="Αλλαγή Κατάστασης Έγκρισης"  title="Αλλαγή Κατάστασης Έγκρισης" />
+                    </a>
+                <?php } ?>
+                <?php if($this->userCanDelete($entry, $this->enableAllagi) == true) { ?>
+                        <a href="javascript:void(0);"  onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε το <?php echo $entry; ?>;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'delete', 'id' => $entry->get_id(), 'return' => urlencode($this->getCurrentUrl()))); ?>'}">
+                            <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή Φύλλου"  title="Διαγραφή Φύλλου" />
+                        </a>
+                <?php } ?>
+            <td>
+                <a href="<?php echo $this->url(array('action' => 'export', 'timesheetid' => $entry->get_id())); ?>">
+                    <img src="<?php echo $this->baseUrl('images/icons/excelIcon.jpg'); ?>" alt="Εξαγωγή σε Excel" title="Εξαγωγή σε Excel" />
+                </a>
+                <?php echo $entry->get_project(); ?>
+            </td>
+            <td><?php echo $entry->get_employee(); ?></td>
+            <td><?php echo $entry->get_month().'/'.$entry->get_year(); ?></td>
+        </tr>
+    <?php } ?>
+<?php } ?>
+    </tbody>
+</table>

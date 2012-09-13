@@ -1,0 +1,444 @@
+<?php $subprojectnames = $this->getProject()->get_subprojectsname(); ?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<title>Επισκόπηση</title>
+
+<link href="<?php echo $this->baseUrl('media/css/overview.css'); ?>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->baseUrl('media/css/overviewPrint.css'); ?>" media="print" rel="stylesheet"  type="text/css"   />
+</head>
+<body>
+<div id="wrap">
+<div id="a4">
+<table class="analutikos fatTable">
+
+  <thead><tr><th>Βασικά Στοιχεία Έργου</th></tr></thead>
+    <tbody class="bigwidth">
+    <tr>
+        <td>
+            Κωδικός Έργου:
+
+        </td>
+        <td>
+            <?php echo $this->project->get_basicdetails()->get_mis(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Κωδικός Λογιστηρίου:
+
+        </td>
+        <td>
+            <?php echo $this->project->get_basicdetails()->get_acccode(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Τίτλος (στα ελληνικά):
+
+
+        </td>
+        <td>
+            <?php echo $this->project->get_basicdetails()->get_title(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Τίτλος (στα αγγλικά):
+
+        </td>
+        <td>
+            <?php echo $this->project->get_basicdetails()->get_titleen(); ?>
+        </td>
+    </tr>
+
+       <tr>
+        <td>
+            Προϋπολογισμός Έργου:
+
+        </td>
+
+        <td>
+            <?php echo $this->project->get_financialdetails()->get_budget(); ?>
+        </td>
+</tr>
+
+       <tr>
+        <td>
+            ΦΠΑ:
+        </td>
+
+        <td>
+            <?php echo $this->project->get_financialdetails()->get_budgetfpa(); ?>
+        </td>
+</tr>
+
+       <tr>
+        <td>
+            Σύνολο (με ΦΠΑ):
+
+        </td>
+
+        <td>
+            <?php echo $this->project->get_financialdetails()->get_budgetwithfpa(); ?>
+        </td>
+</tr>
+         
+    <tr>
+        <td>
+            Ημερομηνία Έναρξης/Λήξης:
+
+        </td>
+        <td>
+            <?php echo $this->project->get_basicdetails()->get_startdate().' &ndash; '.$this->project->get_basicdetails()->get_enddate(); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Απόφαση Ένταξης - Τροποποιήσεις:
+
+        </td>
+        <td>
+            <?php echo $this->project->get_basicdetails()->get_refnumstart(); ?>
+            <?php
+                foreach($this->project->get_basicdetails()->get_modifications() as $curModification) {
+                    echo '<br />'.$curModification->get_refnum();
+                }
+            ?>
+        </td>
+
+</tr>
+            <tr>
+        <td>
+             Επιστημονικά Υπεύθυνος:
+        </td>
+
+        <td>
+            <?php echo $this->project->get_basicdetails()->get_supervisor()->get_realnameLowercase(); ?>
+        </td>
+</tr>
+    <tr>
+        <td>
+            Φορέας Χρηματοδότησης:
+        </td>
+
+        <td>
+            <?php echo $this->project->get_financialdetails()->get_fundingagency()->get_name(); ?>
+        </td>
+</tr>
+
+       <tr>
+        <td>
+            Κατηγορία:
+        </td>
+
+        <td>
+            <?php echo $this->project->get_financialdetails()->get_category()->get_name(); ?>
+        </td>
+</tr>
+
+
+
+
+    </tbody>
+
+
+</table>
+
+<?php if($this->project->get_financialdetails()->get_budgetitems()->count() > 0) { ?>
+<table class="analutikos fatTable">
+<thead>
+<tr><th>Αναλυτικός Προϋπολογισμός</th></tr>
+</thead>
+
+    <tbody>
+    <?php echo '<tr class="title"><td>Κατηγορία Δαπάνης</td><td>Ποσό</td></tr>';
+        if($this->project->get_financialdetails()->get_budgetitems() != null && $this->project->get_financialdetails()->get_budgetitems()->count() > 0) {
+            foreach($this->project->get_financialdetails()->get_budgetitems() as $curItem) {
+                echo '
+    <tr>
+        <td>
+            '.$curItem->get_category()->get_name().'
+        </td>
+        
+        <td>
+            '.$curItem->get_amount().'
+        </td>
+    </tr>
+        ';
+            }
+        }
+    ?>
+    </tbody>
+</table>
+<?php } ?>
+
+<?php if($this->project->get_financialdetails()->get_fundingreceipts()->count() > 0) { ?>
+<table class="analutikos fatTable">
+<thead><tr><th>Χρηματοδοτήσεις</th></tr></thead>
+  <tbody>
+  <?php
+      if($this->project->get_financialdetails()->get_fundingreceipts() == null || $this->project->get_financialdetails()->get_fundingreceipts()->count() <= 0) {
+            echo '
+    <tr>
+        <td>
+            -
+        </td>
+    </tr>
+        ';
+      }
+      if($this->project->get_financialdetails()->get_fundingreceipts() != null && $this->project->get_financialdetails()->get_fundingreceipts()->count() > 0) {
+        foreach($this->project->get_financialdetails()->get_fundingreceipts() as $curReceipt) {
+                echo '
+    <tr>
+        <td>
+            '.$curReceipt->get_date().'
+        </td>
+        
+        <td>
+            '.$curReceipt->get_amount().'
+        </td>
+    </tr>
+        ';
+        }
+      }
+  ?>
+  </tbody>
+</table>
+<?php } ?>
+
+<?php if($this->project->get_contractors()->count() > 0) { ?>
+<table class="analutikos fatTable">
+<thead><tr><th>Ανάδοχοι</th></tr></thead>
+  <tbody>
+  <?php
+           echo '
+    <tr class="title">
+        <td>
+          Επωνυμία
+        </td>
+        <td>
+          ΑΦΜ
+        </td>
+        <td>
+          Διάρκεια
+        </td>
+        <td>
+          Ποσό Σύμβασης
+        </td>
+        <td>
+          Κατάσταση
+        </td>
+    </tr>
+        ';
+          foreach($this->project->get_contractors() as $curSupervisor) {
+                echo '
+    <tr>
+        <td>
+            '.$curSupervisor->get_agency()->get_name().'
+        </td>
+        <td>
+            '.$curSupervisor->get_agency()->get_afm().'
+        </td>
+        <td>
+            '.$curSupervisor->get_startdate().' &ndash; '.$curSupervisor->get_enddate().'
+        </td>
+        <td>
+           '.$curSupervisor->get_amount().'
+        </td>
+        <td>
+            '.$this->getContractorStageText($curSupervisor).'
+        </td>
+    </tr>
+        ';
+          }
+  ?>
+  </tbody>
+</table>
+<?php } ?>
+
+<?php if($this->project->get_employees()->count() > 0) { ?>
+<table class="analutikos fatTable">
+<thead><tr><th>Απασχολούμενοι</th></tr></thead>
+  <tbody>
+  <?php
+           echo '
+    <tr class="title">
+        <td>
+          Ονοματεπώνυμο
+        </td>
+        <td>
+          ΑΦΜ
+        </td>
+        <td>
+          Διάρκεια
+        </td>
+        <td>
+          Ποσό Σύμβασης
+        </td>
+    </tr>
+        ';
+          foreach($this->project->get_employees() as $curSupervisor) {
+                echo '
+    <tr>
+        <td>
+            '.$curSupervisor->get_employee()->get_name().'
+        </td>
+        <td>
+            '.$curSupervisor->get_employee()->get_afm().'
+        </td>
+        <td>
+            '.$curSupervisor->get_startdate().' &ndash; '.$curSupervisor->get_enddate().'
+        </td>
+
+  <td>
+       '.$curSupervisor->get_amount().'
+  </td>
+    </tr>
+        ';
+          }
+  ?>
+  </tbody>
+<?php
+if($this->project->get_iscomplex() == 1) {
+?>
+</table>
+<?php } ?>
+
+<table class="analutikos fatTable">
+<tr><th><?php echo $subprojectnames['namepl']; ?></th></tr>
+  <tbody>
+  <?php
+      if($this->project->get_subprojects() == null || $this->project->get_subprojects()->count() <= 0) {
+            echo '
+    <tr>
+        <td>
+            -
+        </td>
+    </tr>
+        ';
+      } else {
+    echo '
+    <tr class="title">
+        <td>
+          Αριθμός
+        </td>
+        <td>
+          Διάρκεια
+        </td>
+        <td>
+          Προϋπολογισμός
+        </td>
+        <td>
+          Κατάσταση
+        </td>
+        <td>
+          Ανάδοχοι
+        </td>
+    </tr>
+        ';
+      }
+      foreach($this->project->get_subprojects() as $curSubProject) {
+            ?>
+    <tr>
+        <td>
+           <?php echo $subprojectnames['name'].' '.$curSubProject->get_subprojectnumber(); ?>
+        </td>
+        <td>
+           <?php echo $curSubProject->get_subprojectstartdate().' &ndash; '.$curSubProject->get_subprojectenddate(); ?>
+        </td>
+        <td>
+           <?php echo $curSubProject->get_subprojectbudget(); ?>
+        </td>
+        <td>
+           <?php echo $this->getCompletionText($curSubProject); ?>
+        </td>
+        <td>
+           <?php
+                if($curSubProject->get_subprojectdirectlabor() == "1") {
+                    echo 'Αυτεπιστασία';
+                } else {
+                    echo implode(', ', $curSubProject->get_contractorsAs2dArray());
+                }
+           ?>
+        </td>
+    </tr>
+    <?php } ?>
+  </tbody>
+<?php
+}
+?>
+</table>
+<?php echo $this->partial('diaxeirisi/partial/aporofisi.phtml', 'erga', array('tworkpackages' => $this->tworkpackages, 'tcategories' => $this->tcategories)); ?>
+<table class="analutikos fatTable">
+<tr><th>Παραδοτέα</th></tr>
+  <tbody>
+    <tr class="title">
+        <td>
+        Αριθμός <?php echo $subprojectnames['gen']; ?>
+        </td>
+        <td>
+        Τίτλος Παραδοτέου
+        </td>
+        <td>
+        Ημερομηνία Έναρξης
+        </td>
+        <td>
+        Ημερομηνία Λήξης
+        </td>
+        <td>
+        Ποσό
+        </td>
+        <td>
+        Κατάσταση
+        </td>
+        <td>
+        Συντάκτες/Ανάδοχος
+        </td>
+
+    </tr>
+  <?php
+    foreach($this->project->get_subprojects() as $curSubProject) {
+        foreach($curSubProject->get_workpackagesNatsort() as $curWorkPackage) {
+            foreach($curWorkPackage->get_deliverablesNatsort() as $curDeliverable) {
+                echo '
+    <tr>
+        <td>
+            '.$subprojectnames['name'].' '.$curSubProject->get_subprojectnumber().'
+        </td>
+        <td>
+            '.$curDeliverable->get_title().'
+        </td>
+        <td>
+            '.$curDeliverable->get_startdate().'
+        </td>
+        <td>
+            '.$curDeliverable->get_enddate().'
+        </td>
+        <td>
+            '.$curDeliverable->get_amount().'
+        </td>
+        <td>
+           '.$this->getCompletionText($curDeliverable).'
+        </td>
+        <td>
+           '.$this->printDeliverableAuthors($curDeliverable).'
+        </td>
+    </tr>';
+            }
+        }
+    }
+  ?>
+  </tbody>
+</table>
+
+<!--<p><input  type="button" name="printbutton" value="Print Document" onClick="parent.print()"></p>-->
+
+</div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<?php /* $this->headScript()->appendFile($this->baseUrl('media/js/aitiseis/aitiseisview.js', 'text/javascript')); */ ?>
+<?php echo $this->filterform; ?>
+<div class="newButton"><a href='<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'epitropes', 'action' => 'new')); ?>'>Νέα επιτροπή</a></div>
+<?php
+    if($this->user->hasRole('elke')) {
+        $showCreator = true;
+    } else {
+        $showCreator = false;
+    }
+    echo $this->partial('partials/viewCommittees.phtml', 'praktika', array(
+                            'entries' => $this->entries,
+                            'user' => $this->user,
+                         )); ?>
+<?php
+// Links σελίδων (pagination)
+//echo $this->entries->__toString();
+?>

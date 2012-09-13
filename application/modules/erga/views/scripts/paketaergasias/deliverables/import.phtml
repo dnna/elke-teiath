@@ -1,0 +1,16 @@
+<?php echo $this->projectNavigation(array(), $this->getProject()); ?>
+<br />
+<div class="importinstructions">
+Οδηγίες χρήσης:
+<ol>
+    <li>Κατεβάστε το σχετικό template από <a href="<?php echo $this->baseUrl('documents/deliverables.xlsx'); ?>">εδώ</a>.</li>
+    <li>Τροποποιήστε το αρχείο σύμφωνα με τις οδηγίες που περιέχονται μέσα, ώστε να περιέχει τα παραδοτέα που θέλετε να εισάγετε.</li>
+    <li>Ανεβάστε το τροποποιημένο αρχείο μέσω της παρακάτω φόρμας.</li>
+</ol>
+</div>
+<br />
+<div class="large-form">
+<?php
+echo $this->form;
+?>
+</div>

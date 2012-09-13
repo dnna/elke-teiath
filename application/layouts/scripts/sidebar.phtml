@@ -1,0 +1,76 @@
+<?php
+echo '<ul id="menu">';
+// loop root level (only has Home, but later may have an Admin root page?)
+foreach ($this->container as $page) {
+    // check if it is active (not recursive)
+    if($this->navigation()->accept($page)) {
+        if($page->getAction() == "" && ($page->getController() == "" || $page->getController() === $this->getControllerName()) && $page->getModule() === $this->getModuleName()) {
+            $params = $page->getParams();
+            if(is_array($page->getParams()) && count($page->getParams()) > 0) {
+                unset($params['_fragment']);
+                $userparams = $this->getUserParams();
+                foreach($page->getParams() as $curParam) {
+                    if(in_array($curParam, $userparams)) {
+                        $page->setActive(true);
+                        break;
+                    }
+                }
+            } else {
+                $page->setActive(true);
+            }
+        }
+        // Αν πρόκειται για αναθεώρηση έργου προσθέτουμε την παράμετρο
+        if(!$page->isActive(false)) {
+            echo '<li class="menuItem">'.$this->menu()->htmlify($page);
+        } else {
+            echo '<li class="menuItem active">'.$page->getLabel().'</li>';
+        }
+        // loop next level
+        if($page->isActive(true) && count($page) > 0) {
+            if($page->getClass() != "") {
+                $class = ' '.$page->getClass();
+            } else {
+                $class = '';
+            }
+            echo '<ul class="submenu'.$class.'">';
+            foreach ($page as $page) {
+                // check if it is active (recursive)
+                if($page->getAction() == "" && ($page->getController() == "" || $page->getController() === $this->getControllerName()) && $page->getModule() === $this->getModuleName()) {
+                    $params = $page->getParams();
+                    if(is_array($page->getParams()) && count($page->getParams()) > 0) {
+                        unset($params['_fragment']);
+                        $userparams = $this->getUserParams();
+                        foreach($page->getParams() as $curParam) {
+                            if(in_array($curParam, $userparams)) {
+                                $page->setActive(true);
+                                break;
+                            }
+                        }
+                    } else {
+                        $page->setActive(true);
+                    }
+                }
+                if($page->getClass() != "") {
+                    $class = ' '.$page->getClass();
+                } else {
+                    $class = '';
+                }
+                if($this->navigation()->accept($page)) {
+                    $params = $page->getParams();
+                    if(isset($params['_fragment'])) {
+                        echo '<li class="menuItem'.$class.'"><a href="#'.$params['_fragment'].'">'.$page->getLabel().'</a></li>'.PHP_EOL;
+                    } else if(!$page->isActive(true)) {
+                        echo '<li class="menuItem'.$class.'">'.$this->menu()->htmlify($page).'</li>'.PHP_EOL;
+                    } else {
+                        echo '<li class="menuItem active'.$class.'">'.$page->getLabel().'</li>';
+                    }
+                }
+            }
+            echo '</ul></li>'.PHP_EOL;
+        } else {
+            echo '</li>', PHP_EOL;
+        }
+    }
+}
+echo '</ul>';
+?>

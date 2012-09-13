@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<title>Επισκόπηση</title>
+
+<?php $this->headLink()->appendStylesheet($this->baseUrl('media/css/global.css')); ?>
+<?php $this->headLink()->appendStylesheet($this->baseUrl('images/start/jquery-ui-1.8.12.custom.css')); ?>
+        <?php $this->headLink(array('rel' => 'favicon',
+                            'href' => 'favicon.ico'),
+                            'PREPEND'); ?>
+<?php echo $this->headLink(); ?>
+<script type="text/javascript">
+    baseUrl = "<?php echo $this->baseUrl(); ?>";
+</script>
+<?php
+$this->headScript()->prependFile($this->baseUrl("media/js/jquery-ui-1.8.16.custom.min.js"));
+$this->headScript()->prependFile($this->baseUrl("media/js/jquery.js"));
+echo $this->headScript();
+?>
+</head>
+<body>
+<div id="choosetpldialog"><?php echo $this->tplselectform; ?></div>
+</body>
+</html>
