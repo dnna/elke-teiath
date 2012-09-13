@@ -155,7 +155,7 @@ class Erga_Form_Ypoerga_Paradoteo extends Erga_Form_Ypoerga_FormBase {
         if($this->_view->getSubProject()->get_subprojectdirectlabor() == "1") {
             $subsubform->setLegend('Συντάκτες');
             if(($this->_view->getSubProject()->get_employees() != null && $this->_view->getSubProject()->get_employees()->count() > 0) ||
-                    ($this->_view->getProject()->get_thisprojectemployees() != null && $this->_view->getProject()->get_thisprojectemployees()->count() > 0)) {
+                    ($this->_view->getProject() != null && $this->_view->getProject()->get_thisprojectemployees() != null && $this->_view->getProject()->get_thisprojectemployees()->count() > 0)) {
                 $this->addAuthorFields($subsubform, false);
             } else {
                 $element = new Application_Form_Element_Note('noauthorsnote', array(
