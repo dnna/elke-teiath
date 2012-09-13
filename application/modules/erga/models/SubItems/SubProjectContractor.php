@@ -209,6 +209,10 @@ class Erga_Model_SubItems_SubProjectContractor extends Application_Model_SubObje
         }
     }
 
+    public function get_afm() {
+        return $this->_agency->get_afm();
+    }
+
     public function setOwner($owner) {
         if($owner == null || $owner instanceof Erga_Model_SubProject) { // Το condition υπάρχει για να μην μπαίνει author σαν owner
             $this->set_subproject($owner);

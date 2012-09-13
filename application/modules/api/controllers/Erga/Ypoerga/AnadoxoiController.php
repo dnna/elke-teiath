@@ -32,6 +32,7 @@ class Api_Erga_Ypoerga_AnadoxoiController extends Api_IndexController
         foreach($form->getSubForm('default')->getElements() as $curName => $curElement) {
             $properties[$curName] = 'get_'.$curName;
         }
+        $properties['afm'] = 'get_afm';
         unset($properties['recordid']);
 
         $this->_helper->Index($this, $contractors, 'contractors', array('recordid' => 'get_recordid'), $properties);

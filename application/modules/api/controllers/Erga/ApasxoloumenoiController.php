@@ -33,6 +33,7 @@ class Api_Erga_ApasxoloumenoiController extends Api_IndexController
         foreach($form->getSubForm('default')->getElements() as $curName => $curElement) {
             $properties[$curName] = 'get_'.$curName;
         }
+        $properties['afm'] = 'get_afm';
         unset($properties['recordid']);
 
         $this->_helper->Index($this, $employees, 'employees', array('recordid' => 'get_recordid'), array('subprojecttitle' => 'get_subproject')+$properties);
