@@ -300,7 +300,9 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
     }
 
     public function get_employees() {
-        return $this->_employees;
+        $employees = $this->_employees->toArray();
+        usort($employees, array("Erga_Model_SubItems_SubProjectEmployee", "compareEmployees"));
+        return $employees;
     }
 
     public function set_employees($_employees) {

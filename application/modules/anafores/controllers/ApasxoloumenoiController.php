@@ -23,6 +23,7 @@ class Anafores_ApasxoloumenoiController extends Zend_Controller_Action {
         $overview = Zend_Registry::get('entityManager')->getRepository('Erga_Model_SubItems_SubProjectEmployee')->getOverview($employee[0], $this->_request->getParams());
         $this->view->employee = $overview['employee'];
         $this->view->symvaseis = $overview['symvaseis'];
+        usort($this->view->symvaseis, array("Erga_Model_SubItems_SubProjectEmployee", "compareEmployees"));
         $this->view->deliverables = $overview['deliverables'];
     }
 

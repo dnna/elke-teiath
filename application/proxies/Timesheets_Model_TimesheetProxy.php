@@ -126,6 +126,36 @@ class Timesheets_Model_TimesheetProxy extends \Timesheets_Model_Timesheet implem
         return parent::get_activitiesForDay($day);
     }
 
+    public function get_approved()
+    {
+        $this->__load();
+        return parent::get_approved();
+    }
+
+    public function set_approved($_approved)
+    {
+        $this->__load();
+        return parent::set_approved($_approved);
+    }
+
+    public function get_approvedtext()
+    {
+        $this->__load();
+        return parent::get_approvedtext();
+    }
+
+    public function getTotalHours()
+    {
+        $this->__load();
+        return parent::getTotalHours();
+    }
+
+    public function getPaidAmount()
+    {
+        $this->__load();
+        return parent::getPaidAmount();
+    }
+
     public function __toString()
     {
         $this->__load();
@@ -211,7 +241,7 @@ class Timesheets_Model_TimesheetProxy extends \Timesheets_Model_Timesheet implem
 
     public function __sleep()
     {
-        return array('__isInitialized__', '_id', '_employee', '_project', '_month', '_year', '_activities');
+        return array('__isInitialized__', '_id', '_employee', '_project', '_month', '_year', '_activities', '_approved');
     }
 
     public function __clone()

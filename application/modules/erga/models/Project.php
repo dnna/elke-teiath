@@ -313,13 +313,15 @@ class Erga_Model_Project extends Erga_Model_EmployeeContainer {
                 $employees->add($curEmployee);
             }
         }
-        $iterator = $employees->getIterator();
-        $iterator->natSort();
-        return $iterator;
+        $employees = $employees->toArray();
+        usort($employees, array("Erga_Model_SubItems_SubProjectEmployee", "compareEmployees"));
+        return $employees;
     }
 
     public function get_thisprojectemployees() {
-        return $this->_employees;
+        $employees = $this->_employees->toArray();
+        usort($employees, array("Erga_Model_SubItems_SubProjectEmployee", "compareEmployees"));
+        return $employees;
     }
 
     public function set_employees($_employees) {

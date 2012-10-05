@@ -245,6 +245,23 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
         }
     }
 
+    static function compareEmployees(Erga_Model_SubItems_SubProjectEmployee $a, Erga_Model_SubItems_SubProjectEmployee $b)
+    {
+        $al = strtolower($a->get_employee()->get_name());
+        $bl = strtolower($b->get_employee()->get_name());
+        if ($al == $bl) {
+            if($a->get_startdate() == null) {
+                return 1;
+            } else if($b->get_startdate() == null) {
+                return -1;
+            } else if($a->get_startdate() == $b->get_startdate()) {
+                return 0;
+            }
+            return ($a->get_startdate() > $b->get_startdate()) ? +1 : -1;
+        }
+        return ($al > $bl) ? +1 : -1;
+    }
+
     public function __toString() {
         return $this->get_employee()->__toString();
     }
