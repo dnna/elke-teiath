@@ -1025,3 +1025,7 @@ fieldset.biglabels label{
     position: relative;
     left: 75px;
 }
+
+.zend_form {
+    min-width: 925px;
+}
