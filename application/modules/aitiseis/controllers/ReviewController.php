@@ -12,6 +12,9 @@ class Aitiseis_ReviewController extends Zend_Controller_Action {
         if(!$auth->hasIdentity() || (!$auth->getStorage()->read()->hasRole('professor') && !$auth->getStorage()->read()->hasRole('elke'))) {
             $this->_helper->redirector('index', 'Login', 'default');
         }
+        $this->view->type = $this->_helper->getMapping($this->_request->getUserParam('type', 'ypovoliergou'));
+        $type = $this->view->type;
+        $this->view->pageTitle = "Επεξεργασία Αίτησης - ".$type::type;
     }
 
     public function postDispatch() {

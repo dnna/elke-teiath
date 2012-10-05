@@ -11,7 +11,7 @@ class Aitiseis_NewController extends Zend_Controller_Action {
         $auth = Zend_Auth::getInstance();
         $this->view->type = $this->_helper->getMapping($this->_request->getUserParam('type', 'ypovoliergou'));
         $type = $this->view->type;
-        $this->view->pageTitle = "Νέα ".$type::type;;
+        $this->view->pageTitle = "Νέα Αίτηση - ".$type::type;
     }
 
     public function postDispatch() {
