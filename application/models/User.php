@@ -60,9 +60,18 @@ class Application_Model_User extends Dnna_Model_Object {
     protected $_token;
 
     /**
-     * @var Application_Model_Employee 
+     * @var Application_Model_Employee
      */
     protected $_contracts; // Οι συμβάσεις με τις οποίες συνδέεται αυτός ο χρήστης
+    protected $__contracts;
+
+    public function getOptions($onlyDbFields = true, $poptions = array()) {
+        $this->__contracts = $this->_contracts;
+        $this->_contracts = null;
+        parent::getOptions($onlyDbFields, $poptions);
+        $this->_contracts = $this->__contracts;
+        $this->__contracts = null;
+    }
 
     /**
      * Ελέγχει αν ο χρήστης υπάρχει στον LDAP

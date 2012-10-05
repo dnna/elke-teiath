@@ -69,7 +69,7 @@ if(!isset($this->showCreator)) {
                     <img src="<?php echo $this->baseUrl('images/attachment.png'); ?>" alt="Συνημμένο αρχείο: <?php echo $entry->get_attachmentname(); ?>"  title="Συνημμένο αρχείο: <?php echo $entry->get_attachmentname(); ?>" />
                 </a>
         <?php } ?>
-        <?php if($entry->get_approved() != Aitiseis_Model_AitisiBase::APPROVED) { ?>
+        <?php if($this->user->get_userid() === $entry->get_creator()->get_userid() && $entry->get_approved() != Aitiseis_Model_AitisiBase::APPROVED) { ?>
                 <a href="<?php echo $this->url(array('module' => 'aitiseis', 'controller' => 'review', 'aitisiid' => $entry->get_aitisiid())); ?>">
                     <?php echo $entry; ?>
                 </a>

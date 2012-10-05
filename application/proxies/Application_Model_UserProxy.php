@@ -36,6 +36,13 @@ class Application_Model_UserProxy extends \Application_Model_User implements \Do
     }
 
     
+    public function getOptions($onlyDbFields = true, $poptions = array (
+))
+    {
+        $this->__load();
+        return parent::getOptions($onlyDbFields, $poptions);
+    }
+
     public function existsInLDAP()
     {
         $this->__load();
@@ -241,13 +248,6 @@ class Application_Model_UserProxy extends \Application_Model_User implements \Do
     {
         $this->__load();
         return parent::setOptions($options, $ignoreisvisible);
-    }
-
-    public function getOptions($onlyDbFields = true, $poptions = array (
-))
-    {
-        $this->__load();
-        return parent::getOptions($onlyDbFields, $poptions);
     }
 
     public function toArray($onlyDbFields = true, $recursive = false, $options = array (
