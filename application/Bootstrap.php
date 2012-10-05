@@ -12,7 +12,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     protected function _initCache() {
         $frontendOptions = array(
-            'lifetime' => 7200, // cache lifetime of 2 hours
+            //'lifetime' => 7200, // cache lifetime of 2 hours
+            'lifetime' => 0,
             'automatic_serialization' => true
         );
 
@@ -28,16 +29,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         );
 
         $cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
-        if(APPLICATION_ENV === 'development') {
+        //if(APPLICATION_ENV === 'development') {
             $cache->clean('all'); // Δεν θέλουμε cache στο development
-        } else {
+        /*} else {
             // Plugin Cache
             $classFileIncCache = APPLICATION_PATH . '/../data/pluginLoaderCache.php';
             if (file_exists($classFileIncCache)) {
                 include_once $classFileIncCache;
             }
             Zend_Loader_PluginLoader::setIncludeFileCache($classFileIncCache);
-        }
+        }*/
         Zend_Registry::set('cache', $cache);
     }
 
