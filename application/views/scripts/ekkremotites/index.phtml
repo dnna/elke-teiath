@@ -48,9 +48,10 @@
     <hr>
 
 <div>
-    <p>Εκκρεμότητες επόμενης συνεδρίασης</p>
+    <p>Εκκρεμότητες επόμενης συνεδρίασης
+        <a href="<?php echo $this->url(array('action' => 'unifieddoc')); ?>"> <span id="ekkremotites_createunifieddoc" title="Δημιουργία ενιαίου εγγράφου"><img src="<?php echo $this->baseUrl('images/print.gif'); ?>" alt="Δημιουργία ενιαίου εγγράφου" /></span></a>
+    </p>
     <?php echo $epomeniSynedriasiAitiseis; ?>
-    <a href="<?php echo $this->url(array('action' => 'unifieddoc')); ?>"><span id="ekkremotites_createunifieddoc">Δημιουργία ενιαίου εγγράφου</span></a>
 </div>
 <hr>
 <div>
