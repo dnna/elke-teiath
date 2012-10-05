@@ -51,6 +51,7 @@ class ListsController extends Zend_Controller_Action
         } else {
             throw new Exception('Δεν υπάρχει ο συγκεκριμένος τύπος λίστας.');
         }
+        $this->view->pageTitle = "Επεξεργασία Λιστών - ".$this->view->typeText;
     }
 
     public function addAction() {
