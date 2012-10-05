@@ -31,6 +31,7 @@ class Application_Model_Employee extends Dnna_Model_Object {
     protected $_name;
     /**
      * @OneToMany (targetEntity="Erga_Model_SubItems_SubProjectEmployee", mappedBy="_employee")
+     * @IgnoreInGetOptionsAsStrings
      */
     protected $_contracts; // Συμβάσεις
 
