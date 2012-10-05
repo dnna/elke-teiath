@@ -25,10 +25,10 @@ class Application_Model_Contractor extends Dnna_Model_Object {
      * @FormFieldLabel Διεύθυνση
      */
     protected $_address;
-    /**
-     * @OneToMany (targetEntity="Erga_Model_SubItems_SubProjectContractor", mappedBy="_agency")
-     */
-    protected $_contracts; // Συμβάσεις
+    ///**
+     //* @OneToMany (targetEntity="Erga_Model_SubItems_SubProjectContractor", mappedBy="_agency")
+     //*/
+    //protected $_contracts; // Συμβάσεις
 
     public function get_afm() {
         return $this->_afm;

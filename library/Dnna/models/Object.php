@@ -342,10 +342,8 @@ abstract class Dnna_Model_Object {
         foreach($curObject as $key => $value) {
             // Αντικατάσταση των τυχόν αντικειμένων με αντίστοιχο array
             if(is_object($value) && is_subclass_of($value, 'Dnna_Model_Object')) {
-                if($this->ignoreGetOptionsAsStrings($key)) { continue; }
                 $value = $value->getOptions($dbfieldsonly);
             } else if(is_object($value) && $value instanceof Doctrine\ORM\PersistentCollection) {
-                if($this->ignoreGetOptionsAsStrings($key)) { continue; }
                 $value = $value->toArray();
             }
 
@@ -365,19 +363,6 @@ abstract class Dnna_Model_Object {
             // Τέλος κύριου αναδρομικού κώδικα
         }
         return $variables;
-    }
-
-    public function ignoreGetOptionsAsStrings($key) {
-        if(!is_numeric($key)) {
-            $reflection = new Zend_Reflection_Class(get_class($this));
-            if($reflection->hasProperty('_'.$key)) {
-                $docblock = $reflection->getProperty('_'.$key)->getDocComment();
-                if($docblock instanceof Zend_Reflection_Docblock && $docblock->hasTag('IgnoreInGetOptionsAsStrings')) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public function modifySubCollection($newcollection, &$oldcollection) {

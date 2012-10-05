@@ -10,7 +10,7 @@ class Erga_Model_SubItems_SubProjectContractor extends Application_Model_SubObje
      */
     protected $_subproject;
     /**
-     * @ManyToOne (targetEntity="Application_Model_Contractor", inversedBy="_contracts", cascade={"persist"})
+     * @ManyToOne (targetEntity="Application_Model_Contractor", cascade={"persist"})
      * @JoinColumn (name="contractorafm", referencedColumnName="afm")
      * @var Application_Model_Contractor
      */

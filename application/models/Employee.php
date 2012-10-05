@@ -29,11 +29,10 @@ class Application_Model_Employee extends Dnna_Model_Object {
     protected $_maxhours = 0;
     // Για τα object loops
     protected $_name;
-    /**
-     * @OneToMany (targetEntity="Erga_Model_SubItems_SubProjectEmployee", mappedBy="_employee")
-     * @IgnoreInGetOptionsAsStrings
-     */
-    protected $_contracts; // Συμβάσεις
+    ///**
+     //* @OneToMany (targetEntity="Erga_Model_SubItems_SubProjectEmployee", mappedBy="_employee")
+     //*/
+    //protected $_contracts; // Συμβάσεις
 
     public function get_afm() {
         return $this->_afm;

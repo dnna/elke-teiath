@@ -15,7 +15,7 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
      */
     protected $_project;
     /**
-     * @ManyToOne (targetEntity="Application_Model_Employee", inversedBy="_contracts", cascade={"persist"})
+     * @ManyToOne (targetEntity="Application_Model_Employee", cascade={"persist"})
      * @JoinColumn (name="afm", referencedColumnName="afm")
      * @var Application_Model_Employee
      */
