@@ -238,7 +238,7 @@ class Application_Model_EmployeeProxy extends \Application_Model_Employee implem
 
     public function __sleep()
     {
-        return array('__isInitialized__', '_afm', '_doy', '_adt', '_firstname', '_surname', '_address', '_ldapusername', '_maxhours');
+        return array('__isInitialized__', '_afm', '_doy', '_adt', '_firstname', '_surname', '_address', '_email', '_phone', '_ldapusername', '_maxhours');
     }
 
     public function __clone()

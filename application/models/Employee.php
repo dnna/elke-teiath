@@ -23,6 +23,10 @@ class Application_Model_Employee extends Dnna_Model_Object {
     protected $_surname;
     /** @Column (name="address", type="string") */
     protected $_address; // Διεύθυνση Κατοικίας (οδός, αριθμός, ΤΚ, πόλη)
+    /** @Column (name="email", type="string") */
+    protected $_email; // Email
+    /** @Column (name="phone", type="string") */
+    protected $_phone; // Τηλέφωνο
     /** @Column (name="ldapusername", type="string") */
     protected $_ldapusername = "";
     /** @Column (name="maxhours", type="string") */

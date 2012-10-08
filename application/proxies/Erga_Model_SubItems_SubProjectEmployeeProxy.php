@@ -222,6 +222,12 @@ class Erga_Model_SubItems_SubProjectEmployeeProxy extends \Erga_Model_SubItems_S
         return parent::set_timesheets($_timesheets);
     }
 
+    public function get_afm()
+    {
+        $this->__load();
+        return parent::get_afm();
+    }
+
     public function setOwner($owner)
     {
         $this->__load();

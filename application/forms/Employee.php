@@ -24,6 +24,14 @@ class Application_Form_Employee extends Dnna_Form_SubFormBase {
         $this->addElement('text', 'address', array(
             'label' => 'Διεύθυνση Κατοικίας (οδός, αριθμός, ΤΚ, πόλη):',
         ));
+        // Email
+        $this->addElement('text', 'email', array(
+            'label' => 'Email:',
+        ));
+        // Τηλέφωνο
+        $this->addElement('text', 'phone', array(
+            'label' => 'Τηλέφωνο:',
+        ));
         // Α.Δ.Τ.
         $this->addElement('text', 'adt', array(
             'label' => 'Α.Δ.Τ.:',
