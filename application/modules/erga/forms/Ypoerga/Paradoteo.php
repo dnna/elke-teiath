@@ -154,8 +154,8 @@ class Erga_Form_Ypoerga_Paradoteo extends Erga_Form_Ypoerga_FormBase {
         $subsubform = new Dnna_Form_SubFormBase();
         if($this->_view->getSubProject()->get_subprojectdirectlabor() == "1") {
             $subsubform->setLegend('Συντάκτες');
-            if(($this->_view->getSubProject()->get_employees() != null && $this->_view->getSubProject()->get_employees()->count() > 0) ||
-                    ($this->_view->getProject() != null && $this->_view->getProject()->get_thisprojectemployees() != null && $this->_view->getProject()->get_thisprojectemployees()->count() > 0)) {
+            if(($this->_view->getSubProject()->get_employees() != null && count($this->_view->getSubProject()->get_employees()) > 0) ||
+                    ($this->_view->getProject() != null && $this->_view->getProject()->get_thisprojectemployees() != null && count($this->_view->getProject()->get_thisprojectemployees()) > 0)) {
                 $this->addAuthorFields($subsubform, false);
             } else {
                 $element = new Application_Form_Element_Note('noauthorsnote', array(
