@@ -98,6 +98,22 @@ class Application_Model_Employee extends Dnna_Model_Object {
         $this->_address = $_address;
     }
 
+    public function get_email() {
+        return $this->_email;
+    }
+
+    public function set_email($_email) {
+        $this->_email = $_email;
+    }
+
+    public function get_phone() {
+        return $this->_phone;
+    }
+
+    public function set_phone($_phone) {
+        $this->_phone = $_phone;
+    }
+
     public function get_ldapusername() {
         return $this->_ldapusername;
     }
