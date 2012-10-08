@@ -68,9 +68,10 @@ class Application_Model_User extends Dnna_Model_Object {
     public function getOptions($onlyDbFields = true, $poptions = array()) {
         $this->__contracts = $this->_contracts;
         $this->_contracts = null;
-        parent::getOptions($onlyDbFields, $poptions);
+        $options = parent::getOptions($onlyDbFields, $poptions);
         $this->_contracts = $this->__contracts;
         $this->__contracts = null;
+        return $options;
     }
 
     /**
