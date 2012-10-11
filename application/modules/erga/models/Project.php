@@ -107,6 +107,7 @@ class Erga_Model_Project extends Erga_Model_EmployeeContainer {
         if(!isset($this->_creationdate)) {
             $this->_creationdate = new EDateTime("now");
         }
+        $this->_employees = new ArrayCollection();
 
         // Δημιουργία των υποκατηγοριών
         $basicdetails = new Erga_Model_ProjectBasicDetails();

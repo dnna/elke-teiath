@@ -117,6 +117,30 @@ class Application_Model_EmployeeProxy extends \Application_Model_Employee implem
         return parent::set_address($_address);
     }
 
+    public function get_email()
+    {
+        $this->__load();
+        return parent::get_email();
+    }
+
+    public function set_email($_email)
+    {
+        $this->__load();
+        return parent::set_email($_email);
+    }
+
+    public function get_phone()
+    {
+        $this->__load();
+        return parent::get_phone();
+    }
+
+    public function set_phone($_phone)
+    {
+        $this->__load();
+        return parent::set_phone($_phone);
+    }
+
     public function get_ldapusername()
     {
         $this->__load();
