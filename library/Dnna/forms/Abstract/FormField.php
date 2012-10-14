@@ -17,6 +17,8 @@ class Dnna_Form_Abstract_FormField {
 
     protected $_maxoccurs = 20; // For ONE-TO-MANY and MANY-TO-MANY recursive associations
 
+    protected $_options = array();
+
     /**
      * @var ClassMetadata
      */
@@ -39,6 +41,8 @@ class Dnna_Form_Abstract_FormField {
     const TYPE_CHECKBOX = 6;
 
     const TYPE_TEXTAREA = 7;
+
+    const TYPE_SIMPLESELECT = 8;
 
     public function get_belongingClass() {
         return $this->_belongingClass;
@@ -108,6 +112,8 @@ class Dnna_Form_Abstract_FormField {
                 $this->_type = self::TYPE_RECURSIVE;
             } else if(strtolower($_type) === 'recursiveid') {
                 $this->_type = self::TYPE_RECURSIVEID;
+            } else if(strtolower($_type) === 'simpleselect') {
+                $this->_type = self::TYPE_SIMPLESELECT;
             } else {
                 throw new Exception('Unknown field type in Dnna_Form_Abstract_FormField.');
             }
@@ -122,6 +128,14 @@ class Dnna_Form_Abstract_FormField {
 
     public function set_maxoccurs($_maxoccurs) {
         $this->_maxoccurs = $_maxoccurs;
+    }
+
+    public function get_options() {
+        return $this->_options;
+    }
+
+    public function set_options($_options) {
+        $this->_options = $_options;
     }
 
     public function get_metadata() {

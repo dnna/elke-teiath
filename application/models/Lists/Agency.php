@@ -34,6 +34,14 @@ class Application_Model_Lists_Agency extends Dnna_Model_Object implements Applic
      * @FormFieldLabel ΔΟΥ
      */
     protected $_doy;
+    /**
+     * @Column (name="type", type="string")
+     * @FormFieldLabel Είδος Φορέα
+     * @FormFieldType SimpleSelect
+     * @FormFieldOptions Δημόσιος, Ιδιωτικός, Ευρωπαϊκό Πρόγραμμα, Ίδιοι Πόροι, Αυτοχρηματοδότηση
+     * @FormFieldRequired
+     */
+    protected $_type;
 
     public function get_id() {
         return $this->_id;
@@ -77,6 +85,22 @@ class Application_Model_Lists_Agency extends Dnna_Model_Object implements Applic
 
     public function set_doy($_doy) {
         $this->_doy = $_doy;
+    }
+
+    public function get_type() {
+        return $this->_type;
+    }
+
+    public function get_typeAsString() {
+        $reflection = new Zend_Reflection_Class(get_class($this));
+        $property = $reflection->getProperty('_type');
+        $docblock = $property->getDocComment();
+        $options = explode(', ', $docblock->getTag('FormFieldOptions')->getDescription());
+        return $options[$this->get_type()];
+    }
+
+    public function set_type($_type) {
+        $this->_type = $_type;
     }
 
     public function __toString() {

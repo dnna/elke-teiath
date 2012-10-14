@@ -44,7 +44,11 @@ class Application_View_Helper_ViewList extends Zend_View_Helper_Abstract
                     <tr>';
                     $first = true;
                     foreach($fields as $curField) {
-                        $methodname = 'get_'.$curField->get_name();
+                        if($curField->get_type() == Dnna_Form_Abstract_FormField::TYPE_SIMPLESELECT) {
+                            $methodname = 'get_'.$curField->get_name().'AsString';
+                        } else {
+                            $methodname = 'get_'.$curField->get_name();
+                        }
                         if($first) {
                             $return .= '
                                 <td>

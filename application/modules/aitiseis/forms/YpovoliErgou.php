@@ -11,7 +11,7 @@ class Aitiseis_Form_YpovoliErgou extends Aitiseis_Form_Aitisi {
         );
         // Τίτλος
         $subform->addElement('textarea', 'title', array(
-            'label' => 'Τίτλος (στα Ελληνικά):',
+            'label' => 'Τίτλος 1:',
             'validators' => array(
                 array('validator' => 'StringLength', 'options' => array(0, $this->_textareaMaxLength))
             ),
@@ -22,7 +22,7 @@ class Aitiseis_Form_YpovoliErgou extends Aitiseis_Form_Aitisi {
         );
         // Τίτλος (Αγγλικά)
         $subform->addElement('textarea', 'titleen', array(
-            'label' => 'Τίτλος (στα Αγγλικά):',
+            'label' => 'Τίτλος 2:',
             'validators' => array(
                 array('validator' => 'StringLength', 'options' => array(0, $this->_textareaMaxLength))
             ),

@@ -26,7 +26,7 @@ class  Erga_Form_BasicDetails extends Dnna_Form_SubFormBase {
         );
         // Τίτλος έργου
         $subform->addElement('textarea', 'title', array(
-            'label' => 'Τίτλος (στα ελληνικά):',
+            'label' => 'Τίτλος 1:',
             'validators' => array(
                 array('validator' => 'StringLength', 'options' => array(0, $this->_textareaMaxLength))
             ),
@@ -37,7 +37,7 @@ class  Erga_Form_BasicDetails extends Dnna_Form_SubFormBase {
         );
         // Τίτλος έργου (Αγγλικά)
         $subform->addElement('textarea', 'titleen', array(
-            'label' => 'Τίτλος (στα αγγλικά):',
+            'label' => 'Τίτλος 2:',
             'validators' => array(
                 array('validator' => 'StringLength', 'options' => array(0, $this->_textareaMaxLength))
             ),
@@ -117,11 +117,11 @@ class  Erga_Form_BasicDetails extends Dnna_Form_SubFormBase {
         }
 
         $subform->addElement('button', 'addModification', array(
-            'label' => 'Προσθήκη Τροποποίησης Απόφασης Ένταξης',
+            'label' => 'Προσθήκη Τροποποίησης',
             'class' => 'modificationbuttons addButton',
         ));
         $this->addSubForm($subform, 'modifications');
-        $this->getSubForm('modifications')->setLegend('Τροποποιήσεις');
+        $this->getSubForm('modifications')->setLegend('Τροποποιήσεις Απόφασης Ένταξης');
     }
 
     public function init() {

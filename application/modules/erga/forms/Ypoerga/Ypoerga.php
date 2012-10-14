@@ -28,7 +28,7 @@ class Erga_Form_Ypoerga_Ypoerga extends Erga_Form_Ypoerga_FormBase {
         ));
         // Τίτλος
         $subform->addElement('textarea', 'subprojecttitle', array(
-            'label' => 'Τίτλος (στα ελληνικά):',
+            'label' => 'Τίτλος 1:',
             'validators' => array(
                 array('validator' => 'StringLength', 'options' => array(0, $this->_textareaMaxLength))
             ),
@@ -42,7 +42,7 @@ class Erga_Form_Ypoerga_Ypoerga extends Erga_Form_Ypoerga_FormBase {
 
         // Τίτλος (Αγγλικά)
         $subform->addElement('textarea', 'subprojecttitleen', array(
-            'label' => 'Τίτλος (στα αγγλικά):',
+            'label' => 'Τίτλος 2:',
             'validators' => array(
                 array('validator' => 'StringLength', 'options' => array(0, $this->_textareaMaxLength))
             ),

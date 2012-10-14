@@ -11,14 +11,14 @@ class Erga_Form_Subforms_ParentSubProjectFields extends Dnna_Form_SubFormBase {
         );
         // Τίτλος έργου
         $this->addElement('text', 'subprojecttitle', array(
-            'label' => 'Τίτλος (στα ελληνικά):',
+            'label' => 'Τίτλος 1:',
             'readonly' => true,
             'ignore' => true,
             )
         );
         // Τίτλος έργου (Αγγλικά)
         $this->addElement('text', 'subprojecttitleen', array(
-            'label' => 'Τίτλος (στα αγγλικά):',
+            'label' => 'Τίτλος 2:',
             'readonly' => true,
             'ignore' => true,
             )

@@ -80,6 +80,12 @@ class Dnna_Form_AutoForm extends Dnna_Form_FormBase {
                     'cols' => $this->_textareaCols,
                     'required' => $curField->get_required(),
                 ));
+            } else if($curField->get_type() == Dnna_Form_Abstract_FormField::TYPE_SIMPLESELECT) {
+                $this->addElement('select', $curField->get_name(), array(
+                    'label' => $curField->get_label(),
+                    'required' => $curField->get_required(),
+                    'multiOptions' => $curField->get_options()
+                ));
             } else if($curField->get_type() == Dnna_Form_Abstract_FormField::TYPE_PARENTSELECT) {
                 $this->createParentSelectField($curField);
             } else if($curField->get_type() == Dnna_Form_Abstract_FormField::TYPE_RECURSIVE) {
@@ -178,6 +184,9 @@ class Dnna_Form_AutoForm extends Dnna_Form_FormBase {
                         }
                         if($docblock->hasTag('FormFieldRequired')) {
                             $curField->set_required(true);
+                        }
+                        if($docblock->hasTag('FormFieldOptions')) {
+                            $curField->set_options(explode(', ', $docblock->getTag('FormFieldOptions')->getDescription()));
                         }
                         if($docblock->hasTag('FormFieldType')) {
                             $curField->set_type($docblock->getTag('FormFieldType')->getDescription());
