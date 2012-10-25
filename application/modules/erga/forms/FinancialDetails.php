@@ -43,6 +43,30 @@ class  Erga_Form_FinancialDetails extends Dnna_Form_SubFormBase {
         if($subform == null) {
             $subform = new Dnna_Form_SubFormBase();
         }
+        // Πλαίσιο Χρηματοδότησης
+        $fundingframeworksubform = new Dnna_Form_SubFormBase();
+        $fundingframeworksubform->addElement('select', 'fundingframeworkid', array(
+            'label' => 'Πλαίσιο Χρηματοδότησης:',
+            'multiOptions' => Application_Model_Repositories_Lists::getListAsArray('Application_Model_Lists_FundingFramework'),
+            )
+        );
+        $subform->addSubForm($fundingframeworksubform, 'fundingframework', false);
+        $subform->getSubForm('fundingframework')->addDecorator(array('groupDiv' => 'AnyMarkup'), array('markup' => '<div class="fundingFrameworkFields">', 'placement' => 'prepend'));
+        // Επιχειρησιακό Πρόγραμμα
+        $opprogrammesubform =  new Dnna_Form_SubFormBase();
+        $opprogrammesubform->addElement('select', 'opprogrammeid', array(
+            'label' => 'Ε.Π.:',
+            'multiOptions' => Application_Model_Repositories_Lists::getListAsArray('Application_Model_Lists_OpProgramme'),
+            )
+        );
+        $subform->addSubForm($opprogrammesubform, 'opprogramme', false);
+
+        $axissubform = new Dnna_Form_SubFormBase();
+         // Αξονας
+        $subform->addElement('text', 'axis', array(
+            'label' => 'Άξονας:',
+            )
+        );
         // Κατηγορία
         $projectcategorysubform = new Dnna_Form_SubFormBase();
         $projectcategorysubform->addElement('select', 'id', array(
@@ -79,30 +103,6 @@ class  Erga_Form_FinancialDetails extends Dnna_Form_SubFormBase {
 
         ));
         $subform->getElement('budgetwithfpa')->addDecorator(array('groupDiv' => 'AnyMarkup'), array('markup' => '</div><div class="clearBoth"></div>', 'placement' => 'append'));
-        // Πλαίσιο Χρηματοδότησης
-        $fundingframeworksubform = new Dnna_Form_SubFormBase();
-        $fundingframeworksubform->addElement('select', 'fundingframeworkid', array(
-            'label' => 'Πλαίσιο Χρηματοδότησης:',
-            'multiOptions' => Application_Model_Repositories_Lists::getListAsArray('Application_Model_Lists_FundingFramework'),
-            )
-        );
-        $subform->addSubForm($fundingframeworksubform, 'fundingframework', false);
-        $subform->getSubForm('fundingframework')->addDecorator(array('groupDiv' => 'AnyMarkup'), array('markup' => '<div class="fundingFrameworkFields">', 'placement' => 'prepend'));
-        // Επιχειρησιακό Πρόγραμμα
-        $opprogrammesubform =  new Dnna_Form_SubFormBase();
-        $opprogrammesubform->addElement('select', 'opprogrammeid', array(
-            'label' => 'Ε.Π.:',
-            'multiOptions' => Application_Model_Repositories_Lists::getListAsArray('Application_Model_Lists_OpProgramme'),
-            )
-        );
-        $subform->addSubForm($opprogrammesubform, 'opprogramme', false);
-
-        $axissubform = new Dnna_Form_SubFormBase();
-         // Αξονας
-        $subform->addElement('text', 'axis', array(
-            'label' => 'Άξονας:',
-            )
-        );
         $subform->addSubForm($axissubform, 'axissf', false);
         $subform->getSubForm('axissf')->addDecorator(array('groupDiv' => 'AnyMarkup'), array('markup' => '</div>', 'placement' => 'append'));
         // Ενάριθμος ΣΑΕ
