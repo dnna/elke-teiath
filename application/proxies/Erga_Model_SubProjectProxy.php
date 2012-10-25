@@ -189,6 +189,18 @@ class Erga_Model_SubProjectProxy extends \Erga_Model_SubProject implements \Doct
         return parent::set_subprojectenddate($_enddate);
     }
 
+    public function get_subprojecttype()
+    {
+        $this->__load();
+        return parent::get_subprojecttype();
+    }
+
+    public function set_subprojecttype($_subprojecttype)
+    {
+        $this->__load();
+        return parent::set_subprojecttype($_subprojecttype);
+    }
+
     public function get_subprojectdirectlabor()
     {
         $this->__load();
@@ -424,7 +436,7 @@ class Erga_Model_SubProjectProxy extends \Erga_Model_SubProject implements \Doct
 
     public function __sleep()
     {
-        return array('__isInitialized__', '_subprojectid', '_parentproject', '_isvirtual', '_subprojectnumber', '_subprojecttitle', '_subprojecttitleen', '_subprojectsupervisor', '_subprojectdescription', '_subprojectbudget', '_subprojectbudgetfpa', '_subprojectstartdate', '_subprojectenddate', '_subprojectdirectlabor', '_competition', '_employees', '_contractors', '_workpackages', '_comments');
+        return array('__isInitialized__', '_subprojectid', '_parentproject', '_isvirtual', '_subprojectnumber', '_subprojecttitle', '_subprojecttitleen', '_subprojectsupervisor', '_subprojectdescription', '_subprojectbudget', '_subprojectbudgetfpa', '_subprojectstartdate', '_subprojectenddate', '_subprojecttype', '_subprojectdirectlabor', '_competition', '_employees', '_contractors', '_workpackages', '_comments');
     }
 
     public function __clone()

@@ -69,6 +69,13 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
      */
     protected $_subprojectenddate;
     /**
+     * @Column (name="type", type="integer")
+     */
+    protected $_subprojecttype;
+    const TYPE_MELETI = 0;
+    const TYPE_PROION = 1;
+    const TYPE_YPHRESIA = 2;
+    /**
      * @Column (name="directlabor", type="integer")
      */
     protected $_subprojectdirectlabor; // Αυτεπιστασία
@@ -220,6 +227,14 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
 
     public function set_subprojectenddate($_enddate) {
         $this->_subprojectenddate = EDateTime::create($_enddate);
+    }
+
+    public function get_subprojecttype() {
+        return $this->_subprojecttype;
+    }
+
+    public function set_subprojecttype($_subprojecttype) {
+        $this->_subprojecttype = $_subprojecttype;
     }
 
     /**

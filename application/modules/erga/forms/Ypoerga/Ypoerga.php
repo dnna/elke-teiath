@@ -107,6 +107,16 @@ class Erga_Form_Ypoerga_Ypoerga extends Erga_Form_Ypoerga_FormBase {
             'class' => 'usedatepicker',
             'required' => true,
         ));
+        // Τύπος
+        $subform->addElement('select', 'subprojecttype', array(
+            'required' => true,
+            'label' => 'Τύπος:',
+            'multiOptions' => Array(
+                Erga_Model_SubProject::TYPE_MELETI => 'Μελέτη',
+                Erga_Model_SubProject::TYPE_PROION => 'Προϊόν',
+                Erga_Model_SubProject::TYPE_YPHRESIA => 'Υπηρεσία',
+                )
+        ));
         // Αυτεπιστασία
         $subform->addElement('select', 'subprojectdirectlabor', array(
             'required' => true,
