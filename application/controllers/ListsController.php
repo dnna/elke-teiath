@@ -48,6 +48,11 @@ class ListsController extends Zend_Controller_Action
             $this->view->list = Zend_Registry::get('entityManager')
                                     ->getRepository('Application_Model_Lists_EmployeeSpecialty')
                                     ->getList();
+        } else if($this->getRequest()->getParam('type') === 'Application_Model_Lists_Bank') {
+            $this->view->typeText = 'Τράπεζες';
+            $this->view->list = Zend_Registry::get('entityManager')
+                                    ->getRepository('Application_Model_Lists_Bank')
+                                    ->getList();
         } else {
             throw new Exception('Δεν υπάρχει ο συγκεκριμένος τύπος λίστας.');
         }

@@ -126,7 +126,28 @@ class  Erga_Form_FinancialDetails extends Dnna_Form_SubFormBase {
             ),
             //'class' => 'formatFloat',
         ));
-        
+        // Τράπεζα
+        $banksubform = new Dnna_Form_SubFormBase();
+        $banksubform->addElement('select', 'id', array(
+            'required' => true,
+            'label' => 'Τράπεζα:',
+            'multiOptions' => Application_Model_Repositories_Lists::getListAsArray('Application_Model_Lists_Bank')
+        ));
+        $subform->addSubForm($banksubform, 'bank', false);
+        // IBAN
+        $subform->addElement('text', 'iban', array(
+            'label' => 'IBAN:',
+        ));
+        // Λήξη Οικονομικού Αντικειμένου
+        $subform->addElement('text', 'financialenddate', array(
+            'label' => 'Λήξη Οικονομικού Αντικειμένου:',
+            'validators' => array(
+                array('validator' => 'Date')
+            ),
+            'class' => 'usedatepicker',
+            'required' => true,
+        ));
+
         // Αναλυτικός Προϋπολογισμός
         $budgetsubform = new Dnna_Form_SubFormBase();
         // Αντικείμενα 1-10

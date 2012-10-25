@@ -126,20 +126,29 @@
                     <type>Application_Model_Lists_EmployeeSpecialty</type>
                 </params>
             </eidikotitesapasxoloumenwn>
-                <add>
-                    <label>Προσθήκη</label>
-                    <module>default</module>
-                    <controller>Lists</controller>
-                    <action>add</action>
-                    <visible>0</visible>
-                </add>
-                <edit>
-                    <label>Επεξεργασία</label>
-                    <module>default</module>
-                    <controller>Lists</controller>
-                    <action>edit</action>
-                    <visible>0</visible>
-                </edit>
+            <trapezes>
+                <label>Τράπεζες</label>
+                <module>default</module>
+                <controller>Lists</controller>
+                <action>index</action>
+                <params>
+                    <type>Application_Model_Lists_Bank</type>
+                </params>
+            </trapezes>
+            <add>
+                <label>Προσθήκη</label>
+                <module>default</module>
+                <controller>Lists</controller>
+                <action>add</action>
+                <visible>0</visible>
+            </add>
+            <edit>
+                <label>Επεξεργασία</label>
+                <module>default</module>
+                <controller>Lists</controller>
+                <action>edit</action>
+                <visible>0</visible>
+            </edit>
         </pages>
     </lists>
     <!--<epitropes>

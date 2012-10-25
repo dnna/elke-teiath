@@ -26,6 +26,7 @@ class Api_Lists_ListsController extends Api_IndexController
             $this->view->list[] = new Dnna_Model_ApiIndex('fundingframeworks', 'Πλαίσια Χρηματοδότησης');
             $this->view->list[] = new Dnna_Model_ApiIndex('employeecategories', 'Κατηγορίες Απασχολούμενων');
             $this->view->list[] = new Dnna_Model_ApiIndex('employeespecialties', 'Ειδικότητες Απασχολούμενων');
+            $this->view->list[] = new Dnna_Model_ApiIndex('banks', 'Τράπεζες');
         }
         $this->_helper->Index($this, $this->view->list);
     }

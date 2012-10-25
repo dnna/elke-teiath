@@ -67,6 +67,20 @@ class Erga_Model_ProjectFinancialDetails extends Dnna_Model_Object {
      */
     protected $_budgetfpa;
     /**
+     * @ManyToOne (targetEntity="Application_Model_Lists_Bank")
+     * @JoinColumn (name="bankid", referencedColumnName="id")
+     * @var Application_Model_Lists_Bank
+     */
+    protected $_bank;
+    /**
+     * @Column (name="iban", type="string")
+     */
+    protected $_iban;
+    /**
+     * @Column (name="financialenddate", type="date")
+     */
+    protected $_financialenddate;
+    /**
      * @OneToMany (targetEntity="Erga_Model_SubItems_BudgetItem", mappedBy="_financialdetails", orphanRemoval=true, cascade={"all"})
      * @var Erga_Model_SubItems_BudgetItem
      */
@@ -232,6 +246,30 @@ class Erga_Model_ProjectFinancialDetails extends Dnna_Model_Object {
         } else {
             return null;
         }
+    }
+
+    public function get_bank() {
+        return $this->_bank;
+    }
+
+    public function set_bank($_bank) {
+        $this->_bank = $_bank;
+    }
+
+    public function get_iban() {
+        return $this->_iban;
+    }
+
+    public function set_iban($_iban) {
+        $this->_iban = $_iban;
+    }
+
+    public function get_financialenddate() {
+        return $this->_financialenddate;
+    }
+
+    public function set_financialenddate($_financialenddate) {
+        $this->_financialenddate = EDateTime::create($_financialenddate);
     }
 
     public function get_budgetitems() {
