@@ -24,6 +24,18 @@ class Erga_Form_ErgaFilters extends Dnna_Form_FormBase {
             'value' => null
         ));
 
+        $subform->addElement('text', 'from', array(
+            'label' => 'Από:',
+            'class' => 'usedatepicker',
+            'required' => true,
+        ));
+
+        $subform->addElement('text', 'to', array(
+            'label' => 'Έως:',
+            'class' => 'usedatepicker',
+            'required' => true,
+        ));
+
         // Αναζήτηση
         $subform->addElement('text', 'search', array(
             'label' => 'Αναζήτηση',

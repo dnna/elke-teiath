@@ -40,6 +40,20 @@ class Erga_Model_Repositories_Projects extends Application_Model_Repositories_Ba
         if(isset($filters['showoverdues']) && $filters['showoverdues'] != "") {
             $this->addOverduesFilter($qb, $filters['showoverdues']);
         }
+        // Από
+        if(isset($filters['from']) && $filters['from'] != "") {
+            $fromdate = \EDateTime::create($filters['from']);
+            $qb->join('p._basicdetails', 'frombd');
+            $qb->andWhere('frombd._startdate > :fromdate');
+            $qb->setParameter('fromdate', $fromdate);
+        }
+        // Έως
+        if(isset($filters['to']) && $filters['to'] != "") {
+            $todate = \EDateTime::create($filters['to']);
+            $qb->join('p._basicdetails', 'tobd');
+            $qb->andWhere('tobd._enddate < :todate');
+            $qb->setParameter('todate', $todate);
+        }
         // Αναζήτηση
         if(isset($filters['search']) && $filters['search'] != "") {
             $this->addSearchFilter($qb, $filters['search']);
