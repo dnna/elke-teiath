@@ -183,7 +183,7 @@ class  Erga_Form_FinancialDetails extends Dnna_Form_SubFormBase {
             );
         }
         
-		$this->addSubForm(new Application_Form_Subforms_AgencySelect('Φορέας Χρηματοδότησης'), 'fundingagency');
+        $this->addSubForm(new Application_Form_Subforms_AgencySelect('Φορέας Χρηματοδότησης'), 'fundingagency');
         
         $this->addFinancialDetailsFields();
         

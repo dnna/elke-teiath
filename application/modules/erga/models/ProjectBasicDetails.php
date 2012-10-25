@@ -19,6 +19,12 @@ class Erga_Model_ProjectBasicDetails extends Dnna_Model_Object {
     protected $_mis; // MIS
     /** @Column (name="acccode", type="string") */
     protected $_acccode; // Κωδικός Λογιστηρίου
+    /**
+     * @ManyToOne (targetEntity="Application_Model_Department", cascade={"persist"})
+     * @JoinColumn (name="departmentid", referencedColumnName="department_id")
+     * @var Application_Model_Department
+     */
+    protected $_department;
     /** @Column (name="refnumapproved", type="string") */
     protected $_refnumapproved = ""; // Απόφαση Έγκρισης ΕΕΕ
     /** @Column (name="refnumstart", type="string") */
@@ -110,6 +116,14 @@ class Erga_Model_ProjectBasicDetails extends Dnna_Model_Object {
 
     public function set_acccode($_acccode) {
         $this->_acccode = $_acccode;
+    }
+
+    public function get_department() {
+        return $this->_department;
+    }
+
+    public function set_department($_department) {
+        $this->_department = $_department;
     }
 
     public function get_refnumapproved() {

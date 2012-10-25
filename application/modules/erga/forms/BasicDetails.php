@@ -135,6 +135,8 @@ class  Erga_Form_BasicDetails extends Dnna_Form_SubFormBase {
             );
         }
 
+        $this->addSubForm(new Application_Form_Subforms_DepartmentSelect('Τμήμα'), 'department');
+
         $this->addSubForm(new Application_Form_Subforms_SupervisorSelect(null, $this->_view), 'supervisor');
         $this->getSubForm('supervisor')->setLegend('Στοιχεία Επιστημονικά Υπεύθυνου');
         $this->addExpandImg('supervisor');
