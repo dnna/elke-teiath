@@ -75,18 +75,6 @@ class Erga_Model_ProjectFinancialDetailsProxy extends \Erga_Model_ProjectFinanci
         return parent::set_fundingagency($_fundingagency);
     }
 
-    public function get_category()
-    {
-        $this->__load();
-        return parent::get_category();
-    }
-
-    public function set_category($_category)
-    {
-        $this->__load();
-        return parent::set_category($_category);
-    }
-
     public function get_sae()
     {
         $this->__load();
@@ -346,7 +334,7 @@ class Erga_Model_ProjectFinancialDetailsProxy extends \Erga_Model_ProjectFinanci
 
     public function __sleep()
     {
-        return array('__isInitialized__', '_financialdetailsid', '_project', '_fundingagency', '_category', '_sae', '_nationalparticipation', '_europeanparticipation', '_fundingframework', '_opprogramme', '_axis', '_fundingreceipts', '_budget', '_budgetfpa', '_bank', '_iban', '_financialenddate', '_budgetitems');
+        return array('__isInitialized__', '_financialdetailsid', '_project', '_fundingagency', '_sae', '_nationalparticipation', '_europeanparticipation', '_fundingframework', '_opprogramme', '_axis', '_fundingreceipts', '_budget', '_budgetfpa', '_bank', '_iban', '_financialenddate', '_budgetitems');
     }
 
     public function __clone()

@@ -22,12 +22,6 @@ class Erga_Model_ProjectFinancialDetails extends Dnna_Model_Object {
      * @var Application_Model_Lists_Agency
      */
     protected $_fundingagency;
-    /**
-     * @ManyToOne (targetEntity="Application_Model_Lists_ProjectCategory")
-     * @JoinColumn (name="category", referencedColumnName="id")
-     * @var Application_Model_Lists_ProjectCategory
-     */
-    protected $_category;
     /** @Column (name="sae", type="string") */
     protected $_sae; // ΣΑΕ
     /**
@@ -116,19 +110,6 @@ class Erga_Model_ProjectFinancialDetails extends Dnna_Model_Object {
 
     public function set_fundingagency($_fundingagency) {
         $this->_fundingagency = $_fundingagency;
-    }
-
-    public function get_category() {
-        if($this->_category != null) {
-            return $this->_category;
-        } else {
-            $category = new Application_Model_Lists_ProjectCategory();
-            return $category;
-        }
-    }
-
-    public function set_category($_category) {
-        $this->_category = $_category;
     }
 
     public function get_sae() {

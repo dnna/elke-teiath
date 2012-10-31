@@ -12,6 +12,14 @@ class  Erga_Form_BasicDetails extends Dnna_Form_SubFormBase {
             $subform = new Dnna_Form_SubFormBase();
             $subform->setLegend('Βασικά Στοιχεία Έργου');
         }
+        // Κατηγορία
+        $projectcategorysubform = new Dnna_Form_SubFormBase();
+        $projectcategorysubform->addElement('select', 'id', array(
+            'required' => true,
+            'label' => 'Κατηγορία:',
+            'multiOptions' => Application_Model_Repositories_Lists::getListAsArray('Application_Model_Lists_ProjectCategory')
+        ));
+        $subform->addSubForm($projectcategorysubform, 'category', false);
         // MIS
         $subform->addElement('text', 'mis', array(
             'label' => 'Κωδικός έργου (MIS):',

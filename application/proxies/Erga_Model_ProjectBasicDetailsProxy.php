@@ -63,6 +63,18 @@ class Erga_Model_ProjectBasicDetailsProxy extends \Erga_Model_ProjectBasicDetail
         return parent::set_project($_project);
     }
 
+    public function get_category()
+    {
+        $this->__load();
+        return parent::get_category();
+    }
+
+    public function set_category($_category)
+    {
+        $this->__load();
+        return parent::set_category($_category);
+    }
+
     public function get_mis()
     {
         $this->__load();
@@ -346,7 +358,7 @@ class Erga_Model_ProjectBasicDetailsProxy extends \Erga_Model_ProjectBasicDetail
 
     public function __sleep()
     {
-        return array('__isInitialized__', '_basicdetailsid', '_project', '_mis', '_acccode', '_department', '_refnumapproved', '_refnumstart', '_modifications', '_title', '_titleen', '_supervisor', '_committee', '_description', '_startdate', '_enddate', '_comments');
+        return array('__isInitialized__', '_basicdetailsid', '_project', '_category', '_mis', '_acccode', '_department', '_refnumapproved', '_refnumstart', '_modifications', '_title', '_titleen', '_supervisor', '_committee', '_description', '_startdate', '_enddate', '_comments');
     }
 
     public function __clone()

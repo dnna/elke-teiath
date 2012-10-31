@@ -15,6 +15,12 @@ class Erga_Model_ProjectBasicDetails extends Dnna_Model_Object {
      * @JoinColumn (name="projectid", referencedColumnName="projectid")
      */
     protected $_project;
+    /**
+     * @ManyToOne (targetEntity="Application_Model_Lists_ProjectCategory")
+     * @JoinColumn (name="category", referencedColumnName="id")
+     * @var Application_Model_Lists_ProjectCategory
+     */
+    protected $_category;
     /** @Column (name="mis", type="string") */
     protected $_mis; // MIS
     /** @Column (name="acccode", type="string") */
@@ -100,6 +106,19 @@ class Erga_Model_ProjectBasicDetails extends Dnna_Model_Object {
 
     public function set_project($_project) {
         $this->_project = $_project;
+    }
+
+    public function get_category() {
+        if($this->_category != null) {
+            return $this->_category;
+        } else {
+            $category = new Application_Model_Lists_ProjectCategory();
+            return $category;
+        }
+    }
+
+    public function set_category($_category) {
+        $this->_category = $_category;
     }
 
     public function get_mis() {
