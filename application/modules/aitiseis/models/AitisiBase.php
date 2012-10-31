@@ -14,7 +14,7 @@
  * "dhmiourgiaepitropisparalavis" = "Aitiseis_Model_DhmiourgiaEpitropisParalavis",
  * "telikouapologismou" = "Aitiseis_Model_TelikosApologismos",
  * "orismosepitropisdiagonismou" = "Aitiseis_Model_OrismosEpitropisDiagonismou",
- * "entolipliromis" = "Aitiseis_Model_EntoliPliromis"
+ * "entolipliromis" = "Aitiseis_Model_EntoliPliromis",
  * })
  */
 // * "oikonomikidiaxeirisisynedriou" = "Aitiseis_Model_OikonomikiDiaxeirisi_Synedriou",

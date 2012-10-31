@@ -2,6 +2,7 @@ $(document).ready(function() {
     var items = new Array();
     var item = {
         addButtonName: 'position-partners-addPartner',
+        removeSpecialFunc: removePartner,
         firstPart: 'position-partners',
         fields: ['partnerlistitem', 'amount', 'iscoordinator'],
         fieldToCheck: 'amount',
@@ -22,6 +23,23 @@ $(document).ready(function() {
     changeTEIRole($("#position-default-teirole").val());
     
     updateCheckboxVisibility();
+
+    // Autocomplete for contractor
+    $('#position-anadoxos-id-element').comboSelect(baseUrl+'/api/agencies.json', {
+        resultsProperty: 'agencies',
+        initialValue: $('#position-anadoxos-name').val()
+    });
+
+    // Autocomplete for partners
+    var click1 = function(aa) {
+        $('#position-partners-'+aa+'-partnerlistitem-id-element').comboSelect(baseUrl+'/api/agencies.json', {
+            resultsProperty: 'agencies',
+            initialValue: $('#position-partners-'+aa+'-partnerlistitem-name').val()
+        });
+    }
+    for(var i = 1; i <= 20; i++) {
+        click1(i);
+    }
 });
 
 
@@ -80,3 +98,9 @@ var addItem = (function(item) {
     updateCheckboxVisibility();
     return result;
 });
+
+function removePartner(element) {
+    $('#'+element).parent().parent().parent().find('.partnerautocompleteid').val('null');
+    $('#'+element).parent().parent().parent().find('.partnerautocompletename').val('');
+    $('#'+element).parent().parent().parent().find('.partnerautocompleteid').parent().find('.ffb-input').val('');
+}

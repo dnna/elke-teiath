@@ -9,7 +9,7 @@ $(document).ready(function() {
     }
     items = pushToArray(items, item);
     
-    item = { 
+    item = {
         addButtonName: 'basicdetails-committee-addCommitteeMember',
         removeSpecialFunc: removeCommitteeMember,
         firstPart: 'basicdetails-committee',
@@ -34,7 +34,7 @@ $(document).ready(function() {
     $("#toggleSupervisorDetails").click(function() { toggleDetails('basicdetails-supervisor', supervisorFields); });
     toggleDetails('basicdetails-supervisor', supervisorFields);
 
-    function click1(aa) {
+    var click1 = function(aa) {
         $('#basicdetails-committee-'+aa+'-user-userid-element').comboSelect(baseUrl+'/api/users.json', {
             resultsProperty: 'users',
             initialValue: $('#basicdetails-committee-'+aa+'-user-realname').val()

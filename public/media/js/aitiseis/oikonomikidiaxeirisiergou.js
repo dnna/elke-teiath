@@ -2,6 +2,7 @@ $(document).ready(function() {
     var items = new Array();
     var item = {
         addButtonName: 'partners-addPartner',
+        removeSpecialFunc: removePartner,
         firstPart: 'partners',
         fields: ['partnerlistitem'],
         itemCount: 20
@@ -19,6 +20,17 @@ $(document).ready(function() {
     items = pushToArray(items, item);
 
     setupItems($.extend(true, {}, items));
+
+    // Autocomplete for partners
+    var click1 = function(aa) {
+        $('#partners-'+aa+'-partnerlistitem-id-element').comboSelect(baseUrl+'/api/agencies.json', {
+            resultsProperty: 'agencies',
+            initialValue: $('#partners-'+aa+'-partnerlistitem-name').val()
+        });
+    }
+    for(var i = 1; i <= 20; i++) {
+        click1(i);
+    }
 
     $('#parentaitisi-aitisiid-element').comboSelect(baseUrl+'/api/aitiseis/ypovoliergou.json', {
         resultsProperty: 'aitiseis',
@@ -48,3 +60,10 @@ $(document).ready(function() {
         $('#budgetitems-sum').val($(".calcSum").sum());
     });
 });
+
+function removePartner(element) {
+    alert(element);
+    $('#'+element).parent().parent().parent().find('.partnerautocompleteid').val('null');
+    $('#'+element).parent().parent().parent().find('.partnerautocompletename').val('');
+    $('#'+element).parent().parent().parent().find('.partnerautocompleteid').parent().find('.ffb-input').val('');
+}

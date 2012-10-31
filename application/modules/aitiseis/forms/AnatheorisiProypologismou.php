@@ -29,7 +29,7 @@ class  Aitiseis_Form_AnatheorisiProypologismou extends Aitiseis_Form_Aitisi {
         $this->addSubForm(new Application_Form_Subforms_AitisiSelect(array('type' => 'oikonomikidiaxeirisi', 'approved' => true), $this->_view), 'parentaitisi');
         $this->getSubForm('parentaitisi')->setLegend('Εγκεκριμένη Αίτηση Ανάληψης Οικονομικής Διαχείρισης');
 
-        //$this->addSubForm(new Application_Form_Subforms_AgencySelect('Φορέας Χρηματοδότησης'), 'fundingagency');
+        //$this->addSubForm(new Application_Form_Subforms_AgencySelect('Φορέας Χρηματοδότησης', null, $this->_view), 'fundingagency');
 
         $subform = new Dnna_Form_SubFormBase($this->_view);
         $this->addBudgetItemFields($subform);

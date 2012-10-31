@@ -12,6 +12,12 @@ $(document).ready(function() {
 
     setupItems($.extend(true, {}, items));
 
+    // Funding agency autocomplete
+    $('#fundingagency-id-element').comboSelect(baseUrl+'/api/agencies.json', {
+        resultsProperty: 'agencies',
+        initialValue: $('#fundingagency-name').val()
+    });
+
     $.Calculation.setDefaults({
             // a regular expression for detecting European-style formatted numbers
             reNumbers: /(-?\$?)(\d+(\.\d{3})*(,\d{1,})?|,\d{1,})/g

@@ -87,7 +87,7 @@ class  Aitiseis_Form_OikonomikiDiaxeirisiErgou extends Aitiseis_Form_Aitisi {
         $this->addSubForm($partners, 'partners');
         $this->getSubForm('partners')->setLegend('Συνεργαζόμενοι Φορείς');
 
-        //$this->addSubForm(new Application_Form_Subforms_AgencySelect('Φορέας Χρηματοδότησης'), 'fundingagency');
+        //$this->addSubForm(new Application_Form_Subforms_AgencySelect('Φορέας Χρηματοδότησης', null, $this->_view), 'fundingagency');
 
         $this->addFinancialDetailsFields();
 

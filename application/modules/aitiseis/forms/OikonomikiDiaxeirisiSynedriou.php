@@ -52,7 +52,7 @@ class  Aitiseis_Form_OikonomikiDiaxeirisiSynedriou extends Aitiseis_Form_Aitisi 
 
         $this->addFinancialDetailsFields();
 
-        $this->addSubForm(new Application_Form_Subforms_AgencySelect('Φορέας Χρηματοδότησης'), 'fundingagency');
+        $this->addSubForm(new Application_Form_Subforms_AgencySelect('Φορέας Χρηματοδότησης', null, $this->_view), 'fundingagency');
 
         $subform = new Dnna_Form_SubFormBase($this->_view);
         $this->addBudgetItemFields($subform);

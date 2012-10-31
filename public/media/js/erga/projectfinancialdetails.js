@@ -20,6 +20,12 @@ $(document).ready(function() {
 
     setupItems($.extend(true, {}, items));
 
+    // Funding agency autocomplete
+    $('#financialdetails-fundingagency-id-element').comboSelect(baseUrl+'/api/agencies.json', {
+        resultsProperty: 'agencies',
+        initialValue: $('#financialdetails-fundingagency-name').val()
+    });
+
     $("#financialdetails-default-budget").blur(function(){
         calculateBudgetWithFPA();
     });

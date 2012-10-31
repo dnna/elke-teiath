@@ -59,11 +59,11 @@ class Aitiseis_Form_YpovoliErgou extends Aitiseis_Form_Aitisi {
             'required' => true,
         ));
         // Φορέας Χρηματοδότησης
-        $subform->addSubForm(new Application_Form_Subforms_AgencySelect('Φορέας Χρηματοδότησης'), 'fundingagency', false);
+        $subform->addSubForm(new Application_Form_Subforms_AgencySelect('Φορέας Χρηματοδότησης', true, $this->_view), 'fundingagency', false);
         // Φορέας Συγχρηματοδότησης
-        $subform->addSubForm(new Application_Form_Subforms_AgencySelect('Φορέας Συγχρηματοδότησης', false), 'cofundingagency', false);
+        $subform->addSubForm(new Application_Form_Subforms_AgencySelect('Φορέας Συγχρηματοδότησης', false, $this->_view), 'cofundingagency', false);
         // Ανάδοχος Φορέας Έργου
-        $subform->addSubForm(new Application_Form_Subforms_AgencySelect('Ανάδοχος Φορέας Έργου', false), 'contractor', false);
+        $subform->addSubForm(new Application_Form_Subforms_AgencySelect('Ανάδοχος Φορέας Έργου', false, $this->_view), 'contractor', false);
         // Προϋπολογισμός Έργου
         $subform->addElement('text', 'totalbudget', array(
             'label' => 'Συνολικός Προϋπολογισμός Έργου:',

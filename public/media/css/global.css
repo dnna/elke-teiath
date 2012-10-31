@@ -1029,3 +1029,8 @@ fieldset.biglabels label{
 .zend_form {
     min-width: 925px;
 }
+
+.partner > div:first-of-type {
+    height: 30px;
+    margin-right: 25px;
+}
