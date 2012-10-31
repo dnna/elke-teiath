@@ -111,6 +111,7 @@ class Aitiseis_Model_OikonomikiDiaxeirisi_Ergou extends Aitiseis_Model_AitisiBas
 
         $this->_project->get_financialdetails()->setOptions($vars);
         $this->_project->get_financialdetails()->set_budget($this->_totalbudget);
+        $this->_project->get_basicdetails()->set_category($this->_category);
         $this->_project->get_position()->setOptions($vars);
         if($this->_parentaitisi->get_contractor() != null) {
             $this->_project->get_position()->set_teirole(3);
