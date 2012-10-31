@@ -62,7 +62,7 @@ class Erga_View_Helper_ViewErga extends Zend_View_Helper_Abstract
                     }
                     $return .=  '<td class="formatFloat">'.$this->view->escape($entry->get_financialdetails()->get_budgetwithfpa()).'</td>
                                 <td>'.$this->view->escape($entry->get_basicdetails()->get_startdate()).'</td>
-                                <td>'.$this->view->escape($entry->get_financialdetails()->get_category()->get_name()).'</td>
+                                <td>'.$this->view->escape($entry->get_basicdetails()->get_category()->get_name()).'</td>
                                 <td>'.$this->view->escape($entry->get_financialdetails()->get_opprogramme()).'</td>
                             </tr>';
             }
