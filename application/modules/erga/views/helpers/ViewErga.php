@@ -29,8 +29,8 @@ class Erga_View_Helper_ViewErga extends Zend_View_Helper_Abstract
         }
         $return .=  '<th>'.$this->view->getOrderLink('financialdetails_budget', 'Προϋπολογισμός').'</th>
                     <th>'.$this->view->getOrderLink('basicdetails_startdate', 'Ημ/νία Έναρξης').'</th>
-                    <th>'.$this->view->getOrderLink('financialdetails_category_name', 'Κατηγορία').'</th>
-                    <th>'.$this->view->getOrderLink('financialdetails_opprogramme_opprogrammeid', 'Ε.Π.').'</th>
+                    <th>'.$this->view->getOrderLink('basicdetails_category_name', 'Κατηγορία').'</th>
+                    <th>'.$this->view->getOrderLink('basicdetails_opprogramme_opprogrammeid', 'Ε.Π.').'</th>
                 </tr>
                 </thead>
                 <tbody>';
