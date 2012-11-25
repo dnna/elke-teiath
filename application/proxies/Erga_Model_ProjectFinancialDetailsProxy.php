@@ -81,6 +81,12 @@ class Erga_Model_ProjectFinancialDetailsProxy extends \Erga_Model_ProjectFinanci
         return parent::get_fundingagenciesAsString();
     }
 
+    public function get_fundingagenciesAsArray()
+    {
+        $this->__load();
+        return parent::get_fundingagenciesAsArray();
+    }
+
     public function get_sae()
     {
         $this->__load();

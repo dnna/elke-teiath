@@ -10,6 +10,11 @@ class Erga_Model_SubItems_FundingReceipt extends Application_Model_SubObject {
      */
     protected $_financialdetails;
     /**
+     * @ManyToOne (targetEntity="Erga_Model_SubItems_FundingAgency")
+     * @JoinColumn (name="fundingagencyid", referencedColumnName="recordid")
+     */
+    protected $_fundingagency;
+    /**
      * @Column (name="date", type="date")
      * @var EDateTime
      */
@@ -23,6 +28,14 @@ class Erga_Model_SubItems_FundingReceipt extends Application_Model_SubObject {
 
     public function set_financialdetails($_financialdetails) {
         $this->_financialdetails = $_financialdetails;
+    }
+
+    public function get_fundingagency() {
+        return $this->_fundingagency;
+    }
+
+    public function set_fundingagency($_fundingagency) {
+        $this->_fundingagency = $_fundingagency;
     }
 
     public function get_date() {

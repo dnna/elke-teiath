@@ -118,6 +118,14 @@ class Erga_Model_ProjectFinancialDetails extends Dnna_Model_Object {
         return $string;
     }
 
+    public function get_fundingagenciesAsArray() {
+        $array = array();
+        foreach($this->_fundingagencies as $curAgency) {
+            $array[$curAgency->get_recordid()] = $curAgency->get_agency()->get_name();
+        }
+        return $array;
+    }
+
     public function get_sae() {
         return $this->_sae;
     }

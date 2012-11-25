@@ -174,7 +174,7 @@ class  Erga_Form_FinancialDetails extends Dnna_Form_SubFormBase {
         }
         // Αντικείμενα 1-10
         for($i = 1; $i <= 10; $i++) {
-            $subform->addSubForm(new Erga_Form_Subforms_FundingReceipt($i), $i, null, 'financialdetails-fundingreceipts');
+            $subform->addSubForm(new Erga_Form_Subforms_FundingReceipt($i, $this->_view), $i, null, 'financialdetails-fundingreceipts');
         }
 
         $subform->addElement('button', 'addFundingReceipt', array(
