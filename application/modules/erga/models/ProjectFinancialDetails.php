@@ -107,7 +107,7 @@ class Erga_Model_ProjectFinancialDetails extends Dnna_Model_Object {
 
     public function get_fundingagenciesAsString() {
         $string = '';
-        $i = 0;
+        $i = 1;
         foreach($this->_fundingagencies as $curAgency) {
             $string .= $curAgency->get_agency()->get_name();
             if($i < $this->_fundingagencies->count()) {
