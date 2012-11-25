@@ -264,7 +264,11 @@ class Erga_Model_ProjectFinancialDetails extends Dnna_Model_Object {
     }
 
     public function set_financialenddate($_financialenddate) {
-        $this->_financialenddate = EDateTime::create($_financialenddate);
+        if($_financialenddate != '') {
+            $this->_financialenddate = EDateTime::create($_financialenddate);
+        } else {
+            $this->_financialenddate = null;
+        }
     }
 
     public function get_budgetitems() {
