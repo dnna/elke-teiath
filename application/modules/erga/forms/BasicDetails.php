@@ -123,6 +123,7 @@ class  Erga_Form_BasicDetails extends Dnna_Form_SubFormBase {
         // Αντικείμενα 1-10
         for($i = 1; $i <= 10; $i++) {
             $subform->addSubForm(new Erga_Form_Subforms_PreviousSupervisor($i), $i, null, 'basicdetails-previoussupervisors');
+            $subform->getSubForm($i)->setAttrib('class', 'previoussupervisor');
         }
 
         $subform->addElement('button', 'addPreviousSupervisor', array(

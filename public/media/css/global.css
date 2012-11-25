@@ -1030,7 +1030,7 @@ fieldset.biglabels label{
     min-width: 925px;
 }
 
-.partner > div:first-of-type {
+.partner > div:first-of-type, .previoussupervisor > div:first-of-type {
     height: 30px;
     margin-right: 25px;
 }
