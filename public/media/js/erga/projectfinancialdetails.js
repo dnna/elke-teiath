@@ -1,6 +1,15 @@
 $(document).ready(function() {
     var items = new Array();
     var item = {
+        addButtonName: 'financialdetails-fundingagencies-addFundingAgency',
+        firstPart: 'financialdetails-fundingagencies',
+        fields: ['id'],
+        fieldToCheck: 'id',
+        itemCount: 10
+    }
+    items = pushToArray(items, item);
+
+    var item = {
         addButtonName: 'financialdetails-default-budgetitems-addBudgetItem',
         firstPart: 'financialdetails-default-budgetitems',
         fields: ['category', 'amount'],
@@ -21,10 +30,19 @@ $(document).ready(function() {
     setupItems($.extend(true, {}, items));
 
     // Funding agency autocomplete
-    $('#financialdetails-fundingagency-id-element').comboSelect(baseUrl+'/api/agencies.json', {
+    /*$('#financialdetails-fundingagency-id-element').comboSelect(baseUrl+'/api/agencies.json', {
         resultsProperty: 'agencies',
         initialValue: $('#financialdetails-fundingagency-name').val()
-    });
+    });*/
+    var click1 = function(aa) {
+        $('#financialdetails-fundingagencies-'+aa+'-agency-id-element').comboSelect(baseUrl+'/api/agencies.json', {
+            resultsProperty: 'agencies',
+            initialValue: $('#financialdetails-fundingagencies-'+aa+'-agency-name').val()
+        });
+    }
+    for(var i = 1; i <= 10; i++) {
+        click1(i);
+    }
 
     $("#financialdetails-default-budget").blur(function(){
         calculateBudgetWithFPA();

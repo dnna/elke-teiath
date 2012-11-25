@@ -185,6 +185,23 @@ class  Erga_Form_FinancialDetails extends Dnna_Form_SubFormBase {
         $this->getSubForm('fundingreceipts')->setLegend('Χρηματοδοτήσεις');
     }
 
+    protected function addFundingAgencyFields(&$subform = null) {
+        if($subform == null) {
+            $subform = new Dnna_Form_SubFormBase();
+        }
+        // Αντικείμενα 1-10
+        for($i = 1; $i <= 10; $i++) {
+            $subform->addSubForm(new Erga_Form_Subforms_FundingAgency($i, $this->_view), $i, null, 'financialdetails-fundingagencies');
+        }
+
+        $subform->addElement('button', 'addFundingAgency', array(
+            'label' => 'Προσθήκη Φορέα Χρηματοδότησης',
+            'class' => 'fundingagencybuttons addButton',
+        ));
+        $this->addSubForm($subform, 'fundingagencies');
+        $this->getSubForm('fundingagencies')->setLegend('Φορείς Χρηματοδότησης');
+    }
+
     public function init() {
         $this->_view->headScript()->appendFile($this->_view->baseUrl('media/js/jquery.calculation.js', 'text/javascript'));
         $this->_view->headScript()->appendFile($this->_view->baseUrl('media/js/erga/projectfinancialdetails.js', 'text/javascript'));
@@ -196,7 +213,7 @@ class  Erga_Form_FinancialDetails extends Dnna_Form_SubFormBase {
             );
         }
         
-        $this->addSubForm(new Application_Form_Subforms_AgencySelect('Φορέας Χρηματοδότησης', true, $this->_view), 'fundingagency');
+        $this->addFundingAgencyFields();
         
         $this->addFinancialDetailsFields();
         

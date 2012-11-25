@@ -17,11 +17,10 @@ class Erga_Model_ProjectFinancialDetails extends Dnna_Model_Object {
      */
     protected $_project;
     /**
-     * @ManyToOne (targetEntity="Application_Model_Lists_Agency")
-     * @JoinColumn (name="fundingagencyid", referencedColumnName="id")
-     * @var Application_Model_Lists_Agency
+     * @OneToMany (targetEntity="Erga_Model_SubItems_FundingAgency", mappedBy="_financialdetails", orphanRemoval=true, cascade={"all"})
+     * @var Erga_Model_SubItems_FundingAgency
      */
-    protected $_fundingagency;
+    protected $_fundingagencies;
     /** @Column (name="sae", type="string") */
     protected $_sae; // ΣΑΕ
     /**
@@ -98,18 +97,25 @@ class Erga_Model_ProjectFinancialDetails extends Dnna_Model_Object {
         $this->_project = $_project;
     }
 
-    public function get_fundingagency() {
-        if($this->_fundingagency != null) {
-            return $this->_fundingagency;
-        } else {
-            $fundingagency = new Application_Model_Lists_Agency();
-            $fundingagency->set_name('-');
-            return $fundingagency;
-        }
+    public function get_fundingagencies() {
+        return $this->_fundingagencies;
     }
 
-    public function set_fundingagency($_fundingagency) {
-        $this->_fundingagency = $_fundingagency;
+    public function set_fundingagencies($_fundingagencies) {
+        $this->_fundingagencies = $_fundingagencies;
+    }
+
+    public function get_fundingagenciesAsString() {
+        $string = '';
+        $i = 0;
+        foreach($this->_fundingagencies as $curAgency) {
+            $string .= $curAgency->get_name();
+            if($i < $this->_fundingagencies->count()) {
+                $string .= ', ';
+            }
+            $i++;
+        }
+        return $string;
     }
 
     public function get_sae() {

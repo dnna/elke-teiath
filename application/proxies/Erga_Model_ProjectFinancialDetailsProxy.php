@@ -63,16 +63,22 @@ class Erga_Model_ProjectFinancialDetailsProxy extends \Erga_Model_ProjectFinanci
         return parent::set_project($_project);
     }
 
-    public function get_fundingagency()
+    public function get_fundingagencies()
     {
         $this->__load();
-        return parent::get_fundingagency();
+        return parent::get_fundingagencies();
     }
 
-    public function set_fundingagency($_fundingagency)
+    public function set_fundingagencies($_fundingagencies)
     {
         $this->__load();
-        return parent::set_fundingagency($_fundingagency);
+        return parent::set_fundingagencies($_fundingagencies);
+    }
+
+    public function get_fundingagenciesAsString()
+    {
+        $this->__load();
+        return parent::get_fundingagenciesAsString();
     }
 
     public function get_sae()
@@ -334,7 +340,7 @@ class Erga_Model_ProjectFinancialDetailsProxy extends \Erga_Model_ProjectFinanci
 
     public function __sleep()
     {
-        return array('__isInitialized__', '_financialdetailsid', '_project', '_fundingagency', '_sae', '_nationalparticipation', '_europeanparticipation', '_fundingframework', '_opprogramme', '_axis', '_fundingreceipts', '_budget', '_budgetfpa', '_bank', '_iban', '_financialenddate', '_budgetitems');
+        return array('__isInitialized__', '_financialdetailsid', '_project', '_fundingagencies', '_sae', '_nationalparticipation', '_europeanparticipation', '_fundingframework', '_opprogramme', '_axis', '_fundingreceipts', '_budget', '_budgetfpa', '_bank', '_iban', '_financialenddate', '_budgetitems');
     }
 
     public function __clone()

@@ -151,7 +151,7 @@ class Erga_DiaxeirisiController extends Zend_Controller_Action {
                 $project->get_basicdetails()->get_startdate(), $project->get_basicdetails()->get_enddate(),
                 $project->get_basicdetails()->get_refnumstart(), $project->get_basicdetails()->get_comments(), '',
                 $project->get_financialdetails()->get_budget(), $project->get_financialdetails()->get_budgetfpa(),
-                $project->get_financialdetails()->get_fundingagency()->get_name(), $project->get_basicdetails()->get_category()->get_name(),
+                $project->get_financialdetails()->get_fundingagenciesAsString(), $project->get_basicdetails()->get_category()->get_name(),
                 $project->get_financialdetails()->get_sae(), $project->get_financialdetails()->get_nationalparticipation(),
                 $project->get_financialdetails()->get_europeanparticipation(), $project->get_financialdetails()->get_fundingframework()->get_fundingframeworkname(),
                 $project->get_financialdetails()->get_opprogramme()->get_opprogrammename(), $project->get_financialdetails()->get_axis());
