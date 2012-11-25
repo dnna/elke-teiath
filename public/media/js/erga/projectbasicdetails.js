@@ -18,7 +18,17 @@ $(document).ready(function() {
         itemCount: 10
     }
     items = pushToArray(items, item);
-    
+
+    item = {
+        addButtonName: 'basicdetails-previoussupervisors-addPreviousSupervisor',
+        removeSpecialFunc: removePreviousSupervisor,
+        firstPart: 'basicdetails-previoussupervisors',
+        fields: ['user-userid', 'user-realname', 'user-searchField', 'startdate', 'enddate'],
+        fieldToCheck: 'user-userid',
+        itemCount: 10
+    }
+    items = pushToArray(items, item);
+
     setupItems(jQuery.extend(true, {}, items));
 
     var supervisorFields = ['capacity', 'departmentname', 'sector', 'phone', 'email'];
@@ -34,6 +44,7 @@ $(document).ready(function() {
     $("#toggleSupervisorDetails").click(function() { toggleDetails('basicdetails-supervisor', supervisorFields); });
     toggleDetails('basicdetails-supervisor', supervisorFields);
 
+    // Committe select fields
     var click1 = function(aa) {
         $('#basicdetails-committee-'+aa+'-user-userid-element').comboSelect(baseUrl+'/api/users.json', {
             resultsProperty: 'users',
@@ -42,6 +53,17 @@ $(document).ready(function() {
     }
     for(var i = 1; i <= 10; i++) {
         click1(i);
+    }
+
+    // Previous Supervisors select fields
+    var click2 = function(aa) {
+        $('#basicdetails-previoussupervisors-'+aa+'-user-userid-element').comboSelect(baseUrl+'/api/users.json', {
+            resultsProperty: 'users',
+            initialValue: $('#basicdetails-previoussupervisors-'+aa+'-user-realname').val()
+        });
+    }
+    for(i = 1; i <= 10; i++) {
+        click2(i);
     }
     
     iscomplex_orig = $("#default-iscomplex").val();
@@ -57,6 +79,10 @@ $(document).ready(function() {
 });
 
 function removeCommitteeMember(element) {
+    $("#"+element).val('');
+}
+
+function removePreviousSupervisor(element) {
     $("#"+element).val('');
 }
 

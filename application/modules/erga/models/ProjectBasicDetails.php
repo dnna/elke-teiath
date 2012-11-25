@@ -57,6 +57,11 @@ class Erga_Model_ProjectBasicDetails extends Dnna_Model_Object {
      */
     protected $_supervisor;
     /**
+     * @OneToMany (targetEntity="Erga_Model_SubItems_PreviousSupervisor", mappedBy="_basicdetails", orphanRemoval=true, cascade={"all"})
+     * @var Erga_Model_SubItems_CommitteeMember
+     */
+    protected $_previoussupervisors;
+    /**
      * @OneToMany (targetEntity="Erga_Model_SubItems_CommitteeMember", mappedBy="_basicdetails", orphanRemoval=true, cascade={"all"})
      * @var Erga_Model_SubItems_CommitteeMember
      */
@@ -199,6 +204,14 @@ class Erga_Model_ProjectBasicDetails extends Dnna_Model_Object {
 
     public function set_supervisor($_supervisor) {
         $this->_supervisor = $_supervisor;
+    }
+
+    public function get_previoussupervisors() {
+        return $this->_previoussupervisors;
+    }
+
+    public function set_previoussupervisors($_previoussupervisors) {
+        $this->_previoussupervisors = $_previoussupervisors;
     }
 
     public function get_committee() {

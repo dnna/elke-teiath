@@ -115,6 +115,24 @@ class  Erga_Form_BasicDetails extends Dnna_Form_SubFormBase {
         $this->getSubForm('committee')->setLegend('Επιστημονική Επιτροπή Έργου');
     }
 
+    protected function addPreviousSupervisorsSelectFields(&$subform = null) {
+        if($subform == null) {
+            $subform = new Dnna_Form_SubFormBase(array('legend' => 'Προηγούμενοι Επιστημονικά Υπεύθυνοι'));
+        }
+
+        // Αντικείμενα 1-10
+        for($i = 1; $i <= 10; $i++) {
+            $subform->addSubForm(new Erga_Form_Subforms_PreviousSupervisor($i), $i, null, 'basicdetails-previoussupervisors');
+        }
+
+        $subform->addElement('button', 'addPreviousSupervisor', array(
+            'label' => 'Προσθήκη Νέου',
+            'class' => 'previoussupervisorsbuttons addButton',
+        ));
+        $this->addSubForm($subform, 'previoussupervisors');
+        $this->getSubForm('previoussupervisors')->setLegend('Προηγούμενοι Επιστημονικά Υπεύθυνοι');
+    }
+
     protected function addModificationFields(&$subform = null) {
         if($subform == null) {
             $subform = new Dnna_Form_SubFormBase();
@@ -148,6 +166,8 @@ class  Erga_Form_BasicDetails extends Dnna_Form_SubFormBase {
         $this->addSubForm(new Application_Form_Subforms_SupervisorSelect(null, $this->_view), 'supervisor');
         $this->getSubForm('supervisor')->setLegend('Στοιχεία Επιστημονικά Υπεύθυνου');
         $this->addExpandImg('supervisor');
+
+        $this->addPreviousSupervisorsSelectFields();
 
         $this->addCommitteeSelectFields();
 
