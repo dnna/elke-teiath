@@ -9,6 +9,11 @@ class Api_IndexController extends Dnna_Controller_ApicontentsController
     protected $_allowAnonymous = false;
     protected $_returnhtml = false;
 
+    public function init() {
+        $this->view->addHelperPath(APPLICATION_PATH.'/modules/erga/views/helpers', 'Erga_View_Helper');
+        parent::init();
+    }
+
     public function getAction() {
         throw new Exception('Δεν υποστηρίζεται');
     }
