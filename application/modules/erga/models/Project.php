@@ -316,6 +316,10 @@ class Erga_Model_Project extends Erga_Model_EmployeeContainer {
         }
         $employees = $employees->toArray();
         usort($employees, array("Erga_Model_SubItems_SubProjectEmployee", "compareEmployees"));
+		// Increase index to fix a Dnna_Form_Base bug
+        array_unshift($employees, null);
+        unset($employees[0]);
+		// End bug fix
         return $employees;
     }
 
@@ -352,7 +356,7 @@ class Erga_Model_Project extends Erga_Model_EmployeeContainer {
         //return Zend_Registry::get('entityManager')->getRepository('Erga_Model_Project')->findEmployeeTotals($this);
         throw new Exception('Not implemented');
     }
-    
+
     public function get_personnelcategories() {
         return $this->_personnelcategories;
     }

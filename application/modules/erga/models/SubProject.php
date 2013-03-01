@@ -244,7 +244,7 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
     public function get_subprojectdirectlabor() {
         return $this->_subprojectdirectlabor;
     }
-    
+
     public function set_subprojectdirectlabor($_subprojectdirectlabor) {
         $this->_subprojectdirectlabor = $_subprojectdirectlabor;
         if($_subprojectdirectlabor == 1) {
@@ -272,7 +272,7 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
         $competition = new Praktika_Model_Competition();
         $competition->set_subproject($this);
         return $competition;
-        
+
     }
 
     public function set_competition($_competition) {
@@ -317,6 +317,10 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
     public function get_employees() {
         $employees = $this->_employees->toArray();
         usort($employees, array("Erga_Model_SubItems_SubProjectEmployee", "compareEmployees"));
+		// Increase index to fix a Dnna_Form_Base bug
+        array_unshift($employees, null);
+        unset($employees[0]);
+		// End bug fix
         return $employees;
     }
 
