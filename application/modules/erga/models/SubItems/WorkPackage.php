@@ -18,6 +18,8 @@ class Erga_Model_SubItems_WorkPackage extends Application_Model_SubObject {
      * @var Erga_Model_SubItems_Deliverable
      */
     protected $_deliverables; // Παραδοτέα
+    /** @Column (name="workpackagecodename", type="string") */
+    protected $_workpackagecodename = "--NOCODENAME--";
     /** @Column (name="workpackagename", type="string") */
     protected $_workpackagename = "--NONAME--";
 
@@ -59,6 +61,14 @@ class Erga_Model_SubItems_WorkPackage extends Application_Model_SubObject {
         $this->_deliverables = $this->modifySubCollection($_deliverables, $this->_deliverables);
     }
 
+    public function get_workpackagecodename() {
+        return $this->_workpackagecodename;
+    }
+
+    public function set_workpackagecodename($_workpackagecodename) {
+        $this->_workpackagecodename = $_workpackagecodename;
+    }
+
     public function get_workpackagename() {
         return $this->_workpackagename;
     }
@@ -68,7 +78,7 @@ class Erga_Model_SubItems_WorkPackage extends Application_Model_SubObject {
     }
 
     public function get_name() {
-        return $this->get_workpackagename();
+        return $this->get_workpackagecodename().' '.$this->get_workpackagename();
     }
 
     protected function get__iscomplete() {

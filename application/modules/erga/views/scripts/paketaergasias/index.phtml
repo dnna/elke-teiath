@@ -112,7 +112,7 @@
                 </td>
                 <td>
                     <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'reviewdeliverable', 'deliverableid' => $curDeliverable->get_recordid()), null, true); ?>">
-                        <?php echo $curDeliverable->get_title(); ?>
+                        <?php echo $curDeliverable->get_fulltitle(); ?>
                     </a>
                 </td>
                 <td>
@@ -122,7 +122,7 @@
                     <?php echo $this->printDeliverableAuthors($curDeliverable); ?>
                 </td>
                 <td>
-                    <a href="javascript:void(0);" onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε το παραδοτέο <?php echo $curDeliverable->get_title(); ?>;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'deletedeliverable', 'deliverableid' => $curDeliverable->get_recordid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>' }">
+                    <a href="javascript:void(0);" onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε το παραδοτέο <?php echo $curDeliverable->get_codename(); ?>;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'deletedeliverable', 'deliverableid' => $curDeliverable->get_recordid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>' }">
                         <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή" title='Διαγραφή Παραδοτέου' class="alone"/>
                     </a>
                 </td>

@@ -20,6 +20,8 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
      * @var Erga_Model_SubItems_SubProjectContractor
      */
     protected $_contractor; // Ανάδοχος (αν υπάρχει)
+    /** @Column (name="codename", type="string") */
+    protected $_codename = "--NONAME";
     /** @Column (name="title", type="string") */
     protected $_title = "--NONAME--";
     /** @Column (name="amount", type="greekfloat") */
@@ -70,12 +72,24 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
         $this->_workpackage = $_workpackage;
     }
 
+    public function get_codename() {
+        return $this->_codename;
+    }
+
+    public function set_codename($_codename) {
+        $this->_codename = $_codename;
+    }
+
     public function get_title() {
         return $this->_title;
     }
 
     public function set_title($_title) {
         $this->_title = $_title;
+    }
+
+    public function get_fulltitle() {
+        return $this->get_codename().' '.$this->get_title();
     }
 
     public function get_shorttitle() {
@@ -270,7 +284,7 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
     }
 
     public function __toString() {
-        return $this->get_title();
+        return $this->get_fulltitle();
     }
 }
 ?>

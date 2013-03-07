@@ -18,6 +18,15 @@ class Erga_Form_Ypoerga_PaketoErgasias extends Erga_Form_Ypoerga_FormBase {
             $subform = new Dnna_Form_SubFormBase();
         }
 
+        // Κωδικός
+        $subform->addElement('text', 'workpackagecodename', array(
+            'label' => 'Κωδικός Παραδοτέου:',
+            'validators' => array(
+                array('validator' => 'StringLength', 'options' => array(0, 10))
+            ),
+            'required' => true,
+            )
+        );
         // Τίτλος
         $subform->addElement('textarea', 'workpackagename', array(
             'label' => 'Τίτλος Πακέτου Εργασίας:',

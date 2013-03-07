@@ -1,7 +1,7 @@
 <?php
 class Application_Action_Helper_Url extends Zend_Controller_Action_Helper_Url
 {
-    public function url(array $urlOptions = array(), $name = null, $reset = false, $encode = true)
+    public function url($urlOptions = array(), $name = null, $reset = false, $encode = true)
     {
         $fragment = '';
         if(isset($urlOptions['_fragment'])) {
