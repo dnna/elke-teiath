@@ -1890,7 +1890,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * @param  array $values
      * @return Zend_Form
      */
-    public function populate(array $values)
+    public function populate($values)
     {
         return $this->setDefaults($values);
     }
