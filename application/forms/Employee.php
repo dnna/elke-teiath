@@ -54,7 +54,7 @@ class Application_Form_Employee extends Dnna_Form_SubFormBase {
             
             // Μέγιστος αριθμός ωρών
             $this->addElement('text', 'maxhours', array(
-                'label' => 'Μέγιστος Αριθμός Ωρών:',
+                'label' => 'Μέγιστος Ετήσιος Αριθμός Ωρών:',
                 'validators' => array(
                     array('validator' => 'Int')
                 ),
