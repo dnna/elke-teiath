@@ -78,6 +78,18 @@ class Erga_Model_SubItems_WorkPackageProxy extends \Erga_Model_SubItems_WorkPack
         return parent::set_deliverables($_deliverables);
     }
 
+    public function get_workpackagecodename()
+    {
+        $this->__load();
+        return parent::get_workpackagecodename();
+    }
+
+    public function set_workpackagecodename($_workpackagecodename)
+    {
+        $this->__load();
+        return parent::set_workpackagecodename($_workpackagecodename);
+    }
+
     public function get_workpackagename()
     {
         $this->__load();
@@ -232,7 +244,7 @@ class Erga_Model_SubItems_WorkPackageProxy extends \Erga_Model_SubItems_WorkPack
 
     public function __sleep()
     {
-        return array('__isInitialized__', '_subproject', '_isvirtual', '_deliverables', '_workpackagename', '_recordid');
+        return array('__isInitialized__', '_subproject', '_isvirtual', '_deliverables', '_workpackagecodename', '_workpackagename', '_recordid');
     }
 
     public function __clone()

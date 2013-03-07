@@ -14,7 +14,7 @@ class Aitiseis_Form_Subforms_Employee extends Dnna_Form_SubFormBase {
         $this->addElement('hidden', 'recordid', array());
         if($this->_fromaitisi != true) {
         $this->addSubForm(new Application_Form_Employee($this->_view, $this->_fromaitisi), 'employee');
-        $this->getSubForm('employee')->setLegend('Στοιχεία Απασχολούμενου');
+        $this->getSubForm('employee')->setLegend('Στοιχεία Απασχολούμενου (κοινά για όλα τα έργα)');
         $this->getSubForm('employee')->setOrder(0);
         } else {
             $this->addSubForm(new Application_Form_Employee($this->_view, $this->_fromaitisi), 'employee', false);

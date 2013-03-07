@@ -471,6 +471,7 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
     public function save() {
         if($this->get_parentproject()->get_iscomplex() == 0) {
             $workpackage = $this->getVirtualWorkPackage();
+            $workpackage->set_workpackagecodename('');
             $workpackage->set_workpackagename($this->get_subprojecttitle());
             $workpackage->save();
         }

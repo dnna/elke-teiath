@@ -93,16 +93,7 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
     }
 
     public function get_shorttitle() {
-        if(strlen($this->_title) > 10) {
-            $shorttitle = current(explode(' ', $this->_title));
-            if($shorttitle > 2) {
-                return $shorttitle;
-            } else {
-                return $this->_title;
-            }
-        } else {
-            return $this->_title;
-        }
+        return $this->get_codename();
     }
 
     public function get_authors() {
