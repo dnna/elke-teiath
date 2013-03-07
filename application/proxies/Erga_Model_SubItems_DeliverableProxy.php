@@ -48,6 +48,18 @@ class Erga_Model_SubItems_DeliverableProxy extends \Erga_Model_SubItems_Delivera
         return parent::set_workpackage($_workpackage);
     }
 
+    public function get_codename()
+    {
+        $this->__load();
+        return parent::get_codename();
+    }
+
+    public function set_codename($_codename)
+    {
+        $this->__load();
+        return parent::set_codename($_codename);
+    }
+
     public function get_title()
     {
         $this->__load();
@@ -58,6 +70,12 @@ class Erga_Model_SubItems_DeliverableProxy extends \Erga_Model_SubItems_Delivera
     {
         $this->__load();
         return parent::set_title($_title);
+    }
+
+    public function get_fulltitle()
+    {
+        $this->__load();
+        return parent::get_fulltitle();
     }
 
     public function get_shorttitle()
@@ -334,7 +352,7 @@ class Erga_Model_SubItems_DeliverableProxy extends \Erga_Model_SubItems_Delivera
 
     public function __sleep()
     {
-        return array('__isInitialized__', '_workpackage', '_authors', '_contractor', '_title', '_amount', '_startdate', '_enddate', '_assignmentapprovaldate', '_completionapprovaldate', '_comments', '_timesheetactivities', '_limits', '_recordid');
+        return array('__isInitialized__', '_workpackage', '_authors', '_contractor', '_codename', '_title', '_amount', '_startdate', '_enddate', '_assignmentapprovaldate', '_completionapprovaldate', '_comments', '_timesheetactivities', '_limits', '_recordid');
     }
 
     public function __clone()
