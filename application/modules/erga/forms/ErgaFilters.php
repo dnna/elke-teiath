@@ -27,13 +27,13 @@ class Erga_Form_ErgaFilters extends Dnna_Form_FormBase {
         $subform->addElement('text', 'from', array(
             'label' => 'Από:',
             'class' => 'usedatepicker',
-            'required' => true,
+            'required' => false,
         ));
 
         $subform->addElement('text', 'to', array(
             'label' => 'Έως:',
             'class' => 'usedatepicker',
-            'required' => true,
+            'required' => false,
         ));
 
         // Αναζήτηση
