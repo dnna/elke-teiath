@@ -20,7 +20,7 @@ class Erga_Form_Ypoerga_PaketoErgasias extends Erga_Form_Ypoerga_FormBase {
 
         // Κωδικός
         $subform->addElement('text', 'workpackagecodename', array(
-            'label' => 'Κωδικός Παραδοτέου:',
+            'label' => 'Κωδικός Πακέτου Εργασίας:',
             'validators' => array(
                 array('validator' => 'StringLength', 'options' => array(0, 10))
             ),
