@@ -21,7 +21,7 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
      */
     protected $_contractor; // Ανάδοχος (αν υπάρχει)
     /** @Column (name="codename", type="string") */
-    protected $_codename = "--NONAME";
+    protected $_codename = "--NONAME--";
     /** @Column (name="title", type="string") */
     protected $_title = "--NONAME--";
     /** @Column (name="amount", type="greekfloat") */

@@ -2,87 +2,110 @@
 <?php $this->headScript()->appendFile($this->baseUrl('media/js/jquery.cookie.js', 'text/javascript')); ?>
 <?php $this->headScript()->appendFile($this->baseUrl('media/js/jquery.treeTable.js', 'text/javascript')); ?>
 <?php $this->headScript()->appendFile($this->baseUrl('media/js/erga/paketaergasias/treeview.js', 'text/javascript')); ?>
-<?php echo $this->projectNavigation(array(), $this->getProject()); ?>
+<?php echo $this->projectNavigation(array(), $this->project); ?>
 <br/>
-<input type="search" id="id_search" placeholder=" Αναζήτηση..."></input>
+<input type="text" id="id_search" placeholder=" Αναζήτηση..."></input>
 
 <div id="listaUpoergwn">
 
 
-<table id="paketaergasiascollapsible" class="treeTable fatTable fatTable">
-    <thead>
-    <tr>
-        <th width="16">
+    <table id="paketaergasiascollapsible" class="treeTable fatTable">
+        <thead>
+            <tr>
+                <th width="16">
 
-        </th>
-        <th width="450">
-            Τίτλος
-        </th>
-        <th width="54">
-            Ποσό
-        </th>
-        <th width="54">
-            Συντάκτες
-        </th>
-        <th width="65">
-            Ενέργειες
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr id="workpackage" class="workpackage expanded">
-        <td>
-        </td>
-        <td>
-            <?php echo $this->workpackage->get_name(); ?>
-        </td>
-        <td>
-            <?php $cur2 = $this->workpackage->get_subproject()->get_parentproject()->get_financialdetails()->get_budgetWithFPA(); ?>
-            <?php echo $cur2; ?>
-            <?php $cur = $this->workpackage->get_subproject()->getWorkpackagesSumAmountGreekFloat();
-            if ($cur !== $cur2){
-                 echo '<img title="Συνολικό Ποσό Παραδοτέων: '.$cur.'" src="'.$this->baseUrl('images/overduedeliverables.gif').'" style="display:inline">';
-            }
-            ?>
-        </td>
-        <td>
-        </td>
-        <td>
-            <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'newdeliverable', 'workpackageid' => $this->workpackage->get_recordid()), null, true); ?>">
-                <img src="<?php echo $this->baseUrl('images/add3.png'); ?>" alt="προσθήκη" title="Προσθήκη Νέου Παραδοτέου"  class="addNew"/>
-            </a>
+                </th>
+                <th width="450">
+                    Τίτλος
+                </th>
+                <th width="54">
+                    Ποσό
+                </th>
+                <th width="54">
+                    Συντάκτες/Ανάδοχος
+                </th>
+                <th width="65">
+                    Ενέργειες
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="project" class="projectRow expanded">
+                <td>
+                    <?php echo $this->getCompletionIcon($this->project); ?>
+                </td>
+                <td>
 
-            <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'importdeliverables', 'workpackageid' => $this->workpackage->get_recordid()), null, true); ?>">
-                <img src="<?php echo $this->baseUrl('images/icons/excelIcon.jpg'); ?>" alt="προσθήκη" title="Εισαγωγή παραδοτέων από Excel" class="addNew"/>
-            </a>
-        </td>
+                    <?php echo $this->project->get_basicdetails()->get_title(); ?>
+                </td>
+                <td>
+                    <?php echo $this->project->get_financialdetails()->get_budgetWithFPA(); ?>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'new', 'subprojectid' => $this->subproject->get_subprojectid()), null, true); ?>">
+                        <img src="<?php echo $this->baseUrl('images/add2.png'); ?>" alt="προσθήκη" title="Προσθήκη Νέου Πακέτου Εργασίας" /> </a>
+                </td>
 
-    </tr>
-    <?php foreach($this->workpackage->get_deliverablesNatsort() as $curDeliverable) { ?>
-        <tr id="deliverable<?php echo $curDeliverable->get_recordid(); ?>" class="deliverable child-of-workpackage">
-        <td>
-            <?php echo $this->getCompletionIcon($curDeliverable); ?>
-        </td>
-        <td>
-            <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'reviewdeliverable', 'deliverableid' => $curDeliverable->get_recordid()), null, true); ?>">
-                <?php echo $curDeliverable->get_fulltitle(); ?>
-            </a>
-        </td>
-        <td>
-            <?php echo $curDeliverable->get_amount(); ?>
-        </td>
-        <td>
-            <?php echo $this->printDeliverableAuthors($curDeliverable); ?>
-        </td>
-        <td>
-            <a href="javascript:void(0);" onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε το παραδοτέο <?php $curDeliverable->get_codename(); ?>;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'deletedeliverable', 'deliverableid' => $curDeliverable->get_recordid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>' }">
-                <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή" title='Διαγραφή Παραδοτεου' class="deleteIcon"/>
-            </a>
-        </td>
-        </tr>
+            </tr>
+            <?php foreach ($this->subproject->get_workpackagesNatsort() as $curWorkpackage) { ?>
+                <tr id="workpackage<?php echo $curWorkpackage->get_recordid(); ?>" class="workpackage child-of-project">
+                    <td>
+                        <?php echo $this->getCompletionIcon($curWorkpackage); ?>
+                    </td>
+                    <td>
+                        <a class="treetablelink" href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'review', 'workpackageid' => $curWorkpackage->get_recordid()), null, true); ?>">
+                            <?php echo $curWorkpackage->get_name(); ?>
+                        </a>
+                    </td>
+                    <td>
+                        <img src="<?php echo $this->baseUrl('images/infoSmall.png'); ?>" alt="deliverablesum" title="Συνολικό Ποσό Παραδοτέων: <?php echo $curWorkpackage->getDeliverableSumAmountGreekFloat(); ?>" />
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'newdeliverable', 'workpackageid' => $curWorkpackage->get_recordid()), null, true); ?>">
+                            <img src="<?php echo $this->baseUrl('images/add3.png'); ?>" alt="προσθήκη" title="Προσθήκη Νέου Παραδοτέου" class="addNew"/> </a>
+
+                        <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'importdeliverables', 'workpackageid' => $curWorkpackage->get_recordid()), null, true); ?>">
+                            <img src="<?php echo $this->baseUrl('images/icons/excelIcon.jpg'); ?>" alt="προσθήκη" title="Εισαγωγή παραδοτέων από Excel" class="addNew"/> </a>
+
+                        <a href="javascript:void(0);" onclick="if (prompt('Θέλετε σίγουρα να διαγράψετε το πακέτο εργασίας <?php echo $curWorkpackage->get_name(); ?>;', 'Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ') {
+                                    window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'delete', 'workpackageid' => $curWorkpackage->get_recordid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>'
+                                }">
+                            <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή" title='Διαγραφή Πακέτου Εργασίας' />
+                        </a>
+                    </td>
+                </tr>
+
+                        <?php foreach ($curWorkpackage->get_deliverablesNatsort() as $curDeliverable) { ?>
+                    <tr id="deliverable<?php echo $curDeliverable->get_recordid(); ?>" class="deliverable child-of-workpackage<?php echo $curWorkpackage->get_recordid(); ?>">
+                        <td>
+        <?php echo $this->getCompletionIcon($curDeliverable); ?>
+                        </td>
+                        <td>
+                            <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'reviewdeliverable', 'deliverableid' => $curDeliverable->get_recordid()), null, true); ?>">
+        <?php echo $curDeliverable->get_fulltitle(); ?>
+                            </a>
+                        </td>
+                        <td>
+                            <?php echo $curDeliverable->get_amount(); ?>
+                        </td>
+                        <td>
+        <?php echo $this->printDeliverableAuthors($curDeliverable); ?>
+                        </td>
+                        <td>
+                            <a href="javascript:void(0);" onclick="if (prompt('Θέλετε σίγουρα να διαγράψετε το παραδοτέο <?php echo $curDeliverable->get_codename(); ?>;', 'Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ') {
+                                        window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'deletedeliverable', 'deliverableid' => $curDeliverable->get_recordid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>'
+                                    }">
+                                <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή" title='Διαγραφή Παραδοτέου' class="alone"/>
+                            </a>
+                        </td>
+                    </tr>
     <?php } ?>
-</tbody>
-        </table>
-
-
-        </div>
+<?php } ?>
+        </tbody>
+    </table>
+</div>
+<br />

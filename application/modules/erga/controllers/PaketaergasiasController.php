@@ -14,7 +14,7 @@ class Erga_PaketaergasiasController extends Zend_Controller_Action {
         $this->view->project = Zend_Registry::get('entityManager')->getRepository('Erga_Model_Project')->find($this->getRequest()->getParam('projectid', null));
         $this->view->type = "subprojects";
         if($this->view->project != null && $this->view->project->get_iscomplex() == 0) {
-            $this->view->workpackage = $this->view->project->getVirtualSubProject()->getVirtualWorkPackage();
+            $this->view->subproject = $this->view->project->getVirtualSubProject();
             $this->view->type = "deliverables";
             $this->_helper->viewRenderer('indexsimple');
         }
@@ -30,9 +30,9 @@ class Erga_PaketaergasiasController extends Zend_Controller_Action {
         if($subproject == null) {
             throw new Exception("Το συγκεκριμένο υποέργο δεν υπάρχει.");
         }
-        if($subproject->get_parentproject()->get_iscomplex() == 0) {
+        /*if($subproject->get_parentproject()->get_iscomplex() == 0) {
             throw new Exception('Δεν είναι δυνατή η δημιουργία πακέτων εργασίας σε απλά έργα.');
-        }
+        }*/
 
         $workPackage = new Erga_Model_SubItems_WorkPackage();
         $workPackage->set_subproject($subproject);
@@ -73,9 +73,9 @@ class Erga_PaketaergasiasController extends Zend_Controller_Action {
         if($workpackage == null) {
             throw new Exception("Το συγκεκριμένο πακέτο εργασίας δεν υπάρχει.");
         }
-        if($workpackage->get_subproject()->get_parentproject()->get_iscomplex() == 0) {
+        /*if($workpackage->get_subproject()->get_parentproject()->get_iscomplex() == 0) {
             throw new Exception('Δεν είναι δυνατή η επεξεργασία πακέτων εργασίας σε απλά έργα.');
-        }
+        }*/
 
         $form = new Erga_Form_Ypoerga_PaketoErgasias();
         $form->populate($workpackage);

@@ -19,7 +19,7 @@ class Erga_Model_SubItems_WorkPackage extends Application_Model_SubObject {
      */
     protected $_deliverables; // Παραδοτέα
     /** @Column (name="workpackagecodename", type="string") */
-    protected $_workpackagecodename = "--NOCODENAME--";
+    protected $_workpackagecodename = "--NONAME--";
     /** @Column (name="workpackagename", type="string") */
     protected $_workpackagename = "--NONAME--";
 

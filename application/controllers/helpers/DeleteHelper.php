@@ -16,9 +16,9 @@ class Application_Action_Helper_DeleteHelper extends Zend_Controller_Action_Help
         }
         // Έλεγχος ότι επιτρέπεται η διαγραφή
         $controller->view->$viewentryname = $entry;
-        if($allowinnoncomplex == false && $controller->view->getProject()->get_iscomplex() == 0) {
+        /*if($allowinnoncomplex == false && $controller->view->getProject()->get_iscomplex() == 0) {
             throw new Exception('Δεν είναι δυνατή αυτή η διαγραφή σε απλά έργα.');
-        }
+        }*/
 
         $entry->remove();
         $request = $controller->getRequest();
