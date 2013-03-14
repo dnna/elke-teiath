@@ -122,7 +122,7 @@ class Erga_Form_Ypoerga_Paradoteo extends Erga_Form_Ypoerga_FormBase {
                 array('validator' => 'Date')
             ),
             'class' => 'usedatepicker',
-                    'required' => true,
+                    'required' => false,
         ));
         // Λήξη
         $subform->addElement('text', 'enddate', array(
@@ -131,7 +131,7 @@ class Erga_Form_Ypoerga_Paradoteo extends Erga_Form_Ypoerga_FormBase {
                 array('validator' => 'Date')
             ),
             'class' => 'usedatepicker',
-                    'required' => true,
+                    'required' => false,
         ));
         // Εγκριση αναθεσης απο επιτροπη ερευνων
         $subform->addElement('text', 'assignmentapprovaldate', array(
