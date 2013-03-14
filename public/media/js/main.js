@@ -153,6 +153,9 @@ $('#descriptionText').fadeOut(0).slideDown(900);
     $('#fieldset-committee').collapse({
         closed : determineFieldsetCollapsibleStatus($('#fieldset-committee'))
     });
+    $('#fieldset-previoussupervisors').collapse({
+        closed : determineFieldsetCollapsibleStatus($('#fieldset-previoussupervisors'))
+    });
     $('#fieldset-modifications').collapse({
         closed : determineFieldsetCollapsibleStatus($('#fieldset-modifications'))
     });
