@@ -89,12 +89,12 @@ class Erga_PaketaergasiasController extends Zend_Controller_Action {
                     throw new Exception('Δεν έχει επιλεχθεί πατρικό υποέργο.');
                 }
                 $workpackage->save();
-                if($workpackage->get_subproject()->get_parentproject()->get_iscomplex() == 0) {
+                /*if($workpackage->get_subproject()->get_parentproject()->get_iscomplex() == 0) {
                     $this->_helper->viewRenderer('delreviewconfirm');
-                } else {
+                } else {*/
                     $this->_helper->flashMessenger->addMessage('Το πακέτο εργασίας αναθεωρήθηκε με επιτυχία.');
                     $this->_helper->redirector('index', 'Paketaergasias', 'erga', array('projectid' => $this->view->getProjectId()));
-                }
+                //}
                 return;
             }
         }
