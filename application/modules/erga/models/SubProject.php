@@ -315,6 +315,9 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
     }
 
     public function get_employees() {
+        if(!isset($this->_employees)) {
+            return array();
+        }
         $employees = $this->_employees->toArray();
         usort($employees, array("Erga_Model_SubItems_SubProjectEmployee", "compareEmployees"));
 		// Increase index to fix a Dnna_Form_Base bug
