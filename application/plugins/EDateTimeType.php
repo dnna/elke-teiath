@@ -95,7 +95,7 @@ namespace {
                     // Κάνουμε έναν έλεγχο μήπως η ημερομηνία ήταν σε ISO8601
                     $edatetime = static::createFromFormat(DateTime::ISO8601, $time, $timezone);
                     if(!$edatetime) {
-                        throw new Exception('Λάθος μορφή σε ημερομηνία ('.$time.'). Η προβλεπόμενη μορφή είναι '.self::$format);
+                        throw new Exception('Λάθος μορφή σε ημερομηνία ('.$time.'). Η προβλεπόμενη μορφή είναι ΗΗ/ΜΜ/ΕΕΕΕ');
                     }
                 }
                 return $edatetime;
