@@ -110,3 +110,6 @@ q:before, q:after {
     /*float: left;*/
 /*}*/
 
+.tooltip {
+    border: none;
+}

@@ -125,7 +125,10 @@
               Αριθμός Υποέργου
             </td>
             <td>
-              Τίτλος Παραδοτέου
+              Κωδικός ΠΕ
+            </td>
+            <td>
+              Κωδικός Παραδοτέου
             </td>
             <td>
               Διάρκεια
@@ -146,13 +149,16 @@
                 Υποέργο <?php echo $curDeliverable->get_workpackage()->get_subproject()->get_subprojectnumber(); ?>
             </td>
             <td>
-                <?php echo $curDeliverable->get_fulltitle(); ?>
+                <span title="<?php echo $curDeliverable->get_workpackage()->get_workpackagename(); ?>" class="tooltip"><?php echo $curDeliverable->get_workpackage()->get_workpackagecodename(); ?></span>
+            </td>
+            <td>
+                <span title="<?php echo $curDeliverable->get_title(); ?>" class="tooltip"><?php echo $curDeliverable->get_codename(); ?></span>
             </td>
             <td>
                <?php echo $curDeliverable->get_startdate().' &ndash; '.$curDeliverable->get_enddate(); ?>
             </td>
             <td>
-               <?php echo $curDeliverable->get_amount(); ?>
+               <?php if($curDeliverable->get_authors()->count() <= 1) { echo $curDeliverable->get_amount(); } else { echo '-'; } ?>
             </td>
             <td>
                <?php echo $this->getCompletionText($curDeliverable); ?>

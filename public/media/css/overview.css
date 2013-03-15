@@ -111,3 +111,6 @@ q:before, q:after {
     float: left;
 }
 
+.tooltip {
+    border: 1px dotted #666699;
+}
