@@ -386,16 +386,16 @@ if($this->project->get_iscomplex() == 1) {
   <tbody>
     <tr class="title">
         <td>
-        Αριθμός <?php echo $subprojectnames['gen']; ?>
+        <?php echo $subprojectnames['name']; ?>
         </td>
         <td>
-        Τίτλος Παραδοτέου
+        Παραδοτέο
         </td>
         <td>
-        Ημερομηνία Έναρξης
+        Έναρξη
         </td>
         <td>
-        Ημερομηνία Λήξης
+        Λήξη
         </td>
         <td>
         Ποσό
@@ -415,10 +415,10 @@ if($this->project->get_iscomplex() == 1) {
                 echo '
     <tr>
         <td>
-            '.$subprojectnames['name'].' '.$curSubProject->get_subprojectnumber().'
+            '.$curSubProject->get_subprojectnumber().'
         </td>
         <td>
-            '.$curDeliverable->get_fulltitle().'
+            '.$curDeliverable->get_codename().'
         </td>
         <td>
             '.$curDeliverable->get_startdate().'
