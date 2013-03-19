@@ -38,7 +38,7 @@
         <complexprojects>1</complexprojects>
     </apasxoloumenoi>
     <paketaergasias>
-        <label>Παραδοτέα</label>
+        <label>ΠΕ/Παραδοτέα</label>
         <module>erga</module>
         <controller>Paketaergasias</controller>
     </paketaergasias>

@@ -33,6 +33,67 @@
         <visible>0</visible>
         <route>default</route>
     </report>
+    <erga>
+        <label>Έργα</label>
+        <module>erga</module>
+        <resource>priviledgedsection</resource>
+        <route>default</route>
+        <pages>
+            <elkeview>
+                <label>Διαχείριση Έργων</label>
+                <module>erga</module>
+                <controller>Diaxeirisi</controller>
+                <action>index</action>
+                <resource>elkesection</resource>
+            </elkeview>
+            <profview>
+                <label>Εμφάνιση Έργων</label>
+                <module>erga</module>
+                <controller>Professor_View</controller>
+                <action>index</action>
+                <resource>professorsection</resource>
+            </profview>
+            <!--<new>
+                <label>Προσθήκη Έργου</label>
+                <module>erga</module>
+                <controller>Diaxeirisi</controller>
+                <action>new</action>
+                <resource>elkesection</resource>
+            </new>-->
+            <review>
+                <label>Επεξεργασία Έργου</label>
+                <module>erga</module>
+                <controller>Diaxeirisi</controller>
+                <action>review</action>
+                <visible>0</visible>
+            </review>
+            <delete>
+                <label>Διαγραφή Έργου</label>
+                <module>erga</module>
+                <controller>Diaxeirisi</controller>
+                <action>delete</action>
+                <visible>0</visible>
+            </delete>
+            <apasxoloumenoi>
+                <label>Απασχολούμενοι/Ανάδοχοι</label>
+                <module>erga</module>
+                <controller>Apasxoloumenoi</controller>
+                <visible>0</visible>
+            </apasxoloumenoi>
+            <ypoerga>
+                <label>Υποέργα</label>
+                <module>erga</module>
+                <controller>Ypoerga</controller>
+                <visible>0</visible>
+            </ypoerga>
+            <paketaergasias>
+                <label>Πακέτα Εργασίας/Παραδοτέα</label>
+                <module>erga</module>
+                <controller>Paketaergasias</controller>
+                <visible>0</visible>
+            </paketaergasias>
+        </pages>
+    </erga>
     <synedriaseisee>
         <label>Ημερολόγιο ΕΕΕ</label>
         <module>synedriaseisee</module>
@@ -223,67 +284,6 @@
             </adminelke>
         </pages>
     </mhniaiafyllaparakolouthisis>
-    <erga>
-        <label>Έργα</label>
-        <module>erga</module>
-        <resource>priviledgedsection</resource>
-        <route>default</route>
-        <pages>
-            <elkeview>
-                <label>Διαχείριση Έργων</label>
-                <module>erga</module>
-                <controller>Diaxeirisi</controller>
-                <action>index</action>
-                <resource>elkesection</resource>
-            </elkeview>
-            <profview>
-                <label>Εμφάνιση Έργων</label>
-                <module>erga</module>
-                <controller>Professor_View</controller>
-                <action>index</action>
-                <resource>professorsection</resource>
-            </profview>
-            <!--<new>
-                <label>Προσθήκη Έργου</label>
-                <module>erga</module>
-                <controller>Diaxeirisi</controller>
-                <action>new</action>
-                <resource>elkesection</resource>
-            </new>-->
-            <review>
-                <label>Επεξεργασία Έργου</label>
-                <module>erga</module>
-                <controller>Diaxeirisi</controller>
-                <action>review</action>
-                <visible>0</visible>
-            </review>
-            <delete>
-                <label>Διαγραφή Έργου</label>
-                <module>erga</module>
-                <controller>Diaxeirisi</controller>
-                <action>delete</action>
-                <visible>0</visible>
-            </delete>
-            <apasxoloumenoi>
-                <label>Απασχολούμενοι/Ανάδοχοι</label>
-                <module>erga</module>
-                <controller>Apasxoloumenoi</controller>
-                <visible>0</visible>
-            </apasxoloumenoi>
-            <ypoerga>
-                <label>Υποέργα</label>
-                <module>erga</module>
-                <controller>Ypoerga</controller>
-                <visible>0</visible>
-            </ypoerga>
-            <paketaergasias>
-                <label>Πακέτα Εργασίας/Παραδοτέα</label>
-                <module>erga</module>
-                <controller>Paketaergasias</controller>
-                <visible>0</visible>
-            </paketaergasias>
-        </pages>
-    </erga>
     <anafores>
         <label>Αναφορές</label>
         <module>anafores</module>
