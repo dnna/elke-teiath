@@ -123,13 +123,13 @@
               Τίτλος Έργου
             </td>
             <td>
-              Αριθμός Υποέργου
+              Υποέργο
             </td>
             <td>
-              Κωδικός ΠΕ
+              ΠΕ
             </td>
             <td>
-              Κωδικός Παραδοτέου
+              Παραδοτέο
             </td>
             <td>
               Διάρκεια
@@ -147,7 +147,7 @@
                 <?php echo $curDeliverable->get_workpackage()->get_subproject()->get_parentproject()->get_basicdetails()->get_title(); ?>
             </td>
             <td>
-                Υποέργο <?php echo $curDeliverable->get_workpackage()->get_subproject()->get_subprojectnumber(); ?>
+                <?php echo $curDeliverable->get_workpackage()->get_subproject()->get_subprojectnumber(); ?>
             </td>
             <td>
                 <span title="<?php echo $curDeliverable->get_workpackage()->get_workpackagename(); ?>" class="tooltip"><?php echo $curDeliverable->get_workpackage()->get_workpackagecodename(); ?></span>
