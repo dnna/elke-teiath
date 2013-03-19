@@ -6,7 +6,7 @@ if($this->curSymvasi->get_subproject() != null) {
 }
 if($this->curProject instanceof Erga_Model_SubProject) {
     $projectname = $this->curProject->get_parentproject()->get_basicdetails()->get_title();
-    $subprojectnumber = 'Υποέργο '.$this->curProject->get_subprojectnumber();
+    $subprojectnumber = $this->curProject->get_subprojectnumber();
     $budget = $this->curProject->get_subprojectbudget();
 } else if($this->curProject instanceof Erga_Model_Project) {
     $projectname = $this->curProject->get_basicdetails()->get_title();
