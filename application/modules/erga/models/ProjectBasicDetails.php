@@ -180,7 +180,11 @@ class Erga_Model_ProjectBasicDetails extends Dnna_Model_Object {
     }
 
     public function get_shorttitle() {
-        return $this->_shorttitle;
+        if($this->_shorttitle == '') {
+            return $this->get_title();
+        } else {
+            return $this->_shorttitle;
+        }
     }
 
     public function set_shorttitle($_shorttitle) {
