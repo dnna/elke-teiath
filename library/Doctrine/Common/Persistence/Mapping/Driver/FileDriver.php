@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -43,12 +43,12 @@ abstract class FileDriver implements MappingDriver
      * @var FileLocator
      */
     protected $locator;
-    
+
     /**
      * @var array
      */
     protected $classCache;
-    
+
     /**
      * @var string
      */
@@ -58,7 +58,7 @@ abstract class FileDriver implements MappingDriver
      * Initializes a new FileDriver that looks in the given path(s) for mapping
      * documents and operates in the specified operating mode.
      *
-     * @param string|array|FileLocator $paths A FileLocator or one/multiple paths where mapping documents can be found.
+     * @param string|array|FileLocator $locator A FileLocator or one/multiple paths where mapping documents can be found.
      * @param string $fileExtension
      */
     public function __construct($locator, $fileExtension = null)
@@ -70,11 +70,21 @@ abstract class FileDriver implements MappingDriver
         }
     }
 
+    /**
+     * Set global basename
+     *
+     * @param string $file
+     */
     public function setGlobalBasename($file)
     {
         $this->globalBasename = $file;
     }
 
+    /**
+     * Retrieve global basename
+     *
+     * @return string
+     */
     public function getGlobalBasename()
     {
         return $this->globalBasename;
@@ -84,19 +94,25 @@ abstract class FileDriver implements MappingDriver
      * Get the element of schema meta data for the class from the mapping file.
      * This will lazily load the mapping file if it is not loaded yet
      *
-     * @return array $element  The element of schema meta data
+     * @param string $className
+     *
+     * @throws MappingException
+     * @return array The element of schema meta data
      */
     public function getElement($className)
     {
         if ($this->classCache === null) {
             $this->initialize();
         }
-        
+
         if (isset($this->classCache[$className])) {
             return $this->classCache[$className];
         }
-        
+
         $result = $this->loadMappingFile($this->locator->findMappingFile($className));
+        if (!isset($result[$className])) {
+            throw MappingException::invalidMappingFile($className, str_replace('\\', '.', $className) . $this->locator->getFileExtension());
+        }
 
         return $result[$className];
     }
@@ -114,11 +130,11 @@ abstract class FileDriver implements MappingDriver
         if ($this->classCache === null) {
             $this->initialize();
         }
-        
+
         if (isset($this->classCache[$className])) {
             return false;
         }
-        
+
         return !$this->locator->fileExists($className);
     }
 
@@ -132,7 +148,7 @@ abstract class FileDriver implements MappingDriver
         if ($this->classCache === null) {
             $this->initialize();
         }
-        
+
         $classNames = (array)$this->locator->getAllClassNames($this->globalBasename);
         if ($this->classCache) {
             $classNames = array_merge(array_keys($this->classCache), $classNames);
@@ -148,16 +164,16 @@ abstract class FileDriver implements MappingDriver
      * @return array
      */
     abstract protected function loadMappingFile($file);
-    
+
     /**
      * Initialize the class cache from all the global files.
-     * 
+     *
      * Using this feature adds a substantial performance hit to file drivers as
      * more metadata has to be loaded into memory than might actually be
      * necessary. This may not be relevant to scenarios where caching of
      * metadata is in place, however hits very hard in scenarios where no
      * caching is used.
-     * 
+     *
      * @return void
      */
     protected function initialize()
@@ -174,5 +190,25 @@ abstract class FileDriver implements MappingDriver
                 }
             }
         }
+    }
+
+    /**
+     * Retrieve the locator used to discover mapping files by className
+     *
+     * @return FileLocator
+     */
+    public function getLocator()
+    {
+        return $this->locator;
+    }
+
+    /**
+     * Set the locator used to discover mapping files by className
+     *
+     * @param FileLocator $locator
+     */
+    public function setLocator(FileLocator $locator)
+    {
+        $this->locator = $locator;
     }
 }

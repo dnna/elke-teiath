@@ -4,6 +4,7 @@
         <tr>
             <th><?php echo $this->getOrderLink('name', 'Ονοματεπώνυμο'); ?></th>
             <th><?php echo $this->getOrderLink('projectscount', 'Αριθμός Έργων'); ?></th>
+            <th><?php echo $this->getOrderLink('subprojectscount', 'Αριθμός Υποέργων'); ?></th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +18,7 @@
                        </a>
                   </td>';
             echo '<td>'.$curSupervisor['projectscount'].'</td>';
+            echo '<td>'.Zend_Registry::get('entityManager')->getRepository('Application_Model_User')->getSupervisorSubProjectsCount($curSupervisor[0], $this->filters).'</td>';
             echo '</tr>';
         }
         ?>

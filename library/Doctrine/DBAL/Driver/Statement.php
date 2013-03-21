@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -24,9 +24,9 @@ use \PDO;
 /**
  * Statement interface.
  * Drivers must implement this interface.
- * 
+ *
  * This resembles (a subset of) the PDOStatement interface.
- * 
+ *
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Roman Borschel <roman@code-factory.org>
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
@@ -51,17 +51,17 @@ interface Statement extends ResultStatement
     function bindValue($param, $value, $type = null);
 
     /**
-     * Binds a PHP variable to a corresponding named or question mark placeholder in the 
+     * Binds a PHP variable to a corresponding named or question mark placeholder in the
      * SQL statement that was use to prepare the statement. Unlike PDOStatement->bindValue(),
-     * the variable is bound as a reference and will only be evaluated at the time 
+     * the variable is bound as a reference and will only be evaluated at the time
      * that PDOStatement->execute() is called.
      *
-     * Most parameters are input parameters, that is, parameters that are 
-     * used in a read-only fashion to build up the query. Some drivers support the invocation 
+     * Most parameters are input parameters, that is, parameters that are
+     * used in a read-only fashion to build up the query. Some drivers support the invocation
      * of stored procedures that return data as output parameters, and some also as input/output
      * parameters that both send in data and are updated to receive it.
      *
-     * @param mixed $param          Parameter identifier. For a prepared statement using named placeholders,
+     * @param mixed $column         Parameter identifier. For a prepared statement using named placeholders,
      *                              this will be a parameter name of the form :name. For a prepared statement
      *                              using question mark placeholders, this will be the 1-indexed position of the parameter
      *
@@ -70,13 +70,14 @@ interface Statement extends ResultStatement
      * @param integer $type         Explicit data type for the parameter using the PDO::PARAM_* constants. To return
      *                              an INOUT parameter from a stored procedure, use the bitwise OR operator to set the
      *                              PDO::PARAM_INPUT_OUTPUT bits for the data_type parameter.
+     * @param integer $length		You must specify maxlength when using an OUT bind so that PHP allocates enough memory to hold the returned value.
      * @return boolean              Returns TRUE on success or FALSE on failure.
      */
-    function bindParam($column, &$variable, $type = null);
+    function bindParam($column, &$variable, $type = null, $length = null);
 
     /**
      * errorCode
-     * Fetch the SQLSTATE associated with the last operation on the statement handle 
+     * Fetch the SQLSTATE associated with the last operation on the statement handle
      *
      * @see Doctrine_Adapter_Interface::errorCode()
      * @return string       error code string

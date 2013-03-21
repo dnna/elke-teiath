@@ -53,6 +53,15 @@ class  Erga_Form_BasicDetails extends Dnna_Form_SubFormBase {
             'cols' => $this->_textareaCols,
             )
         );
+        // Σύντομος τίτλος
+        $subform->addElement('text', 'shorttitle', array(
+            'label' => 'Σύντομος τίτλος:',
+            'validators' => array(
+                array('validator' => 'StringLength', 'options' => array(0, 50))
+            ),
+            'required' => false,
+            )
+        );
         // Περιγραφή
         $subform->addElement('textarea', 'description', array(
             'label' => 'Σύντομη Περιγραφή:',

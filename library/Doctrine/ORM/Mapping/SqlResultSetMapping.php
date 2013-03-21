@@ -1,7 +1,5 @@
 <?php
 /*
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -15,45 +13,44 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
-namespace Doctrine\ORM\Mapping\Driver;
-
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
+namespace Doctrine\ORM\Mapping;
 
 /**
- * Contract for metadata drivers.
+ * The SqlResultSetMapping annotation is used to specify the mapping of the result of a native SQL query.
+ * The SqlResultSetMapping annotation can be applied to an entity or mapped superclass.
  *
- * @since 2.0
- * @author Jonathan H. Wage <jonwage@gmail.com>
- * @todo Rename: MetadataDriver or MappingDriver
+ * @author  Fabio B. Silva <fabio.bat.silva@gmail.com>
+ * @since   2.3
+ *
+ * @Annotation
+ * @Target("ANNOTATION")
  */
-interface Driver
+final class SqlResultSetMapping implements Annotation
 {
-    /**
-     * Loads the metadata for the specified class into the provided container.
-     * 
-     * @param string $className
-     * @param ClassMetadataInfo $metadata
-     */
-    function loadMetadataForClass($className, ClassMetadataInfo $metadata);
-    
-    /**
-     * Gets the names of all mapped classes known to this driver.
-     * 
-     * @return array The names of all mapped classes known to this driver.
-     */
-    function getAllClassNames(); 
 
     /**
-     * Whether the class with the specified name should have its metadata loaded.
-     * This is only the case if it is either mapped as an Entity or a
-     * MappedSuperclass.
-     *
-     * @param string $className
-     * @return boolean
+     * The name given to the result set mapping, and used to refer to it in the methods of the Query API.
+     * 
+     * @var string
      */
-    function isTransient($className);
+    public $name;
+
+    /**
+     * Specifies the result set mapping to entities.
+     * 
+     * @var array<\Doctrine\ORM\Mapping\EntityResult>
+     */
+    public $entities = array();
+
+    /**
+     * Specifies the result set mapping to scalar values.
+     *
+     * @var array<\Doctrine\ORM\Mapping\ColumnResult>
+     */
+    public $columns = array();
+
 }

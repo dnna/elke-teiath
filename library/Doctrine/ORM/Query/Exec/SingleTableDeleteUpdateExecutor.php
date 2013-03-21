@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -30,7 +30,7 @@ use Doctrine\DBAL\Connection,
  * @author      Roman Borschel <roman@code-factory.org>
  * @link        www.doctrine-project.org
  * @since       2.0
- * @todo This is exactly the same as SingleSelectExecutor. Unify in SingleStatementExecutor. 
+ * @todo This is exactly the same as SingleSelectExecutor. Unify in SingleStatementExecutor.
  */
 class SingleTableDeleteUpdateExecutor extends AbstractSqlExecutor
 {

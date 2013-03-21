@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -118,7 +118,7 @@ abstract class AnnotationDriver implements MappingDriver
     /**
      * Get the file extension used to look for mapping files under
      *
-     * @return void
+     * @return string
      */
     public function getFileExtension()
     {
@@ -139,7 +139,7 @@ abstract class AnnotationDriver implements MappingDriver
     /**
      * Whether the class with the specified name is transient. Only non-transient
      * classes, that is entities and mapped superclasses, should have their metadata loaded.
-     * 
+     *
      * A class is non-transient if it is annotated with an annotation
      * from the {@see AnnotationDriver::entityAnnotationClasses}.
      *

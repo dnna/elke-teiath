@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -33,24 +33,24 @@ use Doctrine\DBAL\Connection,
 class SingleScalarHydrator extends AbstractHydrator
 {
     /**
-     * {@inheritdoc} 
+     * {@inheritdoc}
      */
     protected function hydrateAllData()
     {
         $data    = $this->_stmt->fetchAll(\PDO::FETCH_ASSOC);
         $numRows = count($data);
-        
+
         if ($numRows === 0) {
             throw new NoResultException();
         }
-        
+
         if ($numRows > 1 || count($data[key($data)]) > 1) {
             throw new NonUniqueResultException();
         }
-        
+
         $cache  = array();
         $result = $this->gatherScalarRowData($data[key($data)], $cache);
-        
+
         return array_shift($result);
     }
 }

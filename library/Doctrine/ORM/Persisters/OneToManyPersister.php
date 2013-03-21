@@ -1,7 +1,5 @@
 <?php
 /*
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -15,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -29,6 +27,7 @@ use Doctrine\ORM\PersistentCollection,
  *
  * @author  Roman Borschel <roman@code-factory.org>
  * @author  Guilherme Blanco <guilhermeblanco@hotmail.com>
+ * @author  Alexander <iam.asm89@gmail.com>
  * @since   2.0
  */
 class OneToManyPersister extends AbstractCollectionPersister
@@ -45,14 +44,14 @@ class OneToManyPersister extends AbstractCollectionPersister
     {
         $mapping = $coll->getMapping();
         $class   = $this->_em->getClassMetadata($mapping['targetEntity']);
-        
-        return 'DELETE FROM ' . $class->getQuotedTableName($this->_conn->getDatabasePlatform())
+
+        return 'DELETE FROM ' . $this->quoteStrategy->getTableName($class, $this->platform)
              . ' WHERE ' . implode('= ? AND ', $class->getIdentifierColumnNames()) . ' = ?';
     }
 
     /**
      * {@inheritdoc}
-     * 
+     *
      */
     protected function _getDeleteRowSQLParameters(PersistentCollection $coll, $element)
     {
@@ -111,19 +110,26 @@ class OneToManyPersister extends AbstractCollectionPersister
 
         $whereClauses = array();
         $params       = array();
-        
-        foreach ($targetClass->associationMappings[$mapping['mappedBy']]['joinColumns'] AS $joinColumn) {
+
+        foreach ($targetClass->associationMappings[$mapping['mappedBy']]['joinColumns'] as $joinColumn) {
             $whereClauses[] = $joinColumn['name'] . ' = ?';
-            
+
             $params[] = ($targetClass->containsForeignIdentifier)
                 ? $id[$sourceClass->getFieldForColumn($joinColumn['referencedColumnName'])]
                 : $id[$sourceClass->fieldNames[$joinColumn['referencedColumnName']]];
         }
 
+        $filterTargetClass = $this->_em->getClassMetadata($targetClass->rootEntityName);
+        foreach ($this->_em->getFilters()->getEnabledFilters() as $filter) {
+            if ($filterExpr = $filter->addFilterConstraint($filterTargetClass, 't')) {
+                $whereClauses[] = '(' . $filterExpr . ')';
+            }
+        }
+
         $sql = 'SELECT count(*)'
-             . ' FROM ' . $targetClass->getQuotedTableName($this->_conn->getDatabasePlatform()) 
+             . ' FROM ' . $this->quoteStrategy->getTableName($targetClass, $this->platform) . ' t'
              . ' WHERE ' . implode(' AND ', $whereClauses);
-        
+
         return $this->_conn->fetchColumn($sql, $params);
     }
 
@@ -138,7 +144,7 @@ class OneToManyPersister extends AbstractCollectionPersister
         $mapping   = $coll->getMapping();
         $uow       = $this->_em->getUnitOfWork();
         $persister = $uow->getEntityPersister($mapping['targetEntity']);
-        
+
         return $persister->getOneToManyCollection($mapping, $coll->getOwner(), $offset, $length);
     }
 
@@ -151,22 +157,29 @@ class OneToManyPersister extends AbstractCollectionPersister
     {
         $mapping = $coll->getMapping();
         $uow     = $this->_em->getUnitOfWork();
-        
+
         // shortcut for new entities
-        if ($uow->getEntityState($element, UnitOfWork::STATE_NEW) == UnitOfWork::STATE_NEW) {
+        $entityState = $uow->getEntityState($element, UnitOfWork::STATE_NEW);
+
+        if ($entityState === UnitOfWork::STATE_NEW) {
+            return false;
+        }
+
+        // Entity is scheduled for inclusion
+        if ($entityState === UnitOfWork::STATE_MANAGED && $uow->isScheduledForInsert($element)) {
             return false;
         }
 
         $persister = $uow->getEntityPersister($mapping['targetEntity']);
-        
-        // only works with single id identifier entities. Will throw an 
-        // exception in Entity Persisters if that is not the case for the 
+
+        // only works with single id identifier entities. Will throw an
+        // exception in Entity Persisters if that is not the case for the
         // 'mappedBy' field.
-        $id = current( $uow->getEntityIdentifier($coll->getOwner()) );
+        $id = current( $uow->getEntityIdentifier($coll->getOwner()));
 
         return $persister->exists($element, array($mapping['mappedBy'] => $id));
     }
-    
+
     /**
      * @param PersistentCollection $coll
      * @param object $element
@@ -177,15 +190,23 @@ class OneToManyPersister extends AbstractCollectionPersister
         $uow = $this->_em->getUnitOfWork();
 
         // shortcut for new entities
-        if ($uow->getEntityState($element, UnitOfWork::STATE_NEW) == UnitOfWork::STATE_NEW) {
+        $entityState = $uow->getEntityState($element, UnitOfWork::STATE_NEW);
+
+        if ($entityState === UnitOfWork::STATE_NEW) {
+            return false;
+        }
+
+        // If Entity is scheduled for inclusion, it is not in this collection.
+        // We can assure that because it would have return true before on array check
+        if ($entityState === UnitOfWork::STATE_MANAGED && $uow->isScheduledForInsert($element)) {
             return false;
         }
 
         $mapping = $coll->getMapping();
         $class   = $this->_em->getClassMetadata($mapping['targetEntity']);
-        $sql     = 'DELETE FROM ' . $class->getQuotedTableName($this->_conn->getDatabasePlatform())
+        $sql     = 'DELETE FROM ' . $this->quoteStrategy->getTableName($class, $this->platform)
                  . ' WHERE ' . implode('= ? AND ', $class->getIdentifierColumnNames()) . ' = ?';
-               
+
         return (bool) $this->_conn->executeUpdate($sql, $this->_getDeleteRowSQLParameters($coll, $element));
     }
 }

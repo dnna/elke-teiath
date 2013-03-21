@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -70,6 +70,12 @@ class ResultSetMapping
      * @var array Maps column names in the result set to the alias/field name to use in the mapped result.
      */
     public $scalarMappings = array();
+
+    /**
+     * @ignore
+     * @var array Maps column names in the result set to the alias/field type to use in the mapped result.
+     */
+    public $typeMappings = array();
 
     /**
      * @ignore
@@ -131,7 +137,7 @@ class ResultSetMapping
         if ($resultAlias !== null) {
             $this->isMixed = true;
         }
-        
+
         return $this;
     }
 
@@ -150,7 +156,7 @@ class ResultSetMapping
     {
         $this->discriminatorColumns[$alias] = $discrColumn;
         $this->columnOwnerMap[$discrColumn] = $alias;
-        
+
         return $this;
     }
 
@@ -165,7 +171,7 @@ class ResultSetMapping
     {
         $found = false;
 
-        foreach ($this->fieldMappings AS $columnName => $columnFieldName) {
+        foreach ($this->fieldMappings as $columnName => $columnFieldName) {
             if ( ! ($columnFieldName === $fieldName && $this->columnOwnerMap[$columnName] === $alias)) continue;
 
             $this->addIndexByColumn($alias, $columnName);
@@ -185,7 +191,7 @@ class ResultSetMapping
             throw new \LogicException($message);
         }
         */
-        
+
         return $this;
     }
 
@@ -198,7 +204,7 @@ class ResultSetMapping
     public function addIndexByScalar($resultColumnName)
     {
         $this->indexByMap['scalars'] = $resultColumnName;
-        
+
         return $this;
     }
 
@@ -212,7 +218,7 @@ class ResultSetMapping
     public function addIndexByColumn($alias, $resultColumnName)
     {
         $this->indexByMap[$alias] = $resultColumnName;
-        
+
         return $this;
     }
 
@@ -268,7 +274,7 @@ class ResultSetMapping
         if ( ! $this->isMixed && $this->scalarMappings) {
             $this->isMixed = true;
         }
-        
+
         return $this;
     }
 
@@ -287,7 +293,7 @@ class ResultSetMapping
         $this->aliasMap[$alias]       = $class;
         $this->parentAliasMap[$alias] = $parentAlias;
         $this->relationMap[$alias]    = $relation;
-        
+
         return $this;
     }
 
@@ -296,17 +302,21 @@ class ResultSetMapping
      *
      * @param string $columnName The name of the column in the SQL result set.
      * @param string $alias The result alias with which the scalar result should be placed in the result structure.
+     * @param string $type The column type
+     *
      * @return ResultSetMapping This ResultSetMapping instance.
+     *
      * @todo Rename: addScalar
      */
-    public function addScalarResult($columnName, $alias)
+    public function addScalarResult($columnName, $alias, $type = 'string')
     {
         $this->scalarMappings[$columnName] = $alias;
+        $this->typeMappings[$columnName]   = $type;
 
         if ( ! $this->isMixed && $this->fieldMappings) {
             $this->isMixed = true;
         }
-        
+
         return $this;
     }
 
@@ -469,7 +479,7 @@ class ResultSetMapping
         if ($isIdentifierColumn) {
             $this->isIdentifierColumn[$alias][$columnName] = true;
         }
-        
+
         return $this;
     }
 }

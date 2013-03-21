@@ -41,6 +41,11 @@ class Erga_Model_ProjectBasicDetails extends Dnna_Model_Object {
      */
     protected $_modifications; // Πίνακας με Αρ. Πρωτ. Τροποποιήσεων
     /**
+     * @Column (name="shorttitle", type="string")
+     * @FormFieldLabel Σύντομος Τίτλος
+     */
+    protected $_shorttitle = "--NONAME--";
+    /**
      * @Column (name="title", type="string")
      * @FormFieldLabel Τίτλος
      */
@@ -172,6 +177,14 @@ class Erga_Model_ProjectBasicDetails extends Dnna_Model_Object {
 
     public function set_modifications($_modifications) {
         $this->_modifications = $_modifications;
+    }
+
+    public function get_shorttitle() {
+        return $this->_shorttitle;
+    }
+
+    public function set_shorttitle($_shorttitle) {
+        $this->_shorttitle = $_shorttitle;
     }
 
     public function get_title() {

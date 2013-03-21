@@ -13,31 +13,34 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.phpdoctrine.org>.
  */
 
 namespace Doctrine\DBAL\Schema;
 
+use Doctrine\DBAL\Events;
+use Doctrine\DBAL\Event\SchemaIndexDefinitionEventArgs;
+use Doctrine\DBAL\Driver\SQLSrv\SQLSrvException;
+
 /**
- * xxx
+ * SQL Server Schema Manager
  *
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
  * @author      Juozas Kaziukenas <juozas@juokaz.com>
- * @version     $Revision$
  * @since       2.0
  */
-class MsSqlSchemaManager extends AbstractSchemaManager
+class SQLServerSchemaManager extends AbstractSchemaManager
 {
-
     /**
      * @override
      */
     protected function _getPortableTableColumnDefinition($tableColumn)
     {
         $dbType = strtolower($tableColumn['TYPE_NAME']);
+        $dbType = strtok($dbType, '(), ');
 
         $autoincrement = false;
         if (stripos($dbType, 'identity')) {
@@ -55,7 +58,7 @@ class MsSqlSchemaManager extends AbstractSchemaManager
         $default = $tableColumn['COLUMN_DEF'];
 
         while ($default != ($default2 = preg_replace("/^\((.*)\)$/", '$1', $default))) {
-            $default = $default2;
+            $default = trim($default2, "'");
         }
 
         $length = (int) $tableColumn['LENGTH'];
@@ -103,25 +106,53 @@ class MsSqlSchemaManager extends AbstractSchemaManager
      */
     protected function _getPortableTableIndexesList($tableIndexRows, $tableName=null)
     {
+        // TODO: Remove code duplication with AbstractSchemaManager;
         $result = array();
-        foreach ($tableIndexRows AS $tableIndex) {
+        foreach ($tableIndexRows as $tableIndex) {
             $indexName = $keyName = $tableIndex['index_name'];
             if (strpos($tableIndex['index_description'], 'primary key') !== false) {
                 $keyName = 'primary';
             }
             $keyName = strtolower($keyName);
 
+            $flags = array();
+            if (strpos($tableIndex['index_description'], 'clustered') !== false) {
+                $flags[] = 'clustered';
+            } else if (strpos($tableIndex['index_description'], 'nonclustered') !== false) {
+                $flags[] = 'nonclustered';
+            }
+
             $result[$keyName] = array(
                 'name' => $indexName,
                 'columns' => explode(', ', $tableIndex['index_keys']),
                 'unique' => strpos($tableIndex['index_description'], 'unique') !== false,
                 'primary' => strpos($tableIndex['index_description'], 'primary key') !== false,
+                'flags' => $flags,
             );
         }
 
+        $eventManager = $this->_platform->getEventManager();
+
         $indexes = array();
-        foreach ($result AS $indexKey => $data) {
-            $indexes[$indexKey] = new Index($data['name'], $data['columns'], $data['unique'], $data['primary']);
+        foreach ($result as $indexKey => $data) {
+            $index = null;
+            $defaultPrevented = false;
+
+            if (null !== $eventManager && $eventManager->hasListeners(Events::onSchemaIndexDefinition)) {
+                $eventArgs = new SchemaIndexDefinitionEventArgs($data, $tableName, $this->_conn);
+                $eventManager->dispatchEvent(Events::onSchemaIndexDefinition, $eventArgs);
+
+                $defaultPrevented = $eventArgs->isDefaultPrevented();
+                $index = $eventArgs->getIndex();
+            }
+
+            if ( ! $defaultPrevented) {
+                $index = new Index($data['name'], $data['columns'], $data['unique'], $data['primary']);
+            }
+
+            if ($index) {
+                $indexes[$indexKey] = $index;
+            }
         }
 
         return $indexes;
@@ -189,8 +220,45 @@ class MsSqlSchemaManager extends AbstractSchemaManager
             } else {
                 throw $e;
             }
+        } catch(SQLSrvException $e) {
+            if (strpos($e->getMessage(), 'SQLSTATE [01000, 15472]') === 0) {
+                return array();
+            } else {
+                throw $e;
+            }
         }
 
         return $this->_getPortableTableIndexesList($tableIndexes, $table);
+    }
+
+    /**
+     * @override
+     */
+    public function alterTable(TableDiff $tableDiff)
+    {
+        if(count($tableDiff->removedColumns) > 0) {
+            foreach($tableDiff->removedColumns as $col){
+                $columnConstraintSql = $this->getColumnConstraintSQL($tableDiff->name, $col->getName());
+                foreach ($this->_conn->fetchAll($columnConstraintSql) as $constraint) {
+                    $this->_conn->exec("ALTER TABLE $tableDiff->name DROP CONSTRAINT " . $constraint['Name']);
+                }
+            }
+        }
+
+        return parent::alterTable($tableDiff);
+    }
+
+    /**
+     * This function retrieves the constraints for a given column.
+     */
+    private function getColumnConstraintSQL($table, $column)
+    {
+        return "SELECT SysObjects.[Name]
+            FROM SysObjects INNER JOIN (SELECT [Name],[ID] FROM SysObjects WHERE XType = 'U') AS Tab
+            ON Tab.[ID] = Sysobjects.[Parent_Obj]
+            INNER JOIN sys.default_constraints DefCons ON DefCons.[object_id] = Sysobjects.[ID]
+            INNER JOIN SysColumns Col ON Col.[ColID] = DefCons.[parent_column_id] AND Col.[ID] = Tab.[ID]
+            WHERE Col.[Name] = " . $this->_conn->quote($column) ." AND Tab.[Name] = " . $this->_conn->quote($table) . "
+            ORDER BY Col.[Name]";
     }
 }

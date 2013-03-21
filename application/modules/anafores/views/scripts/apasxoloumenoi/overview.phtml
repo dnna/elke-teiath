@@ -142,12 +142,13 @@
             </td>
         </tr>
         <?php foreach($this->deliverables as $curDeliverable) { ?>
+        <?php $curSubproject = $curDeliverable->get_workpackage()->get_subproject(); ?>
         <tr>
             <td>
-                <?php echo $curDeliverable->get_workpackage()->get_subproject()->get_parentproject()->get_basicdetails()->get_title(); ?>
+                <?php echo $curDeliverable->get_workpackage()->get_subproject()->get_parentproject()->get_basicdetails()->get_shorttitle(); ?>
             </td>
             <td>
-                <?php echo $curDeliverable->get_workpackage()->get_subproject()->get_subprojectnumber(); ?>
+                <span title="<?php echo $curSubproject->get_subprojecttitle() ?>" class="tooltip"><?php echo $curSubproject->get_subprojectnumber(); ?></span>
             </td>
             <td>
                 <span title="<?php echo $curDeliverable->get_workpackage()->get_workpackagename(); ?>" class="tooltip"><?php echo $curDeliverable->get_workpackage()->get_workpackagecodename(); ?></span>

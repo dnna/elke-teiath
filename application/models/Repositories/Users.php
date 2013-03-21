@@ -263,6 +263,23 @@ class Application_Model_Repositories_Users extends Application_Model_Repositorie
         return $overview;
     }
 
+    public function getSupervisorSubProjectsCount(Application_Model_User $user, $filters = array()) {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('COUNT(sp)');
+        $qb->from('Erga_Model_SubProject', 'sp');
+        $qb->innerJoin('sp._subprojectsupervisor', 's');
+        $qb->andWhere('s._userid = :id');
+        // Υπολογισμός μόνο για τα τρέχοντα (μη ολοκληρωμένα) έργαs
+        if(isset($filters['currentprojects']) && $filters['currentprojects'] == 'true') {
+            $qb->join('sp._parentproject', 'pp');
+            $qb->andWhere('pp._iscomplete = FALSE');
+        }
+
+        $qb->setParameter('id', $user->get_userid());
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
     public function getSupervisorSubProjects(Application_Model_User $user, $filters = array()) {
         $qb = $this->_em->createQueryBuilder();
         $qb->select('sp');

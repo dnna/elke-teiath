@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -42,7 +42,7 @@ class OnClearEventArgs extends \Doctrine\Common\EventArgs
 
     /**
      * Constructor.
-     * 
+     *
      * @param \Doctrine\ORM\EntityManager $em
      * @param string $entityClass Optional entity class
      */
@@ -54,7 +54,7 @@ class OnClearEventArgs extends \Doctrine\Common\EventArgs
 
     /**
      * Retrieve associated EntityManager.
-     * 
+     *
      * @return \Doctrine\ORM\EntityManager
      */
     public function getEntityManager()

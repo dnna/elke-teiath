@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -54,7 +54,7 @@ class Configuration
 
     /**
      * Gets the SQL logger that is used.
-     * 
+     *
      * @return SQLLogger
      */
     public function getSQLLogger()
@@ -82,5 +82,32 @@ class Configuration
     public function setResultCacheImpl(Cache $cacheImpl)
     {
         $this->_attributes['resultCacheImpl'] = $cacheImpl;
+    }
+
+    /**
+     * Filter schema assets expression.
+     *
+     * Only include tables/sequences matching the filter expression regexp in
+     * schema instances generated for the active connection when calling
+     * {AbstractSchemaManager#createSchema()}.
+     *
+     * @param string $filterExpression
+     */
+    public function setFilterSchemaAssetsExpression($filterExpression)
+    {
+        $this->_attributes['filterSchemaAssetsExpression'] = $filterExpression;
+    }
+
+    /**
+     * Return filter schema assets expression.
+     *
+     * @return string|null
+     */
+    public function getFilterSchemaAssetsExpression()
+    {
+        if (isset($this->_attributes['filterSchemaAssetsExpression'])) {
+            return $this->_attributes['filterSchemaAssetsExpression'];
+        }
+        return null;
     }
 }

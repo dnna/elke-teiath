@@ -208,6 +208,30 @@ class Application_Model_UserProxy extends \Application_Model_User implements \Do
         return parent::get_contracts();
     }
 
+    public function get_projectbasicdetails()
+    {
+        $this->__load();
+        return parent::get_projectbasicdetails();
+    }
+
+    public function set_projectbasicdetails(\Erga_Model_ProjectBasicDetails $_projectbasicdetails)
+    {
+        $this->__load();
+        return parent::set_projectbasicdetails($_projectbasicdetails);
+    }
+
+    public function get_subprojects($status)
+    {
+        $this->__load();
+        return parent::get_subprojects($status);
+    }
+
+    public function set_subprojects(\Erga_Model_SubProject $_subprojects)
+    {
+        $this->__load();
+        return parent::set_subprojects($_subprojects);
+    }
+
     public function regenerateToken()
     {
         $this->__load();
@@ -292,7 +316,7 @@ class Application_Model_UserProxy extends \Application_Model_User implements \Do
 
     public function __sleep()
     {
-        return array('__isInitialized__', '_userid', '_realname', '_rank', '_sector', '_phone', '_token');
+        return array('__isInitialized__', '_userid', '_realname', '_rank', '_sector', '_phone', '_token', '_subprojects');
     }
 
     public function __clone()

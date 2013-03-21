@@ -14,20 +14,19 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Schema;
 
 /**
- * xxx
+ * PostgreSQL Schema Manager
  *
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
  * @author      Benjamin Eberlei <kontakt@beberlei.de>
- * @version     $Revision$
  * @since       2.0
  */
 class PostgreSqlSchemaManager extends AbstractSchemaManager
@@ -44,7 +43,7 @@ class PostgreSqlSchemaManager extends AbstractSchemaManager
      */
     public function getSchemaNames()
     {
-        $rows = $this->_conn->fetchAll('SELECT schema_name FROM information_schema.schemata');
+        $rows = $this->_conn->fetchAll("SELECT nspname as schema_name FROM pg_namespace WHERE nspname !~ '^pg_.*' and nspname != 'information_schema'");
         return array_map(function($v) { return $v['schema_name']; }, $rows);
     }
 
@@ -85,7 +84,7 @@ class PostgreSqlSchemaManager extends AbstractSchemaManager
      *
      * This is a PostgreSQL only function.
      *
-     * @return type
+     * @return void
      */
     public function determineExistingSchemaSearchPaths()
     {
@@ -195,7 +194,7 @@ class PostgreSqlSchemaManager extends AbstractSchemaManager
     protected function _getPortableTableIndexesList($tableIndexes, $tableName=null)
     {
         $buffer = array();
-        foreach ($tableIndexes AS $row) {
+        foreach ($tableIndexes as $row) {
             $colNumbers = explode(' ', $row['indkey']);
             $colNumbersSql = 'IN (' . join(' ,', $colNumbers) . ' )';
             $columnNameSql = "SELECT attnum, attname FROM pg_attribute
@@ -205,7 +204,7 @@ class PostgreSqlSchemaManager extends AbstractSchemaManager
             $indexColumns = $stmt->fetchAll();
 
             // required for getting the order of the columns right.
-            foreach ($colNumbers AS $colNum) {
+            foreach ($colNumbers as $colNum) {
                 foreach ($indexColumns as $colRow) {
                     if ($colNum == $colRow['attnum']) {
                         $buffer[] = array(
@@ -218,7 +217,7 @@ class PostgreSqlSchemaManager extends AbstractSchemaManager
                 }
             }
         }
-        return parent::_getPortableTableIndexesList($buffer);
+        return parent::_getPortableTableIndexesList($buffer, $tableName);
     }
 
     protected function _getPortableDatabaseDefinition($database)
@@ -277,9 +276,8 @@ class PostgreSqlSchemaManager extends AbstractSchemaManager
         $precision = null;
         $scale = null;
 
-        if ($this->_platform->hasDoctrineTypeMappingFor($tableColumn['type'])) {
-            $dbType = strtolower($tableColumn['type']);
-        } else {
+        $dbType = strtolower($tableColumn['type']);
+        if (strlen($tableColumn['domain_type']) && !$this->_platform->hasDoctrineTypeMappingFor($tableColumn['type'])) {
             $dbType = strtolower($tableColumn['domain_type']);
             $tableColumn['complete_type'] = $tableColumn['domain_complete_type'];
         }
@@ -336,6 +334,10 @@ class PostgreSqlSchemaManager extends AbstractSchemaManager
             case 'year':
                 $length = null;
                 break;
+        }
+
+        if ($tableColumn['default'] && preg_match("('([^']+)'::)", $tableColumn['default'], $match)) {
+            $tableColumn['default'] = $match[1];
         }
 
         $options = array(

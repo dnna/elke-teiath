@@ -416,7 +416,7 @@ if($this->project->get_iscomplex() == 1) {
                 echo '
     <tr>
         <td>
-            '.$curSubProject->get_subprojectnumber().'
+            <span title="'.$curSubProject->get_subprojecttitle().'" class="tooltip">'.$curSubProject->get_subprojectnumber().'</span>
         </td>
         <td>
             '.$curDeliverable->get_codename().'

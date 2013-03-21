@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
 */
 
@@ -42,10 +42,10 @@ class LifecycleEventArgs extends EventArgs
      * @var object
      */
     private $entity;
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param object $entity
      * @param \Doctrine\ORM\EntityManager $em
      */
@@ -54,11 +54,11 @@ class LifecycleEventArgs extends EventArgs
         $this->entity = $entity;
         $this->em     = $em;
     }
-    
+
     /**
-     * Retireve associated Entity.
-     * 
-     * @return object 
+     * Retrieve associated Entity.
+     *
+     * @return object
      */
     public function getEntity()
     {
@@ -67,7 +67,7 @@ class LifecycleEventArgs extends EventArgs
 
     /**
      * Retrieve associated EntityManager.
-     * 
+     *
      * @return \Doctrine\ORM\EntityManager
      */
     public function getEntityManager()

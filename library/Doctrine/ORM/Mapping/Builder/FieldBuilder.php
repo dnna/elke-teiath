@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information, see
+ * and is licensed under the MIT license. For more information, see
  * <http://www.doctrine-project.org>.
  */
 
@@ -170,7 +170,7 @@ class FieldBuilder
 
     /**
      * Set Sequence Generator
-     * 
+     *
      * @param string $sequenceName
      * @param int $allocationSize
      * @param int $initialValue
@@ -188,7 +188,7 @@ class FieldBuilder
 
     /**
      * Set column definition.
-     * 
+     *
      * @param string $def
      * @return FieldBuilder
      */
