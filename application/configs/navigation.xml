@@ -94,6 +94,116 @@
             </paketaergasias>
         </pages>
     </erga>
+    <mhniaiafyllaparakolouthisis>
+        <label>Μηνιαία Φύλλα Παρ.</label>
+        <module>timesheets</module>
+        <resource>employeesection</resource>
+        <route>default</route>
+        <pages>
+            <mytimesheets>
+                <label>Τα φύλλα μου</label>
+                <module>timesheets</module>
+                <controller>mytimesheets</controller>
+                <resource>employeesection</resource>
+                <route>default</route>
+            </mytimesheets>
+            <adminey>
+                <label>Διαχείρηση Φύλλων (ΕΥ)</label>
+                <module>timesheets</module>
+                <controller>adminey</controller>
+                <resource>professorsection</resource>
+                <route>default</route>
+            </adminey>
+            <adminelke>
+                <label>Διαχείρηση Φύλλων (ΕΛΚΕ)</label>
+                <module>timesheets</module>
+                <controller>adminelke</controller>
+                <resource>elkesection</resource>
+                <route>default</route>
+            </adminelke>
+        </pages>
+    </mhniaiafyllaparakolouthisis>
+    <diagonismoi>
+        <label>Διαγωνισμοί</label>
+        <module>praktika</module>
+        <controller>diagonismoi</controller>
+        <resource>elkesection</resource>
+        <route>default</route>
+    </diagonismoi>
+    <aitiseis>
+        <label>Αιτήσεις</label>
+        <module>aitiseis</module>
+        <resource>priviledgedsection</resource>
+        <route>default</route>
+        <id>aitiseis</id> <!-- Για να μπορούμε να το βρούμε με τη συνάρτηση findOneBy στο populateNavigation -->
+        <pages>
+            <aitiseistypes>
+                <label>Τύποι Αιτήσεων</label>
+                <module>aitiseis</module>
+                <controller>index</controller>
+                <action>index</action>
+                <route>default</route>
+                <resource>priviledgedsection</resource>
+            </aitiseistypes>
+        </pages>
+        <!-- Οι τύποι αιτήσεων γίνονται αυτόματα populate -->
+    </aitiseis>
+    <anafores>
+        <label>Αναφορές</label>
+        <module>anafores</module>
+        <resource>priviledgedsection</resource>
+        <route>default</route>
+        <pages>
+            <elkeapasxoloumenoi>
+                <label>Απασχολούμενοι</label>
+                <module>anafores</module>
+                <controller>Apasxoloumenoi</controller>
+                <resource>elkesection</resource>
+            </elkeapasxoloumenoi>
+            <elkefyllaapasxooumenoi>
+                <label>Στατιστικά ΜΦΠ (Α)</label>
+                <module>anafores</module>
+                <controller>Fylla</controller>
+                <resource>elkesection</resource>
+            </elkefyllaapasxooumenoi>
+            <elkeanadoxoi>
+                <label>Ανάδοχοι</label>
+                <module>anafores</module>
+                <controller>Anadoxoi</controller>
+                <resource>elkesection</resource>
+            </elkeanadoxoi>
+            <profapasxoloumenoi>
+                <label>Απασχολούμενοι</label>
+                <module>anafores</module>
+                <controller>Professor_Apasxoloumenoi</controller>
+                <resource>professorsection</resource>
+            </profapasxoloumenoi>
+            <professorfyllaapasxooumenoi>
+                <label>Στατιστικά ΜΦΠ (Α)</label>
+                <module>anafores</module>
+                <controller>Professor_Fylla</controller>
+                <resource>professorsection</resource>
+            </professorfyllaapasxooumenoi>
+            <profanadoxoi>
+                <label>Ανάδοχοι</label>
+                <module>anafores</module>
+                <controller>Professor_Anadoxoi</controller>
+                <resource>professorsection</resource>
+            </profanadoxoi>
+            <epistimonikaypeuthinoi>
+                <label>Επιστημονικά Υπεύθυνοι</label>
+                <module>anafores</module>
+                <controller>Epistimonikaypeuthinoi</controller>
+                <resource>elkesection</resource>
+            </epistimonikaypeuthinoi>
+            <ekprothesmaparadotea>
+                <label>Εκπρόθεσμα Παραδοτέα</label>
+                <module>anafores</module>
+                <controller>Ekprothesma</controller>
+                <resource>elkesection</resource>
+            </ekprothesmaparadotea>
+        </pages>
+    </anafores>
     <synedriaseisee>
         <label>Ημερολόγιο ΕΕΕ</label>
         <module>synedriaseisee</module>
@@ -221,13 +331,6 @@
         <!--<id>epitropes</id>--> <!-- Για να μπορούμε να το βρούμε με τη συνάρτηση findOneBy στο populateNavigation -->
         <!-- Οι τύποι επιτροπών γίνονται αυτόματα populate -->
     <!--</epitropes>-->
-    <diagonismoi>
-        <label>Διαγωνισμοί</label>
-        <module>praktika</module>
-        <controller>diagonismoi</controller>
-        <resource>elkesection</resource>
-        <route>default</route>
-    </diagonismoi>
     <!--<praktika>
         <label>Πρακτικά</label>
         <module>praktika</module>
@@ -237,109 +340,6 @@
         <id>praktika</id>--><!-- Για να μπορούμε να το βρούμε με τη συνάρτηση findOneBy στο populateNavigation -->
         <!-- Οι τύποι πρακτικών γίνονται αυτόματα populate -->
     <!-- </praktika> -->
-    <aitiseis>
-        <label>Αιτήσεις</label>
-        <module>aitiseis</module>
-        <resource>priviledgedsection</resource>
-        <route>default</route>
-        <id>aitiseis</id> <!-- Για να μπορούμε να το βρούμε με τη συνάρτηση findOneBy στο populateNavigation -->
-        <pages>
-            <aitiseistypes>
-                <label>Τύποι Αιτήσεων</label>
-                <module>aitiseis</module>
-                <controller>index</controller>
-                <action>index</action>
-                <route>default</route>
-                <resource>priviledgedsection</resource>
-            </aitiseistypes>
-        </pages>
-        <!-- Οι τύποι αιτήσεων γίνονται αυτόματα populate -->
-    </aitiseis>
-    <mhniaiafyllaparakolouthisis>
-        <label>Μηνιαία Φύλλα Παρ.</label>
-        <module>timesheets</module>
-        <resource>employeesection</resource>
-        <route>default</route>
-        <pages>
-            <mytimesheets>
-                <label>Τα φύλλα μου</label>
-                <module>timesheets</module>
-                <controller>mytimesheets</controller>
-                <resource>employeesection</resource>
-                <route>default</route>
-            </mytimesheets>
-            <adminey>
-                <label>Διαχείρηση Φύλλων (ΕΥ)</label>
-                <module>timesheets</module>
-                <controller>adminey</controller>
-                <resource>professorsection</resource>
-                <route>default</route>
-            </adminey>
-            <adminelke>
-                <label>Διαχείρηση Φύλλων (ΕΛΚΕ)</label>
-                <module>timesheets</module>
-                <controller>adminelke</controller>
-                <resource>elkesection</resource>
-                <route>default</route>
-            </adminelke>
-        </pages>
-    </mhniaiafyllaparakolouthisis>
-    <anafores>
-        <label>Αναφορές</label>
-        <module>anafores</module>
-        <resource>priviledgedsection</resource>
-        <route>default</route>
-        <pages>
-            <elkeapasxoloumenoi>
-                <label>Απασχολούμενοι</label>
-                <module>anafores</module>
-                <controller>Apasxoloumenoi</controller>
-                <resource>elkesection</resource>
-            </elkeapasxoloumenoi>
-            <elkefyllaapasxooumenoi>
-                <label>Στατιστικά ΜΦΠ (Α)</label>
-                <module>anafores</module>
-                <controller>Fylla</controller>
-                <resource>elkesection</resource>
-            </elkefyllaapasxooumenoi>
-            <elkeanadoxoi>
-                <label>Ανάδοχοι</label>
-                <module>anafores</module>
-                <controller>Anadoxoi</controller>
-                <resource>elkesection</resource>
-            </elkeanadoxoi>
-            <profapasxoloumenoi>
-                <label>Απασχολούμενοι</label>
-                <module>anafores</module>
-                <controller>Professor_Apasxoloumenoi</controller>
-                <resource>professorsection</resource>
-            </profapasxoloumenoi>
-            <professorfyllaapasxooumenoi>
-                <label>Στατιστικά ΜΦΠ (Α)</label>
-                <module>anafores</module>
-                <controller>Professor_Fylla</controller>
-                <resource>professorsection</resource>
-            </professorfyllaapasxooumenoi>
-            <profanadoxoi>
-                <label>Ανάδοχοι</label>
-                <module>anafores</module>
-                <controller>Professor_Anadoxoi</controller>
-                <resource>professorsection</resource>
-            </profanadoxoi>
-            <epistimonikaypeuthinoi>
-                <label>Επιστημονικά Υπεύθυνοι</label>
-                <module>anafores</module>
-                <controller>Epistimonikaypeuthinoi</controller>
-                <resource>elkesection</resource>
-            </epistimonikaypeuthinoi>
-            <ekprothesmaparadotea>
-                <label>Εκπρόθεσμα Παραδοτέα</label>
-                <module>anafores</module>
-                <controller>Ekprothesma</controller>
-                <resource>elkesection</resource>
-            </ekprothesmaparadotea>
-        </pages>
-    </anafores>
     <!--<eggrafa>
         <label>Έγγραφα</label>
         <module>default</module>
