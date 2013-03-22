@@ -344,7 +344,6 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
     }
 
     public function get_workpackages() {
-        unset($this->_iscomplete);
         if(!isset($this->_workpackages)) {
             $this->_workpackages = new ArrayCollection();
         }
