@@ -395,20 +395,17 @@ class Erga_Model_Project extends Erga_Model_EmployeeContainer {
         }
         // ΔΕΝ σετάρουμε εδώ το _iscomplete γιατί χαλάει το lastupdatedate
         if(!is_object($this->get_subprojects()) || $this->get_subprojects()->count() <= 0) {
-            $result = false;
+            $this->_iscomplete = false;
+            return false;
         }
         foreach($this->get_subprojects() as $curSubproject) {
             if(!$curSubproject->isComplete()) {
-                $result = false;
+                $this->_iscomplete = false;
+                return false;
             }
         }
-        if(!isset($result) || $result != false) {
-            $result = true;
-        }
-        if($this->_iscomplete != $result) {
-            $this->_iscomplete = $result;
-        }
-        return $result;
+        $this->_iscomplete = true;
+        return true;
     }
 
     public function getCompletionDate() {
