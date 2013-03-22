@@ -104,10 +104,14 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
      * @Column (name="comments", type="string")
      */
     protected $_comments; // Γενικές Παρατηρήσεις
-
-    protected $__iscomplete;
-
-    protected $__hasoverduedeliverables;
+    /**
+     * @Column (name="iscomplete", type="integer")
+     */
+    protected $_iscomplete;
+    /**
+     * @Column (name="hasoverduedeliverables", type="integer")
+     */
+    protected $_hasoverduedeliverables;
 
     /**
      * @return Application_Model_ProjectBase
@@ -340,7 +344,7 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
     }
 
     public function get_workpackages() {
-        unset($this->__iscomplete);
+        unset($this->_iscomplete);
         if(!isset($this->_workpackages)) {
             $this->_workpackages = new ArrayCollection();
         }
@@ -388,30 +392,30 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
         }
     }
 
-    protected function get__iscomplete() {
-        return $this->__iscomplete;
+    public function get_iscomplete() {
+        return $this->_iscomplete;
     }
 
-    protected function set__iscomplete($__iscomplete) {
-        $this->__iscomplete = $__iscomplete;
+    public function set_iscomplete($_iscomplete) {
+        $this->_iscomplete = $_iscomplete;
     }
 
     public function isComplete() {
-        if(!isset($this->__iscomplete)) {
+        if(!isset($this->_iscomplete)) {
             if(!is_object($this->get_workpackages()) || $this->get_workpackages()->count() <= 0) {
-                $this->__iscomplete = false;
+                $this->_iscomplete = false;
                 return false;
             }
             foreach($this->get_workpackages() as $curWorkpackage) {
                 if(!$curWorkpackage->isComplete()) {
-                    $this->__iscomplete = false;
+                    $this->_iscomplete = false;
                     return false;
                 }
             }
-            $this->__iscomplete = true;
+            $this->_iscomplete = true;
             return true;
         }
-        return $this->__iscomplete;
+        return $this->_iscomplete;
     }
 
     public function getCompletionDate() {
@@ -429,30 +433,30 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
         return $completiondate;
     }
 
-    protected function get__hasoverduedeliverables() {
-        return $this->__hasoverduedeliverables;
+    public function get_hasoverduedeliverables() {
+        return $this->_hasoverduedeliverables;
     }
 
-    protected function set__hasoverduedeliverables($__hasoverduedeliverables) {
-        $this->__hasoverduedeliverables = $__hasoverduedeliverables;
+    public function set_hasoverduedeliverables($_hasoverduedeliverables) {
+        $this->_hasoverduedeliverables = $_hasoverduedeliverables;
     }
 
     public function hasOverdueDeliverables() {
-        if(!isset($this->__hasoverduedeliverables)) {
+        if(!isset($this->_hasoverduedeliverables)) {
             if(!is_object($this->get_workpackages()) || $this->get_workpackages()->count() <= 0) {
-                $this->__hasoverduedeliverables = false;
+                $this->_hasoverduedeliverables = false;
                 return false;
             }
             foreach($this->get_workpackages() as $curWorkpackage) {
                 if($curWorkpackage->hasOverdueDeliverables()) {
-                    $this->__hasoverduedeliverables = true;
+                    $this->_hasoverduedeliverables = true;
                     return true;
                 }
             }
-            $this->__hasoverduedeliverables = false;
+            $this->_hasoverduedeliverables = false;
             return false;
         }
-        return $this->__hasoverduedeliverables;
+        return $this->_hasoverduedeliverables;
     }
 
     // Επιστρέφει Αμερικάνικο float

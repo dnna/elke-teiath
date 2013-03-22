@@ -225,6 +225,18 @@ class Erga_Model_Project extends \Erga_Model_Project implements \Doctrine\ORM\Pr
         return parent::set_timesheets($_timesheets);
     }
 
+    public function get_iscomplete()
+    {
+        $this->__load();
+        return parent::get_iscomplete();
+    }
+
+    public function set_iscomplete($_iscomplete)
+    {
+        $this->__load();
+        return parent::set_iscomplete($_iscomplete);
+    }
+
     public function isComplete()
     {
         $this->__load();
@@ -235,6 +247,18 @@ class Erga_Model_Project extends \Erga_Model_Project implements \Doctrine\ORM\Pr
     {
         $this->__load();
         return parent::getCompletionDate();
+    }
+
+    public function get_hasoverduedeliverables()
+    {
+        $this->__load();
+        return parent::get_hasoverduedeliverables();
+    }
+
+    public function set_hasoverduedeliverables($_hasoverduedeliverables)
+    {
+        $this->__load();
+        return parent::set_hasoverduedeliverables($_hasoverduedeliverables);
     }
 
     public function hasOverdueDeliverables()

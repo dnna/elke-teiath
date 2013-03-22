@@ -22,10 +22,14 @@ class Erga_Model_SubItems_WorkPackage extends Application_Model_SubObject {
     protected $_workpackagecodename = "--NONAME--";
     /** @Column (name="workpackagename", type="string") */
     protected $_workpackagename = "--NONAME--";
-
-    protected $__iscomplete;
-
-    protected $__hasoverduedeliverables;
+    /**
+     * @Column (name="iscomplete", type="integer")
+     */
+    protected $_iscomplete;
+    /**
+     * @Column (name="hasoverduedeliverables", type="integer")
+     */
+    protected $_hasoverduedeliverables;
 
     public function get_subproject() {
         return $this->_subproject;
@@ -57,7 +61,7 @@ class Erga_Model_SubItems_WorkPackage extends Application_Model_SubObject {
     }
 
     public function set_deliverables($_deliverables) {
-        unset($this->__iscomplete);
+        unset($this->_iscomplete);
         $this->_deliverables = $this->modifySubCollection($_deliverables, $this->_deliverables);
     }
 
@@ -81,30 +85,30 @@ class Erga_Model_SubItems_WorkPackage extends Application_Model_SubObject {
         return $this->get_workpackagecodename().' '.$this->get_workpackagename();
     }
 
-    protected function get__iscomplete() {
-        return $this->__iscomplete;
+    public function get_iscomplete() {
+        return $this->_iscomplete;
     }
 
-    protected function set__iscomplete($__iscomplete) {
-        $this->__iscomplete = $__iscomplete;
+    public function set_iscomplete($_iscomplete) {
+        $this->_iscomplete = $_iscomplete;
     }
 
     public function isComplete() {
-        if(!isset($this->__iscomplete)) {
+        if(!isset($this->_iscomplete)) {
             if(!is_object($this->get_deliverables()) || $this->get_deliverables()->count() <= 0) {
-                $this->__iscomplete = false;
+                $this->_iscomplete = false;
                 return false;
             }
             foreach($this->get_deliverables() as $curDeliverable) {
                 if(!$curDeliverable->isComplete()) {
-                    $this->__iscomplete = false;
+                    $this->_iscomplete = false;
                     return false;
                 }
             }
-            $this->__iscomplete = true;
+            $this->_iscomplete = true;
             return true;
         }
-        return $this->__iscomplete;
+        return $this->_iscomplete;
     }
 
     public function getCompletionDate() {
@@ -122,26 +126,26 @@ class Erga_Model_SubItems_WorkPackage extends Application_Model_SubObject {
         return $completiondate;
     }
 
-    protected function get__hasoverduedeliverables() {
-        return $this->__hasoverduedeliverables;
+    public function get_hasoverduedeliverables() {
+        return $this->_hasoverduedeliverables;
     }
 
-    protected function set__hasoverduedeliverables($__hasoverduedeliverables) {
-        $this->__hasoverduedeliverables = $__hasoverduedeliverables;
+    public function set_hasoverduedeliverables($_hasoverduedeliverables) {
+        $this->_hasoverduedeliverables = $_hasoverduedeliverables;
     }
 
     public function hasOverdueDeliverables() {
-        $overduedeliverables = Zend_Registry::get('entityManager')
-            ->getRepository('Erga_Model_SubItems_Deliverable')
-            ->findOverdueDeliverables();
-        if(count($overduedeliverables) > 0) {
-            foreach($overduedeliverables as $curOverdue) {
-                if($curOverdue->get_workpackage()->get_recordid() === $this->get_recordid()) {
+        if(!isset($this->_hasoverduedeliverables)) {
+            foreach($this->get_deliverables() as $curDeliverable) {
+                if($curDeliverable->isOverdue()) {
+                    $this->_hasoverduedeliverables = true;
                     return true;
                 }
             }
+            $this->_hasoverduedeliverables = false;
+            return false;
         }
-        return false;
+        return $this->_hasoverduedeliverables;
     }
 
     // Επιστρέφει Αμερικάνικο float

@@ -2,6 +2,7 @@
 /**
  * @author Dimosthenis Nikoudis <dnna@dnna.gr>
  * @Entity (repositoryClass="Erga_Model_Repositories_Deliverables") @Table(name="elke_erga.deliverables")
+ * @HasLifecycleCallbacks
  */
 class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
     /**
@@ -272,6 +273,29 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
         if($owner == null || $owner instanceof Erga_Model_SubItems_WorkPackage) {
             $this->set_workpackage($owner);
         }
+    }
+
+    /**
+     * @postPersist
+     * @postUpdate
+     */
+    public function resetIsComplete() {
+        // Reset the parent workpackage
+        $workpackage = $this->get_workpackage();
+        $workpackage->set_iscomplete(null);
+        $workpackage->set_hasoverduedeliverables(null);
+        Zend_Registry::get('entityManager')->persist($workpackage);
+        // Reset the parent subproject
+        $subproject = $workpackage->get_subproject();
+        $subproject->set_iscomplete(null);
+        $subproject->set_hasoverduedeliverables(null);
+        Zend_Registry::get('entityManager')->persist($subproject);
+        // Reset the parent project
+        $project = $subproject->get_parentproject();
+        $project->set_iscomplete(null);
+        $project->set_hasoverduedeliverables(null);
+        Zend_Registry::get('entityManager')->persist($project);
+        Zend_Registry::get('entityManager')->flush();
     }
 
     public function __toString() {

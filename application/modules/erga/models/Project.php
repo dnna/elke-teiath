@@ -381,15 +381,18 @@ class Erga_Model_Project extends Erga_Model_EmployeeContainer {
         $this->_timesheets = $_timesheets;
     }
 
-    protected function get_iscomplete() {
+    public function get_iscomplete() {
         return $this->_iscomplete;
     }
 
-    protected function set_iscomplete($_iscomplete) {
+    public function set_iscomplete($_iscomplete) {
         $this->_iscomplete = $_iscomplete;
     }
 
     public function isComplete() {
+        if(isset($this->_iscomplete)) {
+            return $this->_iscomplete;
+        }
         // ΔΕΝ σετάρουμε εδώ το _iscomplete γιατί χαλάει το lastupdatedate
         if(!is_object($this->get_subprojects()) || $this->get_subprojects()->count() <= 0) {
             $result = false;
@@ -423,15 +426,18 @@ class Erga_Model_Project extends Erga_Model_EmployeeContainer {
         return $completiondate;
     }
 
-    protected function get_hasoverduedeliverables() {
+    public function get_hasoverduedeliverables() {
         return $this->_hasoverduedeliverables;
     }
 
-    protected function set_hasoverduedeliverables($_hasoverduedeliverables) {
+    public function set_hasoverduedeliverables($_hasoverduedeliverables) {
         $this->_hasoverduedeliverables = $_hasoverduedeliverables;
     }
 
     public function hasOverdueDeliverables() {
+        if(isset($this->_hasoverduedeliverables)) {
+            return $this->_hasoverduedeliverables;
+        }
         if(!is_object($this->get_subprojects()) || $this->get_subprojects()->count() <= 0) {
             $this->_hasoverduedeliverables = false;
             return false;
