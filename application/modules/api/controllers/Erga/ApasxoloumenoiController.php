@@ -22,7 +22,7 @@ class Api_Erga_ApasxoloumenoiController extends Api_IndexController
         }
         if(!$auth->hasIdentity()) {
             throw new Exception('Δεν είστε συνδεδεμένος χρήστης.');
-        } else if($auth->getStorage()->read()->hasRole('elke') || ($auth->getStorage()->read()->hasRole('professor') && $subproject->get_subprojectsupervisor() == $auth->getStorage()->read()->hasRole('professor'))) {
+        } else if($auth->getStorage()->read()->hasRole('elke') || ($auth->getStorage()->read()->hasRole('professor') && ($subproject instanceof Erga_Model_SubProject && $subproject->get_subprojectsupervisor() == $auth->getStorage()->read()->get_userid()) || ($subproject instanceof Erga_Model_Project && $subproject->get_basicdetails()->get_supervisor() == $auth->getStorage()->read()->get_userid()))) {
             $employees = $subproject->get_employees();
         } else {
             throw new Exception('Δεν έχετε δικαίωμα να δείτε τους απασχολούμενους για το συγκεκριμένο έργο.');
