@@ -23,7 +23,7 @@ class Timesheets_Form_TemplateSelect extends Dnna_Form_FormBase {
             ));
         } else {
             $this->addSubForm(new Application_Form_Subforms_ProjectSelect(array('required' => true), $this->_view), 'project', false);
-            if($auth->hasIdentity() && $auth->getStorage()->read()->hasRole('elke')) {
+            if($auth->hasIdentity() && ($auth->getStorage()->read()->hasRole('elke') || $auth->getStorage()->read()->hasRole('professor'))) {
                 $this->addElement('select', 'employee', array(
                     'label' =>  'Απασχολούμενος: ',
                     'required'  =>  true,
