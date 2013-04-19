@@ -25,7 +25,7 @@ class Timesheets_AdmineyController extends Zend_Controller_Action {
                 $timesheet = new Timesheets_Model_Timesheet();
                 $timesheet->setOptions($form->getValues());
                 $authuser = Zend_Auth::getInstance()->getStorage()->read();
-                if(isset($authuser) && $authuser === $timesheet->get_project()->get_basicdetails()->get_supervisor()) {
+                if(isset($authuser) && $authuser->get_userid() === $timesheet->get_project()->get_basicdetails()->get_supervisor()->get_userid()) {
                     // Δεν κάνουμε τίποτα
                 } else {
                     throw new Exception('Απαγορεύεται η πρόσβαση');

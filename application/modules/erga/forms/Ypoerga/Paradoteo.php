@@ -103,11 +103,10 @@ class Erga_Form_Ypoerga_Paradoteo extends Erga_Form_Ypoerga_FormBase {
                 $curlimitform->addSubForm($curlimitcategoryform, 'personnelcategory', false);
                 // Limit
                 $curlimitform->addElement('text', 'limit', array(
-                    'label' => 'Ετήσιο όριο ωρών για '.$curCategory->get_name().':',
+                    'label' => 'Όριο ωρών για '.$curCategory->get_name().':',
                     'validators' => array(
                         array('validator' => 'Float')
                     ),
-                    'class' => 'formatFloat',
                     'required' => false,
                 ));
                 $curlimitform->set_empty(false);
