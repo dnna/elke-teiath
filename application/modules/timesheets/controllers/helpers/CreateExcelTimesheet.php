@@ -71,7 +71,6 @@ class Timesheets_Action_Helper_CreateExcelTimesheet extends Zend_Controller_Acti
         $sheet[0] = array();
         $this->blueCell($objPHPExcel, 'A'.self::STARTROW);
         foreach($deliverables as $curDeliverable) {
-            $col = 'B';
             $newcol = self::STARTCOL; for($k = 0; $k < $i; $k++) { $newcol++; }
             $this->blueCell($objPHPExcel, $newcol.self::STARTROW);
             $sheet[0][$i] = $curDeliverable->get_shorttitle();
