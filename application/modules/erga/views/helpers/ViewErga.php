@@ -50,10 +50,10 @@ class Erga_View_Helper_ViewErga extends Zend_View_Helper_Abstract
                                 </td>
                                 <td>';
                     if($edit == false) {
-                    $return .= $this->view->escape($entry->get_basicdetails()->get_title());
+                    $return .= $this->view->escape($entry->__toString());
                     } else {
                     $return .= '<a href="'.$this->view->url(array('module' => 'erga', 'controller' => $this->view->getControllerName(), 'action' => 'review', 'projectid' => $entry->get_projectid()), null, true).'">
-                                    '.$this->view->escape($entry->get_basicdetails()->get_title()).'
+                                    '.$this->view->escape($entry->__toString()).'
                                 </a>';
                     }
                     $return .= '</td>';
