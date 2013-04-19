@@ -58,7 +58,7 @@ class Erga_Form_Ypoerga_Paradoteo extends Erga_Form_Ypoerga_FormBase {
         $subform->addElement('hidden', 'recordid', array());
         // Κωδικός Παραδοτέου
         $subform->addElement('text', 'codename', array(
-            'label' => 'Κωδικός Παραδοτέου:',
+            'label' => 'Κωδικός Παραδοτέου (πχ. Π.1.1):',
             'validators' => array(
                 array('validator' => 'StringLength', 'options' => array(0, 10))
             ),
