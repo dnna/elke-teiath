@@ -102,6 +102,8 @@ class Erga_Model_Project extends Erga_Model_EmployeeContainer {
 
     protected $_title;
 
+    protected $_shorttitle;
+
     public function __construct(array $options = null) {
         parent::__construct($options);
         if(!isset($this->_creationdate)) {
@@ -540,12 +542,25 @@ class Erga_Model_Project extends Erga_Model_EmployeeContainer {
         return $this->_title;
     }
 
+    public function get_shorttitle() {
+        if($this->get_basicdetails() != null && $this->get_basicdetails()->get_shorttitle() != null) {
+            return $this->get_basicdetails()->get_shorttitle();
+        } else {
+            return "";
+        }
+        return $this->_shorttitle;
+    }
+
     public function get_id() {
         return $this->get_projectid();
     }
 
     public function __toString() {
-        return $this->get_title();
+        if($this->get_shorttitle() != '') {
+            return $this->get_shorttitle();
+        } else {
+            return $this->get_title();
+        }
     }
 }
 ?>
