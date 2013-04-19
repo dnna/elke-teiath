@@ -105,7 +105,7 @@ class Erga_Form_Ypoerga_Paradoteo extends Erga_Form_Ypoerga_FormBase {
                 $curlimitform->addElement('text', 'limit', array(
                     'label' => 'Όριο ωρών για '.$curCategory->get_name().':',
                     'validators' => array(
-                        array('validator' => 'Float')
+                        array('validator' => 'Integer')
                     ),
                     'required' => false,
                 ));

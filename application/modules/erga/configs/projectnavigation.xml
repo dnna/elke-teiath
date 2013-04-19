@@ -32,7 +32,7 @@
         <complexprojects>0</complexprojects>
     </apasxoloumenoisimple>
     <apasxoloumenoi>
-        <label>Απασχολούμενοι/Ανάδοχοι</label>
+        <label>Συμβάσεις</label>
         <module>erga</module>
         <controller>Apasxoloumenoi</controller>
         <complexprojects>1</complexprojects>
