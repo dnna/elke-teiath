@@ -17,7 +17,7 @@ class Timesheets_Form_TemplateSelect extends Dnna_Form_FormBase {
                 $entries[$curContract->get_recordid()] = $curContract->getProjectName().' '.$curContract->get_startdate().'–'.$curContract->get_enddate();
             }
             $this->addElement('select', 'employee', array(
-                'label' =>  'Έργο: ',
+                'label' =>  'Σύμβαση: ',
                 'required'  =>  true,
                 'multiOptions'  => $entries,
             ));
@@ -25,7 +25,7 @@ class Timesheets_Form_TemplateSelect extends Dnna_Form_FormBase {
             $this->addSubForm(new Application_Form_Subforms_ProjectSelect(array('required' => true), $this->_view), 'project', false);
             if($auth->hasIdentity() && ($auth->getStorage()->read()->hasRole('elke') || $auth->getStorage()->read()->hasRole('professor'))) {
                 $this->addElement('select', 'employee', array(
-                    'label' =>  'Απασχολούμενος: ',
+                    'label' =>  'Σύμβαση: ',
                     'required'  =>  true,
                     'multiOptions'  => array('Επιλέξτε έργο'),
                     //'value' =>  blabla // TODO Αν ο χρήστης ΕΛΚΕ είναι ταυτόχρονα και απασχολούμενος σε κάποιο έργο τότε να τον επιλέγει σαν default
