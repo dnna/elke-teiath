@@ -15,7 +15,11 @@ $(document).ready(function() {
                 var len = data.employees.length;
                 if(len > 0) {
                     for (var i = 0; i< len; i++) {
-                        html += '<option value="' + data['employees'][i].recordid + '">' + data['employees'][i].name + '</option>';
+                        var startdate = data['employees'][i].startdate.date;
+                        startdate = new Date(startdate.substring(0, startdate.indexOf(' ')));
+                        var enddate = data['employees'][i].enddate.date;
+                        enddate = new Date(enddate.substring(0, enddate.indexOf(' ')));
+                        html += '<option value="' + data['employees'][i].recordid + '">' + data['employees'][i].name + ' '+$.datepicker.formatDate('dd/mm/yy', startdate)+'-'+$.datepicker.formatDate('dd/mm/yy', enddate)+'</option>';
                     }
                     $('select#employee').html(html);
                     $('#submit').removeAttr('disabled');
