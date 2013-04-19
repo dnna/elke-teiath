@@ -12,7 +12,7 @@ class Timesheets_Action_Helper_CreateExcelTimesheet extends Zend_Controller_Acti
     const STARTROW = 12;
 
     /**
-     * @var Timesheets_Model_Timesheet 
+     * @var Timesheets_Model_Timesheet
      */
     protected $_timesheet;
     protected $_deliverablesCount;
@@ -71,6 +71,7 @@ class Timesheets_Action_Helper_CreateExcelTimesheet extends Zend_Controller_Acti
         $sheet[0] = array();
         $this->blueCell($objPHPExcel, 'A'.self::STARTROW);
         foreach($deliverables as $curDeliverable) {
+            $col = 'B';
             $newcol = self::STARTCOL; for($k = 0; $k < $i; $k++) { $newcol++; }
             $this->blueCell($objPHPExcel, $newcol.self::STARTROW);
             $sheet[0][$i] = $curDeliverable->get_shorttitle();
@@ -114,6 +115,7 @@ class Timesheets_Action_Helper_CreateExcelTimesheet extends Zend_Controller_Acti
             if(!isset($sheet[$i])) {
                 $sheet[$i] = array();
             }
+			$sheet[$i][$col] = '';
             foreach($this->_timesheet->get_activitiesForDeliverable($deliverable) as $curActivity) {
                 if($i == $curActivity->get_day()) {
                     $sheet[$i][$col] = $curActivity->get_start().'-'.$curActivity->get_end();
