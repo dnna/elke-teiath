@@ -21,7 +21,6 @@ class Erga_View_Helper_ViewErga extends Zend_View_Helper_Abstract
                 <thead>
                 <tr>
                     <th>'.$this->view->getOrderLink('status', 'Κατάσταση').'</th>
-                    <th>'.$this->view->getOrderLink('creationdate', 'Ημ/νία Δημιουργίας').'</th>
                     <th></th>
                     <th></th>
                     <th>'.$this->view->getOrderLink('basicdetails_title', 'Τίτλος').'</th>';
@@ -45,7 +44,6 @@ class Erga_View_Helper_ViewErga extends Zend_View_Helper_Abstract
                     $return .= '<tr>';
                 }
                 $return .= '<td>'.$this->view->getCompletionIcon($entry).'</td>
-                            <td>'.$this->view->escape($entry->get_creationdate()).'</td>
                             <td class="nopadding"><a href="'.$overviewlink.'" id="episkopish">
                                     <img src="'.$this->view->baseUrl('images/overview.png').'" alt="review" title="Επισκόπηση έργου" />
                                 </a>

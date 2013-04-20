@@ -140,6 +140,7 @@ class Erga_Model_Repositories_SubProjectEmployees extends Application_Model_Repo
             $qb->leftJoin('sspd._parentproject', 'spd');
             $qb->andWhere('sepd._iscomplete = FALSE OR spd._iscomplete = FALSE');
         }
+        $qb->orderBy('d._title', 'ASC');
 
         return $this->getResult($qb);
     }
