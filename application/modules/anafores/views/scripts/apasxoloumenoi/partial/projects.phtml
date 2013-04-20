@@ -5,11 +5,11 @@ if($this->curSymvasi->get_subproject() != null) {
     $this->curProject = $this->curSymvasi->get_project();
 }
 if($this->curProject instanceof Erga_Model_SubProject) {
-    $projectname = $this->curProject->get_parentproject()->get_basicdetails()->get_title();
+    $projectname = $this->curProject->get_parentproject()->__toString();
     $subprojectnumber = '<span title="'.$this->curProject->get_subprojecttitle().'" class="tooltip">'.$this->curProject->get_subprojectnumber().'</span>';
     $budget = $this->curProject->get_subprojectbudget();
 } else if($this->curProject instanceof Erga_Model_Project) {
-    $projectname = $this->curProject->get_basicdetails()->get_title();
+    $projectname = $this->curProject->__toString();
     $subprojectnumber = '-';
     $budget = $this->curProject->get_financialdetails()->get_budget();
 }

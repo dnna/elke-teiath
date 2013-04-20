@@ -95,7 +95,7 @@
         <?php foreach($this->projects as $curProject) { ?>
         <tr>
             <td>
-                <?php echo $curProject->get_basicdetails()->get_title(); ?>
+                <?php echo $curProject->__toString(); ?>
             </td>
             <td>
                 <?php echo $curProject->get_basicdetails()->get_category()->get_name(); ?>
@@ -132,7 +132,7 @@
         <?php foreach($this->subprojects as $curSubProject) { ?>
         <tr>
             <td>
-                <?php echo $curSubProject->get_parentproject()->get_basicdetails()->get_title(); ?>
+                <?php echo $curSubProject->get_parentproject()->__toString(); ?>
             </td>
             <td>
                 Υποέργο <?php echo $curSubProject->get_subprojectnumber(); ?>
