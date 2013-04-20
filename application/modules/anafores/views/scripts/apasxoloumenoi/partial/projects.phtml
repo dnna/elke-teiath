@@ -27,7 +27,7 @@ $curSymvasi = $this->curSymvasi;
         <?php echo $curSymvasi->get_contractnum(); ?>
     </td>
     <td>
-        <?php echo $curSymvasi->get_startdate().' &ndash; '.$this->curProject->findEmployeeByEmployee($this->employee->get_employee())->get_enddate(); ?>
+        <?php echo $curSymvasi->get_startdate().' &ndash; '.$curSymvasi->get_enddate(); ?>
     </td>
     <td>
         <?php echo $budget; ?>
