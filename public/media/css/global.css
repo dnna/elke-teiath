@@ -50,9 +50,9 @@ q:before, q:after {
 	content: none;
 }
 
-.nopadding {
+/*.nopadding {
     padding: 0;
-}
+}*/
 
 /*! Reset css*/
 /*google web font*/
