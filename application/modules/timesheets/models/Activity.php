@@ -80,6 +80,13 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
         return ($this->_end - $this->_start);
     }
 
+    public function get_date() {
+        $year = $this->_timesheet->get_year();
+        $month = $this->_timesheet->get_month();
+        $day = $this->get_day();
+        return \EDateTime::createFromFormat('Y-m-d', $year.'-'.$month.'-'.$day);
+    }
+
     public function setOwner($owner) {
         if($owner instanceof Timesheets_Model_Timesheet) {
             $this->set_timesheet($owner);

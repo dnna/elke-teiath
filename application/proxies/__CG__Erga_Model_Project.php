@@ -309,6 +309,12 @@ class Erga_Model_Project extends \Erga_Model_Project implements \Doctrine\ORM\Pr
         return parent::get_title();
     }
 
+    public function get_shorttitle()
+    {
+        $this->__load();
+        return parent::get_shorttitle();
+    }
+
     public function get_id()
     {
         $this->__load();
