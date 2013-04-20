@@ -13,7 +13,6 @@ if($this->curProject instanceof Erga_Model_SubProject) {
     $subprojectnumber = '-';
     //$budget = $this->curProject->get_financialdetails()->get_budget();
 }
-//$curSymvasi = $this->curProject->findEmployeeByEmployee($this->employee->get_employee());
 $curSymvasi = $this->curSymvasi;
 ?>
 <tr>
@@ -29,9 +28,6 @@ $curSymvasi = $this->curSymvasi;
     <td>
         <?php echo $curSymvasi->get_startdate().' &ndash; '.$curSymvasi->get_enddate(); ?>
     </td>
-    <?php /*<td>
-        <?php echo $budget; ?>
-    </td>*/ ?>
     <td>
         <?php echo $curSymvasi->get_amount(); ?>
     </td>

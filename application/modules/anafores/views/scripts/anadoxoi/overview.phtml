@@ -76,9 +76,6 @@
               Διάρκεια Σύμβασης
             </td>
             <td>
-              Προϋπολογισμός Υποέργου
-            </td>
-            <td>
               Ποσό Σύμβασης
             </td>
             <td>
@@ -98,9 +95,6 @@
             </td>
             <td>
                <?php echo $curSubProject->findContractorByAgency($this->contractor[0]->get_agency())->get_startdate().' &ndash; '.$curSubProject->findContractorByAgency($this->contractor[0]->get_agency())->get_enddate(); ?>
-            </td>
-            <td>
-               <?php echo $curSubProject->get_subprojectbudget(); ?>
             </td>
             <td>
                <?php echo $curSubProject->findContractorByAgency($this->contractor[0]->get_agency())->get_amount(); ?>
