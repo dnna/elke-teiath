@@ -63,7 +63,7 @@ class Erga_Model_Repositories_SubProjectEmployees extends Application_Model_Repo
         $qb->andWhere('(a._firstname LIKE :searchterms OR a._surname LIKE :searchterms OR a._afm LIKE :searchterms)');
         $qb->setParameter('searchterms', '%'.$searchterms.'%');
     }
-    
+
     protected function addSupervisorFilter(Doctrine\ORM\QueryBuilder &$qb, $supervisoruserid) {
         $qb->join('p._basicdetails', 'bd');
         $qb->join('bd._supervisor', 'supervisor');
@@ -124,6 +124,10 @@ class Erga_Model_Repositories_SubProjectEmployees extends Application_Model_Repo
         $qb->andWhere('a._afm = :afm');
         $qb->setParameter('afm', $employee->get_afm());
 
+        $qb->leftJoin('e._subproject', 'sspd');
+        $qb->leftJoin('e._project', 'sepd');
+        $qb->leftJoin('sspd._parentproject', 'spd');
+
         // Φίλτρα
         // Επιστημονικά Υπεύθυνος
         if(isset($filters['supervisoruserid'])) {
@@ -135,12 +139,9 @@ class Erga_Model_Repositories_SubProjectEmployees extends Application_Model_Repo
         }
         // Υπολογισμός μόνο για τα τρέχοντα (μη ολοκληρωμένα) έργα
         if(isset($filters['currentprojects']) && $filters['currentprojects'] == 'true') {
-            $qb->leftJoin('e._subproject', 'sspd');
-            $qb->leftJoin('e._project', 'sepd');
-            $qb->leftJoin('sspd._parentproject', 'spd');
             $qb->andWhere('sepd._iscomplete = FALSE OR spd._iscomplete = FALSE');
         }
-        $qb->orderBy('d._title', 'ASC');
+        $qb->orderBy('spd._projectid, sepd._projectid, sspd._subprojectnumber, d._codename', 'ASC');
 
         return $this->getResult($qb);
     }
