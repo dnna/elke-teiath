@@ -104,14 +104,14 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
     public function set_authors($_authors) {
         $amountsum = 0;
         foreach($_authors as $curAuthor) {
-            if($curAuthor->get_amount() > $this->get_amount()) {
+            if($curAuthor->get_amountAsFloat() > $this->get_amountAsFloat()) {
                 $exception = new Exception('Το πόσο του συντάκτη '.$curAuthor->get_employee()->__toString().' ξεπερνά τον προϋπολογισμό του παραδοτέου. Ο συγκεκριμένος συντάκτης δεν προστέθηκε.');
                 $_authors->removeElement($curAuthor);
             } else {
-                $amountsum = $amountsum + $curAuthor->get_amount();
+                $amountsum = $amountsum + $curAuthor->get_amountAsFloat();
             }
         }
-        if($amountsum > $this->get_amount()) {
+        if($amountsum > $this->get_amountAsFloat()) {
             throw new Exception('Το άθροισμα των ποσών των συντακτών ξεπερνά τον προϋπολογισμό του παραδοτέου. Παρακαλώ ξαναεισάγετε τους συντάκτες.');
         }
         $this->_authors = $this->modifySubCollection($_authors, $this->_authors);
@@ -142,7 +142,7 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
         }
         return $array;
     }
-    
+
     /**
      * @return Erga_Model_SubItems_Author
      */
@@ -236,8 +236,8 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
         foreach($_limits as $curLimit) {
             $sum = $sum + $curLimit->get_limit();
         }
-        if($sum > $this->get_amount()) {
-            throw new Exception('Το σύνολο των ορίων ανα κατηγορία προσωπικού του παραδοτέου ('.$sum.') ξεπερνά το ποσό του ('.$this->get_amount().'). Οι αλλαγές δεν πραγματοποιήθηκαν.');
+        if($sum > $this->get_amountAsFloat()) {
+            throw new Exception('Το σύνολο των ορίων ανα κατηγορία προσωπικού του παραδοτέου ('.$sum.') ξεπερνά το ποσό του ('.$this->get_amountAsFloat().'). Οι αλλαγές δεν πραγματοποιήθηκαν.');
         }
         $this->_limits = $_limits;
     }
@@ -247,7 +247,7 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
                 ->format("%a");
         return $days/30;
     }
-    
+
     public function isComplete() {
         if(isset($this->_completionapprovaldate) && $this->_completionapprovaldate != "") {
             return true;
@@ -255,7 +255,7 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
             return false;
         }
     }
-    
+
     public function isOverdue() {
         $curDate = new EDateTime();
         if(!isset($this->_completionapprovaldate) && $this->get_enddate() != null && $this->get_enddate() < $curDate) {
@@ -264,7 +264,7 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
             return false;
         }
     }
-    
+
     public function hasOverdueDeliverables() {
         return $this->isOverdue();
     }

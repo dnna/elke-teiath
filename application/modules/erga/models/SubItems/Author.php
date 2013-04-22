@@ -73,6 +73,13 @@ class Erga_Model_SubItems_Author extends Application_Model_SubObject {
         $this->_amount = $_amount;
     }
 
+    public function get_amountAsFloat() {
+        return Zend_Locale_Format::getNumber($this->get_amount(),
+                                        array('precision' => 2,
+                                              'locale' => Zend_Registry::get('Zend_Locale'))
+                                       );
+    }
+
     public function get_rateOrAmount() {
         if(isset($this->_amount) && $this->_amount > 0) {
             return ' ('.$this->_amount.'&euro;)';
