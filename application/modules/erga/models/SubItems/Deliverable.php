@@ -275,6 +275,19 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
         }
     }
 
+    public function getEmployeePayment(Application_Model_Employee $employee) {
+        $sum = 0;
+        foreach($this->get_authors() as $curAuthor) {
+            if($curAuthor->get_employee()->get_employee()->get_afm() === $employee->get_afm()) {
+                $sum = $sum + $curAuthor->getPaidAmount();
+            }
+        }
+        if($sum <= 0) {
+            $sum = '-';
+        }
+        return $sum;
+    }
+
     /**
      * @postPersist
      * @postUpdate

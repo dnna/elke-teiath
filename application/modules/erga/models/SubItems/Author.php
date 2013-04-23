@@ -102,7 +102,20 @@ class Erga_Model_SubItems_Author extends Application_Model_SubObject {
         if(isset($this->_amount) && $this->_amount > 0) {
             return $this->_amount;
         } else {
-            return ($this->get_workedhours()*$this->get_rateAsFloat());
+            $timesheetpaid = ($this->get_workedhours()*$this->get_rateAsFloat());
+            if($timesheetpaid > 0) {
+                return $timesheetpaid;
+            } else {
+                $curDeliverable = $this->get_deliverable();
+                if($curDeliverable->get_authors()->count() <= 1 && $curDeliverable->get_authors()->get(0)->get_rate() == null) {
+                    return Zend_Locale_Format::getNumber($curDeliverable->get_amount(),
+                                        array('precision' => 2,
+                                              'locale' => Zend_Registry::get('Zend_Locale'))
+                                       );
+                } else {
+                    return 0;
+                }
+            }
         }
     }
 

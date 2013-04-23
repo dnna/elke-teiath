@@ -157,7 +157,7 @@
                <?php echo $curDeliverable->get_startdate().' &ndash; '.$curDeliverable->get_enddate(); ?>
             </td>
             <td>
-               <?php if($curDeliverable->get_authors()->count() <= 1 && $curDeliverable->get_authors()->get(0)->get_rate() == null) { echo $curDeliverable->get_amount(); } else { echo '-'; } ?>
+               <?php echo $curDeliverable->getEmployeePayment($this->employee[0]->get_employee()); ?>
             </td>
             <td>
                <?php echo $this->getCompletionText($curDeliverable); ?>

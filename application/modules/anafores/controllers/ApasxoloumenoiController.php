@@ -34,7 +34,7 @@ class Anafores_ApasxoloumenoiController extends Zend_Controller_Action {
 
         // Headers
         $headers = array('Ονοματεπώνυμο', 'Αριθμός Έργων', 'Συνολική Αμοιβή');
-        
+
         // Data
         $data = array();
         foreach($employees as $employee) {
