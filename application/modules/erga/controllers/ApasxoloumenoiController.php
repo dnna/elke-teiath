@@ -238,6 +238,22 @@ class Erga_ApasxoloumenoiController extends Zend_Controller_Action {
              ->setHeader('Content-Length', $this->_helper->getBinaryDataSize($attachment));
         echo $attachment;
     }
+
+    public function ldapexportAction() {
+        $this->getHelper('layout')->disableLayout();
+        $this->getHelper('viewRenderer')->setNoRender(TRUE);
+        $employees = Zend_Registry::get('entityManager')->getRepository('Application_Model_Employee')->findEmployees(array(
+            'ldapNotNull' => true
+        ));
+        $results = array();
+        foreach($employees as $curEmployee) {
+            if(in_array($curEmployee->get_ldapusername(), $results)) {
+                continue;
+            }
+            $results[] = $curEmployee->get_ldapusername();
+        }
+        echo json_encode($results);
+    }
 }
 
 ?>

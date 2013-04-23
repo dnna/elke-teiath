@@ -20,6 +20,9 @@ class Application_Model_Repositories_Employees extends Application_Model_Reposit
         if(isset($filters['afm']) && $filters['afm'] != "") {
             $this->addAfmFilter($qb, $filters['afm']);
         }
+        if(isset($filters['ldapNotNull']) && $filters['ldapNotNull'] == true) {
+            $qb->andWhere("e._ldapusername IS NOT NULL AND e._ldapusername != ''");
+        }
 
         return $this->getResult($qb);
     }
