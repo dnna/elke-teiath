@@ -18,7 +18,7 @@ class Anafores_Professor_AnadoxoiController extends Zend_Controller_Action {
 
     public function overviewAction() {
         $this->_helper->layout->disableLayout();
-        $agency = Zend_Registry::get('entityManager')->getRepository('Application_Model_Lists_Agency')->findBy(array('_id' => $this->_request->getUserParam('id')));
+        $agency = Zend_Registry::get('entityManager')->getRepository('Application_Model_Contractor')->findBy(array('_afm' => $this->_request->getUserParam('afm')));
         if(!isset($agency) || count($agency) < 1) {
             throw new Exception('Ο ανάδοχος δεν βρέθηκε.');
         }

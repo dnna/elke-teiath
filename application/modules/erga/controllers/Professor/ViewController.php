@@ -83,6 +83,16 @@ class Erga_Professor_ViewController extends Zend_Controller_Action {
         $this->view->tworkpackages = $workpackages;
     }
 
+    public function mfpoverviewAction() {
+        $project = Zend_Registry::get('entityManager')->getRepository('Erga_Model_Project')->find($this->getRequest()->getParam('projectid', null));
+        if(!isset($project) || count($project) < 1) {
+            throw new Exception('Το έργο δεν βρέθηκε.');
+        }
+        $start = $project->get_basicdetails()->get_startdate();
+        $end = $project->get_basicdetails()->get_enddate();
+        $this->_helper->createExcelOverview($this, $project, $start, $end, 'mfp_overview_mis'.$project->get_basicdetails()->get_mis().'.xlsx');
+    }
+
     public function feedAction() {
         // Βρίσκουμε τα έργα του tokenuser
         $filters = $this->_helper->filterHelper($this, 'Erga_Form_ErgaFilters');
