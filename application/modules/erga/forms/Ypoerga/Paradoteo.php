@@ -60,7 +60,7 @@ class Erga_Form_Ypoerga_Paradoteo extends Erga_Form_Ypoerga_FormBase {
         $subform->addElement('text', 'codename', array(
             'label' => 'Κωδικός Παραδοτέου:',
             'validators' => array(
-                array('validator' => 'StringLength', 'options' => array(0, 10))
+                array('validator' => 'StringLength', 'options' => array(0, 15))
             ),
             'required' => true,
             'placeholder' => 'πχ. Π.1.1',
