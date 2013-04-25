@@ -52,7 +52,7 @@
         </params>
     </aitiseis>-->
     <diagrafi>
-        <label>Διαγραφή</label>
+        <label>Διαγραφή Έργου</label>
         <module>erga</module>
         <controller>Diaxeirisi</controller>
         <action>delete</action>
