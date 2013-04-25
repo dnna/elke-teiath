@@ -303,6 +303,7 @@ label {
 	color: #21759B;
 	line-height: 26px;
 	white-space: nowrap;
+        clear: both;
 }
 
 input, textarea {
@@ -721,7 +722,6 @@ dd {
 }
 
 .errors {
-	float: right;
 	color: red;
 	font-size: 14px;
 	line-height: 44px;
