@@ -139,8 +139,10 @@ class Application_Model_Repositories_Users extends Application_Model_Repositorie
 
     protected function getUserRoles($ldapArray) {
         $roles = array();
-        $deptid = $ldapArray[strtolower($this->_config['ldapopts']['departmentAttr'])][0];
-        if((is_array($this->_config['ldapopts']['elkeDepartmentId']) && in_array($deptid, $this->_config['ldapopts']['elkeDepartmentId'])) || $this->_config['ldapopts']['elkeDepartmentId'] === $deptid) {
+        //$deptid = $ldapArray[strtolower($this->_config['ldapopts']['departmentAttr'])][0];
+        $uid = $ldapArray['uid'][0];
+        //if((is_array($this->_config['ldapopts']['elkeDepartmentId']) && in_array($deptid, $this->_config['ldapopts']['elkeDepartmentId'])) || $this->_config['ldapopts']['elkeDepartmentId'] === $deptid) {
+        if((is_array($this->_config['ldapopts']['elkeUsers']) && in_array($uid, $this->_config['ldapopts']['elkeUsers'])) || $this->_config['ldapopts']['elkeUsers'] === $uid) {
             $roles[] = $this->_em->getRepository('Application_Model_UserRole')->find(1); // ΕΛΚΕ
         } else if($ldapArray['edupersonaffiliation'][0] === 'faculty') {
             $roles[] = $this->_em->getRepository('Application_Model_UserRole')->find(0); // Καθηγητής
