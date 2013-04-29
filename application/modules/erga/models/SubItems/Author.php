@@ -106,7 +106,9 @@ class Erga_Model_SubItems_Author extends Application_Model_SubObject {
 
     public function getPaidAmount() {
         if (isset($this->_amount) && $this->_amount > 0) {
-            return $this->_amount;
+			return Zend_Locale_Format::getNumber($this->_amount, array('precision' => 2,
+						'locale' => Zend_Registry::get('Zend_Locale'))
+			);
         } else {
             $timesheetpaid = ($this->get_workedhours() * $this->get_rateAsFloat());
             if ($timesheetpaid > 0) {

@@ -53,7 +53,7 @@ $workpackages = $this->tworkpackages;
            <?php echo $curWorkPackage['paidamount']; ?>
         </td>
         <td>
-           <?php echo (round($curWorkPackage['paidamount']/$sumamount, 3)*100).'%'; ?>
+           <?php echo ($sumamount > 0 ? (round($curWorkPackage['paidamount']/$sumamount, 3)*100).'%' : '-'); ?>
         </td>
     </tr>
     <?php } ?>
