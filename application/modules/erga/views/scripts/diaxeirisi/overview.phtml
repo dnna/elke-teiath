@@ -396,7 +396,7 @@ if($this->project->get_iscomplex() == 1) {
         Παραδοτέο
         </td>
         <td>
-        Διάρκεια
+        Έναρξη / Λήξη
         </td>
         <td>
         Ποσό
@@ -425,10 +425,10 @@ if($this->project->get_iscomplex() == 1) {
               '.$curDeliverable->__toString().'
           </td>
           <td>
-              '.$curDeliverable->get_startdate().'
+              '.$curDeliverable->get_startdate().' – '.$curDeliverable->get_enddate().'
           </td>
           <td>
-              '.$curDeliverable->get_enddate().' – '.$curDeliverable->get_amount().'
+              '.$curDeliverable->get_amount().'
           </td>
           <td>
              '.$this->getCompletionText($curDeliverable).'
