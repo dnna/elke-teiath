@@ -171,7 +171,7 @@
         <td>
             '.$curItem->get_category()->get_name().'
         </td>
-        
+
         <td>
             '.$curItem->get_amount().'
         </td>
@@ -205,7 +205,7 @@
         <td>
             '.$curReceipt->get_date().'
         </td>
-        
+
         <td>
             '.$curReceipt->get_amount().'
         </td>
@@ -391,16 +391,13 @@
         Υπ.
         </td>
         <td>
-        Παραδοτέο
-        </td>
-        <td>
         ΠΕ
         </td>
         <td>
-        Έναρξη
+        Παραδοτέο
         </td>
         <td>
-        Λήξη
+        Διάρκεια
         </td>
         <td>
         Ποσό
@@ -423,19 +420,16 @@
               <span title="'.$curSubProject->get_subprojecttitle().'" class="tooltip">'.$curSubProject->get_subprojectnumber().'</span>
           </td>
           <td>
-              '.$curDeliverable->__toString().'
+              '.$curDeliverable->get_workpackage()->get_workpackagecodename().'
           </td>
           <td>
-              '.$curDeliverable->get_workpackage()->get_workpackagecodename().'
+              '.$curDeliverable->__toString().'
           </td>
           <td>
               '.$curDeliverable->get_startdate().'
           </td>
           <td>
-              '.$curDeliverable->get_enddate().'
-          </td>
-          <td>
-              '.$curDeliverable->get_amount().'
+              '.$curDeliverable->get_enddate().' – '.$curDeliverable->get_amount().'
           </td>
           <td>
              '.$this->getCompletionText($curDeliverable).'
