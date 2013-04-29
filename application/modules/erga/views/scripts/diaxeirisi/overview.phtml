@@ -393,6 +393,9 @@ if($this->project->get_iscomplex() == 1) {
         Παραδοτέο
         </td>
         <td>
+        ΠΕ
+        </td>
+        <td>
         Έναρξη
         </td>
         <td>
@@ -405,42 +408,45 @@ if($this->project->get_iscomplex() == 1) {
         Κατάσταση
         </td>
         <td>
-        Συντάκτες/Ανάδοχος
+        Συντάκτες / Ανάδοχος
         </td>
 
     </tr>
-  <?php
-    foreach($this->project->get_subprojects() as $curSubProject) {
-        foreach($curSubProject->get_workpackagesNatsort() as $curWorkPackage) {
-            foreach($curWorkPackage->get_deliverablesNatsort() as $curDeliverable) {
-                echo '
-    <tr>
-        <td>
-            <span title="'.$curSubProject->get_subprojecttitle().'" class="tooltip">'.$curSubProject->get_subprojectnumber().'</span>
-        </td>
-        <td>
-            '.$curDeliverable->get_codename().'
-        </td>
-        <td>
-            '.$curDeliverable->get_startdate().'
-        </td>
-        <td>
-            '.$curDeliverable->get_enddate().'
-        </td>
-        <td>
-            '.$curDeliverable->get_amount().'
-        </td>
-        <td>
-           '.$this->getCompletionText($curDeliverable).'
-        </td>
-        <td>
-           '.$this->printDeliverableAuthors($curDeliverable).'
-        </td>
-    </tr>';
-            }
-        }
-    }
-  ?>
+    <?php
+      foreach($this->project->get_subprojects() as $curSubProject) {
+          foreach($curSubProject->get_workpackagesNatsort() as $curWorkPackage) {
+              foreach($curWorkPackage->get_deliverablesNatsort() as $curDeliverable) {
+                  echo '
+      <tr>
+          <td>
+              <span title="'.$curSubProject->get_subprojecttitle().'" class="tooltip">'.$curSubProject->get_subprojectnumber().'</span>
+          </td>
+          <td>
+              '.$curDeliverable->__toString().'
+          </td>
+          <td>
+              '.$curDeliverable->get_workpackage()->get_workpackagecodename().'
+          </td>
+          <td>
+              '.$curDeliverable->get_startdate().'
+          </td>
+          <td>
+              '.$curDeliverable->get_enddate().'
+          </td>
+          <td>
+              '.$curDeliverable->get_amount().'
+          </td>
+          <td>
+             '.$this->getCompletionText($curDeliverable).'
+          </td>
+          <td>
+             '.$this->printDeliverableAuthors($curDeliverable).'
+          </td>
+      </tr>';
+              }
+          }
+      }
+    ?>
   </tbody>
 </table>
 

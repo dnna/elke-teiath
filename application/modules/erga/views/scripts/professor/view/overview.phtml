@@ -383,64 +383,70 @@
 </table>
 <?php echo $this->partial('diaxeirisi/partial/aporofisi.phtml', 'erga', array('tworkpackages' => $this->tworkpackages, 'tcategories' => $this->tcategories)); ?>
 <table class="analutikos fatTable">
-
     <tr><th>Παραδοτέα</th></tr>
     <tbody>
     <tr class="title">
         <td>
-            Αριθμός <?php echo $subprojectnames['gen']; ?>
+        <?php /*echo $subprojectnames['name'];*/ ?>
+        Υπ.
         </td>
         <td>
-            Τίτλος Παραδοτέου
+        Παραδοτέο
         </td>
         <td>
-            Ημερομηνία Έναρξης
+        ΠΕ
         </td>
         <td>
-            Ημερομηνία Λήξης
+        Έναρξη
         </td>
         <td>
-            Ποσό
+        Λήξη
         </td>
         <td>
-            Κατάσταση
+        Ποσό
         </td>
         <td>
-            Συντάκτες/Ανάδοχος
+        Κατάσταση
+        </td>
+        <td>
+        Συντάκτες / Ανάδοχος
         </td>
 
     </tr>
     <?php
-    foreach($this->project->get_subprojects() as $curSubProject) {
-        foreach($curSubProject->get_workpackagesNatsort() as $curWorkPackage) {
-            foreach($curWorkPackage->get_deliverablesNatsort() as $curDeliverable) {
-                echo '
-    <tr>
-        <td>
-            '.$subprojectnames['name'].' '.$curSubProject->get_subprojectnumber().'
-        </td>
-        <td>
-            '.$curDeliverable->get_fulltitle().'
-        </td>
-        <td>
-            '.$curDeliverable->get_startdate().'
-        </td>
-        <td>
-            '.$curDeliverable->get_enddate().'
-        </td>
-        <td>
-            '.$curDeliverable->get_amount().'
-        </td>
-        <td>
-           '.$this->getCompletionText($curDeliverable).'
-        </td>
-        <td>
-           '.$this->printDeliverableAuthors($curDeliverable).'
-        </td>
-    </tr>';
-            }
-        }
-    }
+      foreach($this->project->get_subprojects() as $curSubProject) {
+          foreach($curSubProject->get_workpackagesNatsort() as $curWorkPackage) {
+              foreach($curWorkPackage->get_deliverablesNatsort() as $curDeliverable) {
+                  echo '
+      <tr>
+          <td>
+              <span title="'.$curSubProject->get_subprojecttitle().'" class="tooltip">'.$curSubProject->get_subprojectnumber().'</span>
+          </td>
+          <td>
+              '.$curDeliverable->__toString().'
+          </td>
+          <td>
+              '.$curDeliverable->get_workpackage()->get_workpackagecodename().'
+          </td>
+          <td>
+              '.$curDeliverable->get_startdate().'
+          </td>
+          <td>
+              '.$curDeliverable->get_enddate().'
+          </td>
+          <td>
+              '.$curDeliverable->get_amount().'
+          </td>
+          <td>
+             '.$this->getCompletionText($curDeliverable).'
+          </td>
+          <td>
+             '.$this->printDeliverableAuthors($curDeliverable).'
+          </td>
+      </tr>';
+              }
+          }
+      }
     ?>
     </tbody>
 </table>
