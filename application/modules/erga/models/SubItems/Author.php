@@ -90,7 +90,7 @@ class Erga_Model_SubItems_Author extends Application_Model_SubObject {
         if (isset($this->_amount) && $this->_amount > 0) {
             return ' (' . $this->_amount . '&euro;)';
         } else if (isset($this->_rate) && $this->_rate > 0) {
-            return ' (' . $this->_rate . '&euro;/ώρα)';
+            return '&nbsp;(' . $this->_rate . '&euro;/ώρα)';
         }
     }
 
