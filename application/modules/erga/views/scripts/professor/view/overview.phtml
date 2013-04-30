@@ -270,11 +270,16 @@
 
 <?php if(count($this->project->get_employees()) > 0) { ?>
 <table class="analutikos fatTable">
-<thead><tr><th>Απασχολούμενοι</th></tr></thead>
-    <tbody>
-        <?php
-        echo '
+<tr><th>Απασχολούμενοι</th></tr>
+</table>
+<table class="analutikos fatTable">
+  <tbody>
+  <?php
+           echo '
     <tr class="title">
+        <td>
+          Υπ
+        </td>
         <td>
           Ονοματεπώνυμο
         </td>
@@ -289,9 +294,12 @@
         </td>
     </tr>
         ';
-        foreach($this->project->get_employees() as $curSupervisor) {
-            echo '
+          foreach($this->project->get_employees() as $curSupervisor) {
+                echo '
     <tr>
+        <td>
+            '.($curSupervisor->get_subproject() != null ? '<span title="'.$curSupervisor->get_subproject()->get_subprojecttitle().'" class="tooltip">'.$curSupervisor->get_subproject()->get_subprojectnumber().'</span>' : '-').'
+        </td>
         <td>
             '.$curSupervisor->get_employee()->get_name().'
         </td>
@@ -307,9 +315,9 @@
   </td>
     </tr>
         ';
-        }
-        ?>
-    </tbody>
+          }
+  ?>
+  </tbody>
     <?php
     if($this->project->get_iscomplex() == 1) {
         ?>
