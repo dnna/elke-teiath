@@ -18,11 +18,11 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
      */
     protected $_day;
     /**
-     * @Column (name="start", type="integer")
+     * @Column (name="start", type="time")
      */
     protected $_start;
     /**
-     * @Column (name="end", type="integer")
+     * @Column (name="end", type="time")
      */
     protected $_end;
     /**
@@ -49,18 +49,28 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
     }
 
     public function get_start() {
-        return $this->_start;
+        if(isset($this->_start)) {
+            return $this->_start->format('H');
+        } else {
+            return null;
+        }
     }
 
     public function set_start($_start) {
-        $this->_start = $_start;
+        $startobj = DateTime::createFromFormat('H', $_start);
+        $this->_start = $startobj;
     }
 
     public function get_end() {
-        return $this->_end;
+        if(isset($this->_end)) {
+            return $this->_end;
+        } else {
+            return null;
+        }
     }
 
     public function set_end($_end) {
+        $endobj = DateTime::createFromFormat('H', $_end);
         $this->_end = $_end;
     }
 
