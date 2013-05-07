@@ -59,7 +59,7 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
         $this->addFilters($qb, $filters);
         
         // Grouping
-        $amountquery = 'SUM(a._end - a._start) as hours';
+        $amountquery = 'SUM(TIMEDIFFSEC(a._end, a._start)/3600) as hours';
         if(isset($groupBy)) {
             $this->addGroupby($qb, $amountquery, $groupBy);
         } else {
