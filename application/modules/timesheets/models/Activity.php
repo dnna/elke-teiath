@@ -57,8 +57,7 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
     }
 
     public function set_start($_start) {
-        $startobj = DateTime::createFromFormat('G', $_start);
-        $this->_start = $startobj;
+        $this->_start = new DateTime($_start.':00');
     }
 
     public function get_end() {
@@ -70,8 +69,7 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
     }
 
     public function set_end($_end) {
-        $endobj = DateTime::createFromFormat('G', $_end);
-        $this->_end = $endobj;
+        $this->_end = new DateTime($_end.':00');
     }
 
     public function get_deliverable() {
@@ -87,7 +85,7 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
     }
 
     public function getHours() {
-        return round($this->_end->getTimestamp() - $this->_start->getTimestamp(), 2);
+        return round(($this->_end->getTimestamp() - $this->_start->getTimestamp())/3600, 2);
     }
 
     public function get_date() {
