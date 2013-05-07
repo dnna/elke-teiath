@@ -50,27 +50,27 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
 
     public function get_start() {
         if(isset($this->_start)) {
-            return $this->_start->format('G');
+            return $this->_start->format('H:i');
         } else {
             return null;
         }
     }
 
     public function set_start($_start) {
-        $startobj = DateTime::createFromFormat('G', $_start);
+        $startobj = DateTime::createFromFormat('H:i', $_start);
         $this->_start = $startobj;
     }
 
     public function get_end() {
         if(isset($this->_end)) {
-            return $this->_end->format('G');
+            return $this->_end->format('H:i');
         } else {
             return null;
         }
     }
 
     public function set_end($_end) {
-        $endobj = DateTime::createFromFormat('G', $_end);
+        $endobj = DateTime::createFromFormat('H:i', $_end);
         $this->_end = $endobj;
     }
 

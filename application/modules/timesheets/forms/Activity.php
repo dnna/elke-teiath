@@ -5,7 +5,7 @@ class  Timesheets_Form_Activity extends Dnna_Form_SubFormBase {
             'required' => true,
             'validators' => array(
             //array('validator' => 'Digits'),
-            new Zend_Validate_Date(array("format" => 'G:i')),
+            new Zend_Validate_Date(array("format" => 'H:i')),
             new Zend_Validate_Between(array('min' => 1, 'max' => 24, 'inclusive' => true)),
             ),
         ));
@@ -13,7 +13,7 @@ class  Timesheets_Form_Activity extends Dnna_Form_SubFormBase {
             'required' => true,
             'validators' => array(
             //array('validator' => 'Digits'),
-            new Zend_Validate_Date(array("format" => 'G:i')),
+            new Zend_Validate_Date(array("format" => 'H:i')),
             new Zend_Validate_Between(array('min' => 1, 'max' => 24, 'inclusive' => true)),
             ),
         ));
