@@ -71,7 +71,7 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
 
     public function set_end($_end) {
         $endobj = DateTime::createFromFormat('H', $_end);
-        $this->_end = $_end;
+        $this->_end = $endobj;
     }
 
     public function get_deliverable() {
