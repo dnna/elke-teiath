@@ -63,7 +63,7 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
 
     public function get_end() {
         if(isset($this->_end)) {
-            return $this->_end;
+            return $this->_end->format('H');
         } else {
             return null;
         }
