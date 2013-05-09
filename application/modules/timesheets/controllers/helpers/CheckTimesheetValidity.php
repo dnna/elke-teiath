@@ -38,9 +38,9 @@ class Timesheets_Action_Helper_CheckTimesheetValidity extends Zend_Controller_Ac
         // 3) Να μη επιτρέπεται να γίνονται overlap οι ώρες ενός απασχολούμενου
         function overlaps(Timesheets_Model_Activity $activity1, Timesheets_Model_Activity $activity2) {
             return !(
-                ($activity1->get_start() < $activity2->get_start() && $activity1->get_end() <= $activity2->get_start())
+                ($activity1->get_startAsDate() < $activity2->get_startAsDate() && $activity1->get_endAsDate() <= $activity2->get_startAsDate())
                 ||
-                ($activity1->get_start() >= $activity2->get_end() && $activity1->get_end() > $activity2->get_end())
+                ($activity1->get_startAsDate() >= $activity2->get_endAsDate() && $activity1->get_endAsDate() > $activity2->get_endAsDate())
             );
         }
         for($i = 1; $i < $timesheet->get_monthAsDate()->format('t'); $i++) {

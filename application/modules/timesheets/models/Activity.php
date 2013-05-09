@@ -56,6 +56,10 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
         }
     }
 
+    public function get_startAsDate() {
+        return $this->_start;
+    }
+
     public function set_start($_start) {
         if(strpos($_start, ':') !== false) {
             $this->_start = new DateTime($_start);
@@ -70,6 +74,10 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
         } else {
             return null;
         }
+    }
+
+    public function get_endAsDate() {
+        return $this->_end;
     }
 
     public function set_end($_end) {
