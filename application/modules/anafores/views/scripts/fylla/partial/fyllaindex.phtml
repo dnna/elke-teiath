@@ -17,7 +17,7 @@
                           <img src="'.$this->baseUrl('images/overview.png').'" alt="review" /> '.$curEmployee[0]->get_name().'
                        </a>
                   </td>';
-            echo '<td>'.$curEmployee['hours'].'</td>';
+            echo '<td>'.round($curEmployee['hours']).'</td>';
             echo '<td>'.Zend_Locale_Format::toNumber($curEmployee['paidamount'],array('precision' => 2,'locale' => Zend_Registry::get('Zend_Locale'))).'</td>';
             echo '</tr>';
         }

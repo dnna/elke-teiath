@@ -60,7 +60,7 @@
             Συνολικές Δεδουλευμένες Ώρες:
         </td>
         <td>
-            <?php echo $this->totalhours[0]['hours']; ?>
+            <?php echo round($this->totalhours[0]['hours']); ?>
         </td>
     </tr>
     <tr>
@@ -97,7 +97,7 @@
                 <?php echo $this->getMonthName($curMonth['month']); ?>
             </td>
             <td>
-                <?php echo $curMonth['hours']; ?>
+                <?php echo round($curMonth['hours']); ?>
             </td>
             <td>
                 <?php echo $curMonth['paidamount']; ?>
@@ -132,7 +132,7 @@
                 <?php echo $curProject['timesheet']->get_project(); ?>
             </td>
             <td>
-                <?php echo $curProject['hours']; ?>
+                <?php echo round($curProject['hours']); ?>
             </td>
             <td>
                 <?php echo $curProject['paidamount']; ?>
