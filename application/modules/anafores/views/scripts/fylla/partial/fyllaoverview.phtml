@@ -100,7 +100,7 @@
                 <?php echo round($curMonth['hours']); ?>
             </td>
             <td>
-                <?php echo $curMonth['paidamount']; ?>
+                <?php echo Zend_Locale_Format::toNumber($curMonth['paidamount'],array('precision' => 2,'locale' => Zend_Registry::get('Zend_Locale'))); ?>
             </td>
         </tr>
             <?php
@@ -135,7 +135,7 @@
                 <?php echo round($curProject['hours']); ?>
             </td>
             <td>
-                <?php echo $curProject['paidamount']; ?>
+                <?php echo Zend_Locale_Format::toNumber($curProject['paidamount'],array('precision' => 2,'locale' => Zend_Registry::get('Zend_Locale'))); ?>
             </td>
         </tr>
             <?php
