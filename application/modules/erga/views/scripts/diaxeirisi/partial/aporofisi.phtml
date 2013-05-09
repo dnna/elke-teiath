@@ -50,7 +50,7 @@ $workpackages = $this->tworkpackages;
            <?php echo round($curWorkPackage['hours']); ?>
         </td>
         <td>
-           <?php echo $curWorkPackage['paidamount']; ?>
+           <?php echo Zend_Locale_Format::toNumber($curWorkPackage['paidamount'],array('precision' => 2,'locale' => Zend_Registry::get('Zend_Locale'))); ?>
         </td>
         <td>
            <?php echo ($sumamount > 0 ? (round($curWorkPackage['paidamount']/$sumamount, 3)*100).'%' : '-'); ?>
