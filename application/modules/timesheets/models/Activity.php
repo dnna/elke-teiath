@@ -57,7 +57,11 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
     }
 
     public function set_start($_start) {
-        $this->_start = new DateTime($_start.':00');
+        if(strpos($_start, ':') !== false) {
+            $this->_start = new DateTime($_start);
+        } else {
+            $this->_start = new DateTime($_start.':00');
+        }
     }
 
     public function get_end() {
@@ -69,7 +73,11 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
     }
 
     public function set_end($_end) {
-        $this->_end = new DateTime($_end.':00');
+        if(strpos($_end, ':') !== false) {
+            $this->_end = new DateTime($_end);
+        } else {
+            $this->_end = new DateTime($_end.':00');
+        }
     }
 
     public function get_deliverable() {
