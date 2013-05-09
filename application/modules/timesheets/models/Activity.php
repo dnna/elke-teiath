@@ -85,7 +85,7 @@ class Timesheets_Model_Activity extends Application_Model_SubObject {
     }
 
     public function getHours() {
-        return round(($this->_end->getTimestamp() - $this->_start->getTimestamp())/3600);
+        return round(($this->_end->getTimestamp() - $this->_start->getTimestamp())/3600, 2);
     }
 
     public function get_date() {

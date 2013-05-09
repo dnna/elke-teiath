@@ -44,7 +44,7 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
         $this->addFilters($qb, $filters);
 
         // Grouping
-        $amountquery = 'SUM(a._end - a._start) as hours, SUM((a._end - a._start)*author._rate) as paidamount';
+        $amountquery = 'SUM(TIMEDIFFSEC(a._end, a._start)/3600) as hours, SUM((TIMEDIFFSEC(a._end, a._start)/3600)*author._rate) as paidamount';
         $this->addGroupby($qb, $amountquery, 'employee');
 
         return $this->getResult($qb);
@@ -57,7 +57,7 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
 
         // Φίλτρα
         $this->addFilters($qb, $filters);
-        
+
         // Grouping
         $amountquery = 'SUM(TIMEDIFFSEC(a._end, a._start)/3600) as hours';
         if(isset($groupBy)) {
@@ -77,9 +77,9 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
 
         // Φίλτρα
         $this->addFilters($qb, $filters);
-        
+
         // Grouping
-        $amountquery = 'SUM((a._end - a._start)*author._rate) as paidamount';
+        $amountquery = 'SUM((TIMEDIFFSEC(a._end, a._start)/3600)*author._rate) as paidamount';
         if(isset($groupBy)) {
             $this->addGroupby($qb, $amountquery, $groupBy);
         } else {
@@ -88,7 +88,7 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
 
         return $qb->getQuery()->getResult($filters['hydrate']);
     }
-    
+
     public function getHoursAndPaidAmount($filters = array(), $groupBy = null) {
         $qb = $this->_em->createQueryBuilder();
         $qb->from('Timesheets_Model_Timesheet', 't');
@@ -97,9 +97,9 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
 
         // Φίλτρα
         $this->addFilters($qb, $filters);
-        
+
         // Grouping
-        $amountquery = 't as timesheet, SUM(a._end - a._start) as hours, SUM((a._end - a._start)*author._rate) as paidamount';
+        $amountquery = 't as timesheet, SUM(TIMEDIFFSEC(a._end, a._start)/3600) as hours, SUM((TIMEDIFFSEC(a._end, a._start)/3600)*author._rate) as paidamount';
         $qb->join('t._project', 'pp');
         if(isset($groupBy)) {
             $this->addGroupby($qb, $amountquery, $groupBy);
@@ -169,7 +169,7 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
             $filters['hydrate'] = Doctrine\ORM\Query::HYDRATE_ARRAY;
         }
     }
-    
+
     protected function addGroupby(Doctrine\ORM\QueryBuilder &$qb, $amountquery, $groupBy = 'both') {
         if($groupBy === 'month') {
             $qb->groupBy('t._month');
@@ -198,7 +198,7 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
             }
         }
     }
-    
+
     protected function addPaidAmountJoins(Doctrine\ORM\QueryBuilder &$qb) {
         $qb->innerJoin('t._employee', 'remployee');
         $qb->innerJoin('a._deliverable', 'd');
