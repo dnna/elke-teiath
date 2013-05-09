@@ -117,7 +117,7 @@ class Timesheets_Action_Helper_CreateExcelTimesheet extends Zend_Controller_Acti
             $sheet[$i][$col] = '';
             foreach($this->_timesheet->get_activitiesForDeliverable($deliverable) as $curActivity) {
                 if($i == $curActivity->get_day()) {
-                    $sheet[$i][$col] = $curActivity->get_startAsDate()->format('H;i').'-'.$curActivity->get_endAsDate()->format('H:i');
+                    $sheet[$i][$col] = $curActivity->get_startAsDate()->format('H:i').'-'.$curActivity->get_endAsDate()->format('H:i');
                 }
             }
             $day = new EDateTime($this->_timesheet->get_year().'-'.$this->_timesheet->get_month().'-'.$i);
