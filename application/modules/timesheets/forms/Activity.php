@@ -2,13 +2,14 @@
 class  Timesheets_Form_Activity extends Dnna_Form_SubFormBase {
     public function init() {
 		$validate = function($value) {
-			$parts = explode(':', $value);
-			foreach($parts as $curPart) {
-				if(!is_numeric($curPart) || ((int)$curPart) < 0 || ((int)$curPart) >= 24) {
-					return false;
-				}
-			}
-			return true;
+                    $parts = explode(':', $value);
+                    if(!is_numeric($parts[0]) || ((int)$parts[0]) < 0 || ((int)$parts[0]) >= 24) {
+                        return false;
+                    }
+                    if(isset($parts[1]) && (!is_numeric($parts[1]) || ((int)$parts[1]) < 0 || ((int)$parts[1]) > 60)) {
+                        return false;
+                    }
+                    return true;
 		};
 
         $this->addElement('text', 'start', array(
