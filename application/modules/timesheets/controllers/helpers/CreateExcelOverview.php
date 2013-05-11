@@ -151,7 +151,7 @@ class Timesheets_Action_Helper_CreateExcelOverview extends Zend_Controller_Actio
         $activesheet = $objPHPExcel->getActiveSheet();
         $sheet = array();
         $sheet[0] = array();
-        $timesheets = $employee->get_timesheets();
+        $timesheets = $employee->get_timesheetsApproved();
         $sum = 0;
         $i = 0;
         foreach($timesheets as $curTimesheet) {

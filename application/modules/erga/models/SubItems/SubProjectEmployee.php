@@ -233,6 +233,16 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
         $this->_timesheets = $_timesheets;
     }
 
+    public function get_timesheetsApproved() {
+        $result = array();
+        foreach($this->_timesheets as $curTimesheet) {
+            if($curTimesheet->get_approved() == Timesheets_Model_Timesheet::APPROVED) {
+                $result[] = $curTimesheet;
+            }
+        }
+        return $result;
+    }
+
     public function get_afm() {
         return $this->_employee->get_afm();
     }
