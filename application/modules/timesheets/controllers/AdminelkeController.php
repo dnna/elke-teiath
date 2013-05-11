@@ -60,7 +60,7 @@ class Timesheets_AdminelkeController extends Zend_Controller_Action {
         $this->view->form = $form;
         return;
     }
-    
+
     public function changeapprovalAction() {
         // Έλεγχος ότι το φύλλο υπάρχει
         $timesheet = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->find($this->getRequest()->getParam('id', null));
@@ -91,7 +91,7 @@ class Timesheets_AdminelkeController extends Zend_Controller_Action {
             'afm'   =>  $timesheet->get_employee()->get_employee()->get_afm(),
             'year'  =>  $timesheet->get_year(),
         ));
-        $subform->getElement('hoursbefore')->setValue($workinghours[0]['hours']);
+        $subform->getElement('hoursbefore')->setValue(round($workinghours[0]['hours']));
         if($timesheet->get_approved() == Timesheets_Model_Timesheet::APPROVED) {
             $subform->getElement('hoursafter')->setValue($subform->getElement('hoursbefore')->getValue());
         } else {
@@ -106,7 +106,7 @@ class Timesheets_AdminelkeController extends Zend_Controller_Action {
         $this->view->headScript()->appendFile($this->view->baseUrl('media/js/formchangedwarning.js', 'text/javascript'));
         return;
     }
-    
+
     public function deleteAction() {
         $timesheet = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->find($this->getRequest()->getParam('id', null));
         // Διαγραφή
