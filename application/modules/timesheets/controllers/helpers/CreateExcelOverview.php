@@ -152,19 +152,19 @@ class Timesheets_Action_Helper_CreateExcelOverview extends Zend_Controller_Actio
         $sheet = array();
         $sheet[0] = array();
         $timesheets = $employee->get_timesheetsApproved();
-        $sum = 0;
         $i = 0;
-        foreach($timesheets as $curTimesheet) {
-			foreach($this->_deliverables as $i => $curDeliverable) {
-				foreach($curTimesheet->get_activitiesForDeliverable($curDeliverable) as $curActivity) {
-					/*if($curActivity->get_date() < $this->_start || $curActivity->get_date() > $this->_end) {
-						continue; // Skip
-					}*/
-					$sum = $sum + $curActivity->getHours();
-					$sheet[0][$i] = $sum;
-				}
-			}
-		}
+        foreach($this->_deliverables as $i => $curDeliverable) {
+            $sum = 0;
+            foreach($timesheets as $curTimesheet) {
+                foreach($curTimesheet->get_activitiesForDeliverable($curDeliverable) as $curActivity) {
+                    /*if($curActivity->get_date() < $this->_start || $curActivity->get_date() > $this->_end) {
+                            continue; // Skip
+                    }*/
+                    $sum = $sum + $curActivity->getHours();
+                    $sheet[0][$i] = $sum;
+                }
+            }
+        }
         $activesheet->fromArray($sheet, null, self::STARTCOL.$row);
     }
 
