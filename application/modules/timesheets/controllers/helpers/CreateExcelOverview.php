@@ -127,7 +127,7 @@ class Timesheets_Action_Helper_CreateExcelOverview extends Zend_Controller_Actio
             }*/
             $this->blueCell($objPHPExcel, 'A'.$row);
             $sheet[$i] = array();
-            $sheet[$i][0] = $curEmployee->__toString();
+            $sheet[$i][0] = $curEmployee->get_employee()->get_name().' '.$curEmployee->get_startdate().'–'.$curEmployee->get_enddate();
             $this->_employees[] = $curEmployee;
             // Φτιάχνουμε τα cell types και το style
             $activesheet->getStyle('A'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -155,15 +155,16 @@ class Timesheets_Action_Helper_CreateExcelOverview extends Zend_Controller_Actio
         $sum = 0;
         $i = 0;
         foreach($timesheets as $curTimesheet) {
-            foreach($curTimesheet->get_activitiesForDeliverable($this->_deliverables[$i]) as $curActivity) {
-                /*if($curActivity->get_date() < $this->_start || $curActivity->get_date() > $this->_end) {
-                    continue; // Skip
-                }*/
-                $sum = $sum + $curActivity->getHours();
-                $sheet[0][$i] = $sum;
-                $i++;
-            }
-        }
+			foreach($this->_deliverables as $i => $curDeliverable) {
+				foreach($curTimesheet->get_activitiesForDeliverable($curDeliverable) as $curActivity) {
+					/*if($curActivity->get_date() < $this->_start || $curActivity->get_date() > $this->_end) {
+						continue; // Skip
+					}*/
+					$sum = $sum + $curActivity->getHours();
+					$sheet[0][$i] = $sum;
+				}
+			}
+		}
         $activesheet->fromArray($sheet, null, self::STARTCOL.$row);
     }
 
