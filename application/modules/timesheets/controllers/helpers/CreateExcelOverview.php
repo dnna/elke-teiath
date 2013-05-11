@@ -39,6 +39,8 @@ class Timesheets_Action_Helper_CreateExcelOverview extends Zend_Controller_Actio
         $this->addSubprojectHeaders($objPHPExcel);
         $this->addEmployeeRows($objPHPExcel);
         $this->setBorders($objPHPExcel);
+        // Fix first column width
+        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(65);
 
         // Save Excel 2007 file
         $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
@@ -153,18 +155,18 @@ class Timesheets_Action_Helper_CreateExcelOverview extends Zend_Controller_Actio
         $sheet[0] = array();
         $timesheets = $employee->get_timesheetsApproved();
         $i = 0;
-        foreach($this->_deliverables as $i => $curDeliverable) {
-            $sum = 0;
-            foreach($timesheets as $curTimesheet) {
-                foreach($curTimesheet->get_activitiesForDeliverable($curDeliverable) as $curActivity) {
-                    /*if($curActivity->get_date() < $this->_start || $curActivity->get_date() > $this->_end) {
-                            continue; // Skip
-                    }*/
-                    $sum = $sum + $curActivity->getHours();
-                    $sheet[0][$i] = $sum;
-                }
-            }
-        }
+		foreach($this->_deliverables as $i => $curDeliverable) {
+			$sum = 0;
+			foreach($timesheets as $curTimesheet) {
+				foreach($curTimesheet->get_activitiesForDeliverable($curDeliverable) as $curActivity) {
+					/*if($curActivity->get_date() < $this->_start || $curActivity->get_date() > $this->_end) {
+						continue; // Skip
+					}*/
+					$sum = $sum + $curActivity->getHours();
+					$sheet[0][$i] = $sum;
+				}
+			}
+		}
         $activesheet->fromArray($sheet, null, self::STARTCOL.$row);
     }
 
