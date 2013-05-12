@@ -48,7 +48,7 @@ class Erga_View_Helper_ViewYpoerga extends Zend_View_Helper_Abstract
                 $return .= '<td>'.$this->view->escape($entry->get_parentproject()->__toString()).'</td>';
                 $return .= '<td>'.$this->view->escape($entry->__toString()).'</td>';
                 $return .= '</td>';
-                $return .=  '<td class="formatFloat">'.$this->view->escape($entry->get_subprojectbudgetfpa()).'</td>
+                $return .=  '<td class="formatFloat">'.$this->view->escape($entry->get_subprojectbudget()).'</td>
                             <td>'.$this->view->escape($entry->get_subprojectstartdate()).'</td>
                             <td>'.$this->view->escape($entry->get_parentproject()->get_basicdetails()->get_category()->get_name()).'</td>
                             <td>'.$this->view->escape($entry->get_parentproject()->get_financialdetails()->get_opprogramme()).'</td>
