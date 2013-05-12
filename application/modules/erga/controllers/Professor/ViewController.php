@@ -17,6 +17,11 @@ class Erga_Professor_ViewController extends Zend_Controller_Action {
                 ->findProjectsQb($filters);
         $this->view->entries = new Zend_Paginator(new Application_Plugin_QbPaginatorAdapter($qb));
         $this->view->entries->setCurrentPageNumber($this->_helper->getPageNumber($this));
+        $qbsp = Zend_Registry::get('entityManager')
+                ->getRepository('Erga_Model_SubProject')
+                ->findSubProjectsQb($filters);
+        $this->view->spentries = new Zend_Paginator(new Application_Plugin_QbPaginatorAdapter($qbsp));
+        $this->view->spentries->setCurrentPageNumber($this->_helper->getPageNumber($this));
         if(isset($filters['showcompletes'])) { $this->view->showcompletes = $filters['showcompletes']; }
         if(isset($filters['showoverdues'])) { $this->view->showoverdues = $filters['showoverdues']; }
         $this->view->type = "projects";
@@ -36,7 +41,7 @@ class Erga_Professor_ViewController extends Zend_Controller_Action {
             'Επιστημονικά Υπεύθυνος', array('Περιγραφή', array('width' => 50)), 'Ημερομηνία Έναρξης', 'Ημερομηνία Λήξης', 'Απόφαση Ένταξης', 'Σχόλια', '-',
             'Προυπολογισμός', 'ΦΠΑ', 'Φορέας Χρηματοδότησης', 'Κατηγορία', 'Ενάριθμος ΣΑΕ', 'Εθνική Συμμετοχή', 'Κοινοτική Συμμετοχή',
             'Πλαίσιο Χρηματοδότησης', 'Επιχειρισιακό Πρόγραμμα', 'Άξονας');
-        
+
         // Data
         $data = array();
         foreach($projects as $project) {
