@@ -48,6 +48,13 @@ class Erga_Model_Repositories_SubProjects extends Application_Model_Repositories
             $qb->join('p._subprojectsupervisor', 'sv');
             $qb->andWhere('sv._userid = \''.$filters['supervisoruserid'].'\'');
         }
+        // Όχι επιστημονικά υπεύθυνος του project
+        if(isset($filters['notprojectsupervisor'])) {
+            $qb->join('p._parentproject', 'nsvpp');
+            $qb->join('nsvpp._basicdetails', 'nsvppbd');
+            $qb->join('nsvppbd._supervisor', 'nsvppbdu');
+            $qb->andWhere('nsvppbdu._userid = \''.$filters['notprojectsupervisor'].'\'');
+        }
         // Αναζήτηση
         if(isset($filters['search']) && $filters['search'] != "") {
             $this->addSearchFilter($qb, $filters['search']);

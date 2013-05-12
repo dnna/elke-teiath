@@ -19,7 +19,9 @@ class Erga_Professor_ViewController extends Zend_Controller_Action {
         $this->view->entries->setCurrentPageNumber($this->_helper->getPageNumber($this));
         $qbsp = Zend_Registry::get('entityManager')
                 ->getRepository('Erga_Model_SubProject')
-                ->findSubProjectsQb($filters);
+                ->findSubProjectsQb($filters+array(
+                    'notprojectsupervisor' => $auth->getStorage()->read()->get_userid(),
+                ));
         $this->view->spentries = new Zend_Paginator(new Application_Plugin_QbPaginatorAdapter($qbsp));
         $this->view->spentries->setCurrentPageNumber($this->_helper->getPageNumber($this));
         if(isset($filters['showcompletes'])) { $this->view->showcompletes = $filters['showcompletes']; }
