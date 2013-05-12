@@ -21,7 +21,10 @@ class Timesheets_Action_Helper_CreateExcelOverview extends Zend_Controller_Actio
     protected $_start;
     protected $_end;
 
-    public function direct(Zend_Controller_Action $controller, Erga_Model_Project $project, \EDateTime $start, \EDateTime $end, $attachmentName) {
+    public function direct(Zend_Controller_Action $controller, $project, \EDateTime $start, \EDateTime $end, $attachmentName) {
+        if(!isset($project)) {
+            throw new \Exception('Το αντικείμενο πρέπει να είναι έργο ή υποέργο');
+        }
         $this->_project = $project;
         $this->_start = $start;
         $this->_end = $end;
@@ -30,7 +33,11 @@ class Timesheets_Action_Helper_CreateExcelOverview extends Zend_Controller_Actio
 
         // Add some data
         $objPHPExcel->getActiveSheet()->SetCellValue('D3', $project->__toString());
-        $objPHPExcel->getActiveSheet()->SetCellValue('D4', $project->get_basicdetails()->get_mis());
+        if($project instanceof Erga_Model_Project) {
+            $objPHPExcel->getActiveSheet()->SetCellValue('D4', $project->get_basicdetails()->get_mis());
+        } else {
+            $objPHPExcel->getActiveSheet()->SetCellValue('D4', $project->get_parentproject()->get_basicdetails()->get_mis());
+        }
         $objPHPExcel->getActiveSheet()->SetCellValue('D5', $start->__toString().'-'.$end->__toString());
 
         $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
@@ -67,7 +74,11 @@ class Timesheets_Action_Helper_CreateExcelOverview extends Zend_Controller_Actio
     }
 
     protected function addSubprojectHeaders(PHPExcel &$objPHPExcel) {
-        $subprojects = $this->_project->get_subprojects();
+        if($project instanceof Erga_Model_Project) {
+            $subprojects = $this->_project->get_subprojects();
+        } else {
+            $subprojects = array($this->_project);
+        }
         $i = 0;
         $sheet = array();
         $sheet[0] = array();
@@ -124,6 +135,9 @@ class Timesheets_Action_Helper_CreateExcelOverview extends Zend_Controller_Actio
         $activesheet = $objPHPExcel->getActiveSheet();
         $sheet = array();
         $employees = $this->_project->get_employees();
+        if(count($employees) <= 0 && $this->_project instanceof Erga_Model_SubProject) {
+            $employees = $this->_project->get_parentproject()->get_employees();
+        }
         $row = self::STARTROW + 2;
         $i = 0;
         foreach($employees as $curEmployee) {
