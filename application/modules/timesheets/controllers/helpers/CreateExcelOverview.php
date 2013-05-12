@@ -163,9 +163,9 @@ class Timesheets_Action_Helper_CreateExcelOverview extends Zend_Controller_Actio
 						continue; // Skip
 					}*/
 					$sum = $sum + $curActivity->getHours();
-					$sheet[0][$i] = $sum;
 				}
 			}
+            $sheet[0][$i] = $sum;
 		}
         $activesheet->fromArray($sheet, null, self::STARTCOL.$row);
     }
