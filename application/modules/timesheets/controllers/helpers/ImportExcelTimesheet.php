@@ -34,7 +34,9 @@ class Timesheets_Action_Helper_ImportExcelTimesheet extends Zend_Controller_Acti
                 $data['end'] = $hours[1];
                 $form = new Timesheets_Form_Activity();
                 if($form->isValid($data)) {
-                    if((new \DateTime($data['end'])) < (new \DateTime($data['start']))) {
+                    if(strpos($data['start'], ':') !== false) { $start = new DateTime($data['start']); } else { $start = new DateTime($data['start'].':00'); }
+                    if(strpos($data['end'], ':') !== false) { $end = new DateTime($data['end']); } else { $end = new DateTime($data['end'].':00'); }
+                    if($end < $start) {
                         throw new Exception('Κελί '.$delcolumn.$row.': Η ώρα έναρξης δεν μπορεί να είναι μεταγενέστερη της ώρας λήξης');
                     }
                     $activity = new Timesheets_Model_Activity();
