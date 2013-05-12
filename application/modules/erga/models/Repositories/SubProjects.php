@@ -53,7 +53,7 @@ class Erga_Model_Repositories_SubProjects extends Application_Model_Repositories
             $qb->join('p._parentproject', 'nsvpp');
             $qb->join('nsvpp._basicdetails', 'nsvppbd');
             $qb->join('nsvppbd._supervisor', 'nsvppbdu');
-            $qb->andWhere('nsvppbdu._userid = \''.$filters['notprojectsupervisor'].'\'');
+            $qb->andWhere('nsvppbdu._userid != \''.$filters['notprojectsupervisor'].'\'');
         }
         // Αναζήτηση
         if(isset($filters['search']) && $filters['search'] != "") {
