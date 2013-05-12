@@ -106,7 +106,7 @@ class Erga_Professor_ViewController extends Zend_Controller_Action {
         }
         $auth = Zend_Auth::getInstance();
         $curuserid = $auth->getStorage()->read()->get_userid();
-        if($subproject->get_basicdetails() == null || $subproject->get_subprojectsupervisor() == null || $subproject->get_subprojectsupervisor()->get_userid() != $curuserid) {
+        if($subproject->get_subprojectsupervisor() == null || $subproject->get_subprojectsupervisor()->get_userid() != $curuserid) {
             throw new Exception('Δεν έχετε πρόσβαση να δείτε πληροφορίες για αυτό το υποέργο.');
         }
         $this->view->project = $subproject;
@@ -115,7 +115,7 @@ class Erga_Professor_ViewController extends Zend_Controller_Action {
             'subprojectid'   =>  $subproject->get_subprojectid(),
         ), 'workpackage');
         $categories = array();
-        foreach($subproject->get_personnelcategories() as $curCategory) {
+        foreach($subproject->get_parentproject()->get_personnelcategories() as $curCategory) {
             $workpackages[$curCategory->get_name()] = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->getHoursAndPaidAmount(array(
                 'subprojectid'   =>  $subproject->get_subprojectid(),
                 'personnelcategoryid'   =>  $curCategory->get_recordid(),
