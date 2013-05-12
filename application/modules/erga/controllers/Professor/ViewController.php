@@ -98,6 +98,44 @@ class Erga_Professor_ViewController extends Zend_Controller_Action {
         $this->_helper->createExcelOverview($this, $project, $start, $end, 'mfp_overview_mis'.$project->get_basicdetails()->get_mis().'.xlsx');
     }
 
+    public function spoverviewAction() {
+        $this->_helper->layout->disableLayout();
+        $subproject = Zend_Registry::get('entityManager')->getRepository('Erga_Model_SubProject')->find($this->getRequest()->getParam('subprojectid', null));
+        if(!isset($subproject) || count($subproject) < 1) {
+            throw new Exception('Το υποέργο δεν βρέθηκε.');
+        }
+        $auth = Zend_Auth::getInstance();
+        $curuserid = $auth->getStorage()->read()->get_userid();
+        if($subproject->get_basicdetails() == null || $subproject->get_subprojectsupervisor() == null || $subproject->get_subprojectsupervisor()->get_userid() != $curuserid) {
+            throw new Exception('Δεν έχετε πρόσβαση να δείτε πληροφορίες για αυτό το υποέργο.');
+        }
+        $this->view->project = $subproject;
+        $workpackages = array();
+        $workpackages['total'] = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->getHoursAndPaidAmount(array(
+            'subprojectid'   =>  $subproject->get_subprojectid(),
+        ), 'workpackage');
+        $categories = array();
+        foreach($subproject->get_personnelcategories() as $curCategory) {
+            $workpackages[$curCategory->get_name()] = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->getHoursAndPaidAmount(array(
+                'subprojectid'   =>  $subproject->get_subprojectid(),
+                'personnelcategoryid'   =>  $curCategory->get_recordid(),
+            ), 'workpackage');
+            $categories[$curCategory->get_name()] = $curCategory;
+        }
+        $this->view->tcategories = $categories;
+        $this->view->tworkpackages = $workpackages;
+    }
+
+    public function spmfpoverviewAction() {
+        $project = Zend_Registry::get('entityManager')->getRepository('Erga_Model_Project')->find($this->getRequest()->getParam('projectid', null));
+        if(!isset($project) || count($project) < 1) {
+            throw new Exception('Το έργο δεν βρέθηκε.');
+        }
+        $start = $project->get_basicdetails()->get_startdate();
+        $end = $project->get_basicdetails()->get_enddate();
+        $this->_helper->createExcelOverview($this, $project, $start, $end, 'mfp_overview_mis'.$project->get_basicdetails()->get_mis().'.xlsx');
+    }
+
     public function feedAction() {
         // Βρίσκουμε τα έργα του tokenuser
         $filters = $this->_helper->filterHelper($this, 'Erga_Form_ErgaFilters');

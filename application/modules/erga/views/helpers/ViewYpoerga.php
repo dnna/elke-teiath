@@ -29,8 +29,8 @@ class Erga_View_Helper_ViewYpoerga extends Zend_View_Helper_Abstract
                 <tbody>';
         if(is_array($entries) || $entries instanceof Zend_Paginator) {
             foreach($entries as $entry) {
-                $overviewlink = $this->view->url(array('module' => 'erga', 'controller' => $this->view->getControllerName(), 'action' => 'overview', 'subprojectid' => $entry->get_subprojectid()), null, true);
-                $mfpoverviewlink = $this->view->url(array('module' => 'erga', 'controller' => $this->view->getControllerName(), 'action' => 'mfpoverview', 'subprojectid' => $entry->get_subprojectid()), null, true);
+                $overviewlink = $this->view->url(array('module' => 'erga', 'controller' => $this->view->getControllerName(), 'action' => 'spoverview', 'subprojectid' => $entry->get_subprojectid()), null, true);
+                $mfpoverviewlink = $this->view->url(array('module' => 'erga', 'controller' => $this->view->getControllerName(), 'action' => 'spmfpoverview', 'subprojectid' => $entry->get_subprojectid()), null, true);
                 if($edit == false) {
                     $return .= '<tr style="cursor:pointer" onclick="window.location = \''.$overviewlink.'\'" title="Επισκόπηση έργου">';
                 } else {
