@@ -25,7 +25,7 @@ class Timesheets_AdmineyController extends Zend_Controller_Action {
                 $timesheet = new Timesheets_Model_Timesheet();
                 $timesheet->setOptions($form->getValues());
                 $authuser = Zend_Auth::getInstance()->getStorage()->read();
-                if(isset($authuser) && $authuser->get_userid() === $timesheet->get_project()->get_basicdetails()->get_supervisor()->get_userid()) {
+                if(isset($authuser) && $timesheet->isSupervisor($authuser)) {
                     // Δεν κάνουμε τίποτα
                 } else {
                     throw new Exception('Απαγορεύεται η πρόσβαση');
@@ -43,7 +43,7 @@ class Timesheets_AdmineyController extends Zend_Controller_Action {
         }
         // Ελέγχουμε αν ο χρήστης έχει πρόσβαση να εξάγει φύλλα για το συγκεκριμένο έργο
         $authuser = Zend_Auth::getInstance()->getStorage()->read();
-        if(isset($authuser) && $authuser->get_userid() === $timesheet->get_project()->get_basicdetails()->get_supervisor()->get_userid()) {
+        if(isset($authuser) && $timesheet->isSupervisor($authuser)) {
             $this->_helper->createExcelTimesheet($this, $timesheet, 'mfp_mis'.$timesheet->get_project()->get_basicdetails()->get_mis().'_afm'.$timesheet->get_employee()->get_employee()->get_afm().'_'.$timesheet->get_month().'_'.$timesheet->get_year().'.xlsx');
         } else {
             throw new Exception('Δεν έχετε πρόσβαση να εξάγετε μηνιαία φύλλα παρακολούθησης για το συγκεκριμένο έργο.');
@@ -64,7 +64,7 @@ class Timesheets_AdmineyController extends Zend_Controller_Action {
                 if(!is_array($timesheet) || !isset($timesheet['error'])) {
                     // Ελέγχουμε αν ο χρήστης έχει πρόσβαση να προσθέσει φύλλα για αυτό το έργο (πρέπει να είναι ΕΛΚΕ ή ο επιστημονικά υπεύθυνος του έργου)
                     $authuser = Zend_Auth::getInstance()->getStorage()->read();
-                    if(isset($authuser) && $authuser->get_userid() === $timesheet->get_project()->get_basicdetails()->get_supervisor()->get_userid()) {
+                    if(isset($authuser) && $timesheet->isSupervisor($authuser)) {
                         $this->_helper->checkTimesheetValidity($timesheet);
                         $timesheet->save();
                         $this->_helper->flashMessenger->addMessage('Το μηνιαίο φύλλο παρακολούθησης εισήχθη με επιτυχία.');
@@ -89,7 +89,7 @@ class Timesheets_AdmineyController extends Zend_Controller_Action {
         $timesheet = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->find($this->getRequest()->getParam('id', null));
         // Έλεγχος πρόσβασης
         $authuser = Zend_Auth::getInstance()->getStorage()->read();
-        if(!isset($authuser) || $authuser->get_userid() !== $timesheet->get_project()->get_basicdetails()->get_supervisor()->get_userid()) {
+        if(!isset($authuser) || !$timesheet->isSupervisor($authuser)) {
             throw new Exception('Δεν έχετε πρόσβαση να αλλάξετε την κατάσταση έγκρισης φύλλων χρονοχρέωσης για το συγκεκριμένο έργο.');
         }
         $this->view->timesheet = $timesheet;
@@ -139,7 +139,7 @@ class Timesheets_AdmineyController extends Zend_Controller_Action {
         $timesheet = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->find($this->getRequest()->getParam('id', null));
         // Έλεγχος πρόσβασης
         $authuser = Zend_Auth::getInstance()->getStorage()->read();
-        if(!isset($authuser) || $authuser->get_userid() !== $timesheet->get_project()->get_basicdetails()->get_supervisor()->get_userid()) {
+        if(!isset($authuser) || !$timesheet->isSupervisor($authuser)) {
             throw new Exception('Δεν έχετε πρόσβαση να αλλάξετε την κατάσταση έγκρισης φύλλων χρονοχρέωσης για το συγκεκριμένο έργο.');
         }
         // Διαγραφή

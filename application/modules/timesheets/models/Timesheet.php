@@ -109,7 +109,7 @@ class Timesheets_Model_Timesheet extends Dnna_Model_Object {
     public function set_activities($_activities) {
         $this->_activities = $_activities;
     }
-    
+
     public function get_activitiesForDeliverable(Erga_Model_SubItems_Deliverable $deliverable) {
         $activities = array();
         foreach($this->get_activities() as $curActivity) {
@@ -182,6 +182,15 @@ class Timesheets_Model_Timesheet extends Dnna_Model_Object {
             }
         }
         return $sum;
+    }
+
+    public function isSupervisor($user) {
+        if($user->get_userid() === $this->get_project()->get_basicdetails()->get_supervisor()->get_userid() ||
+            $user->get_userid() === $this->get_employee()->get_subproject()->get_subprojectsupervisor()->get_userid()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function __toString() {
