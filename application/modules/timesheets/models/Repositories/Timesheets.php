@@ -24,10 +24,21 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
         }
         // Κωδικός Χρήστη
         if(isset($filters['supervisoruserid'])) {
-            $qb->join('t._project', 'p');
+            /*$qb->join('t._project', 'p');
             $qb->join('p._basicdetails', 'bd');
             $qb->join('bd._supervisor', 'spv');
             $qb->andWhere('spv._userid = :supervisoruserid');
+            $qb->setParameter('supervisoruserid', $filters['supervisoruserid']);*/
+            $qb->join('t._employee', 'sue');
+            // Subproject
+            $qb->leftJoin('sue._subproject', 'susp');
+            $qb->leftJoin('susp._subprojectsupervisor', 'suspu');
+            // Project
+            $qb->leftJoin('sue._project', 'sup');
+            $qb->leftJoin('sup._basicdetails', 'supbd');
+            $qb->leftJoin('supbd._supervisor', 'supbdu');
+            // Conditions
+            $qb->andWhere('suspu._userid = :supervisoruserid OR supbdu._userid = :supervisoruserid');
             $qb->setParameter('supervisoruserid', $filters['supervisoruserid']);
         }
 
