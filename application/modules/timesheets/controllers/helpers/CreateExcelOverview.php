@@ -77,6 +77,9 @@ class Timesheets_Action_Helper_CreateExcelOverview extends Zend_Controller_Actio
             /*if($curSubproject->get_subprojectstartdate() < $this->_start || $curSubproject->get_subprojectenddate() > $this->_end) {
                 continue; // Skip
             }*/
+            if($curSubproject->get_subprojectdirectlabor() != 1) {
+                continue;
+            }
             $col = self::STARTCOL; for($k = 0; $k < $i; $k++) { $col++; }
             $this->pinkCell($objPHPExcel, $col.self::STARTROW);
             $sheet[0][$i] = $curSubproject->get_subprojecttitle();
