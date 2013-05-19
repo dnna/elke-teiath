@@ -73,6 +73,12 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
                     if(isset($authuser) && $authuser->get_userid() === $timesheet->get_employee()->get_employee()->get_ldapusername()) {
                         $this->_helper->checkTimesheetValidity($timesheet);
                         $timesheet->save();
+                        // Αν το φύλλο αφορά το εκπαιδευτικό έργο τότε το εγκρίνουμε αυτόματα
+                        $options = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOptions();
+                        if($timesheet->get_project()->get_projectid() == $options['project']['educational']) {
+                            $timesheet->set_approved(Timesheets_Model_Timesheet::APPROVED);
+                        }
+                        $timesheet->save();
                         $this->_helper->flashMessenger->addMessage('Το μηνιαίο φύλλο παρακολούθησης εισήχθη με επιτυχία.');
                         $this->_helper->redirector('index');
                     } else {
