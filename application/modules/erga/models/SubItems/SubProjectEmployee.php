@@ -64,7 +64,7 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
      */
     protected $_timesheets;
 
-    public function __construct($options) {
+    public function __construct($options = array()) {
         $this->_isauthor = new Doctrine\Common\Collections\ArrayCollection;
         parent::__construct($options);
     }
