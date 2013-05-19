@@ -119,9 +119,15 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
         $workpackages = $subprojects[0]->get_workpackages();
         $deliverables = $workpackages[0]->get_deliverables();
         $deliverable = $deliverables[0];
-        var_dump($deliverable);
-        die();
         // End get the deliverable
+        // Find the employee entity
+        $contracts = $user->get_contracts();
+        if(count($contracts) > 0) {
+            $employee = $contracts[0]->get_employee();
+        } else {
+            throw new Exception('Ο χρήστης πρέπει να απασχολείται σε τουλάχιστον 1 έργο για να χρησιμοποιήσει τα φύλλα χρονοχρέωσης');
+        }
+        // End find the employee entity
         $semployee = new Erga_Model_SubItems_SubProjectEmployee();
         $semployee->set_employee($employee);
         $semployee->set_startdate(new EDateTime('-1000 years'));
@@ -133,7 +139,6 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
         // Collections
         $semployee->get_isauthor()->add($author);
         $deliverable->get_authors()->add($author);
-        $workpackage->get_deliverables()->add($deliverable);
         return $semployee;
     }
 }
