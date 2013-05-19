@@ -100,9 +100,9 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
             throw new Exception('Η συγκεκριμένη σύμβαση δεν έχει συνδεθεί ούτε με έργο ούτε με υποέργο!');
         }
     }
-    
+
     /**
-     * Επιστρέφει το αν η συγκεκριμένη σύμβαση ανήκει σε ενεργό έργο/υποέργο 
+     * Επιστρέφει το αν η συγκεκριμένη σύμβαση ανήκει σε ενεργό έργο/υποέργο
      */
     public function wasActive($month = null, $year = null) {
         if(!isset($month)) {
@@ -311,6 +311,8 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
         $deliverable = new Erga_Model_SubItems_Deliverable();
         $deliverable->set_codename('Εκ.Ε');
         $deliverable->set_title('Εκπαιδευτικό Έργο');
+        $deliverable->set_startdate(new EDateTime('first day of '.date("F", mktime(0, 0, 0, $month, 10)).' '.$year));
+        $deliverable->set_enddate(new EDateTime('last day of '.date("F", mktime(0, 0, 0, $month, 10)).' '.$year));
         $author = new Erga_Model_SubItems_Author();
         $author->set_deliverable($deliverable);
         $author->set_employee($semployee);
