@@ -164,7 +164,11 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
     }
 
     public function set_startdate($_startdate) {
-        $this->_startdate = EDateTime::create($_startdate);
+        if(!$_startdate instanceof EDateTime) {
+            $this->_startdate = EDateTime::create($_startdate);
+        } else {
+            $this->_startdate = $_startdate;
+        }
     }
 
     public function get_enddate() {
@@ -172,7 +176,11 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
     }
 
     public function set_enddate($_enddate) {
-        $this->_enddate = EDateTime::create($_enddate);
+        if(!$_enddate instanceof EDateTime) {
+            $this->_enddate = EDateTime::create($_enddate);
+        } else {
+            $this->_enddate = $_enddate;
+        }
     }
 
     public function get_manmonths() {
@@ -295,6 +303,8 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
     public static function createEducationalEmployee(Application_Model_Employee $employee) {
         $semployee = new Erga_Model_SubItems_SubProjectEmployee();
         $semployee->set_employee($employee);
+        $semployee->set_startdate(new EDateTime('-1000 years'));
+        $semployee->set_enddate(new EDateTime('+1000 years'));
         $workpackage = new Erga_Model_SubItems_WorkPackage();
         $workpackage->set_workpackagecodename('Εκ.Ε');
         $workpackage->set_workpackagename('Εκπαιδευτικό Έργο');
