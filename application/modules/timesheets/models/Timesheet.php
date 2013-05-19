@@ -75,7 +75,11 @@ class Timesheets_Model_Timesheet extends Dnna_Model_Object {
     }
 
     public function get_project() {
-        return $this->_project;
+        if(isset($this->_project)) {
+            return $this->_project;
+        } else {
+            return Erga_Model_Project::createEducationalProject();
+        }
     }
 
     public function set_project($_project) {
