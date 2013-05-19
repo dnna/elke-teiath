@@ -300,7 +300,7 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
         return ($al > $bl) ? +1 : -1;
     }
 
-    public static function createEducationalEmployee(Application_Model_Employee $employee) {
+    public static function createEducationalEmployee(Application_Model_Employee $employee, $month, $year) {
         $semployee = new Erga_Model_SubItems_SubProjectEmployee();
         $semployee->set_employee($employee);
         $semployee->set_startdate(new EDateTime('-1000 years'));
