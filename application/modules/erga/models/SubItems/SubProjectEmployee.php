@@ -287,6 +287,17 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
         return ($al > $bl) ? +1 : -1;
     }
 
+    public static function createEducationalEmployee(Application_Model_Employee $employee) {
+        $employee = new Erga_Model_SubItems_SubProjectEmployee();
+        $employee->set_employee($employee);
+        $workpackage = new Erga_Model_SubItems_WorkPackage();
+        $workpackage->set_workpackagecodename('Εκ.Ε');
+        $workpackage->set_workpackagename('Εκπαιδευτικό Έργο');
+        $deliverable = new Erga_Model_SubItems_Deliverable();
+        $deliverable->set_codename('Εκ.Ε');
+        $deliverable->set_title('Εκπαιδευτικό Έργο');
+    }
+
     public function __toString() {
         return $this->get_employee()->__toString();
     }
