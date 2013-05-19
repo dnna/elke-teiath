@@ -19,8 +19,7 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
         // Προσθήκη του απασχολούμενου στο εκπαιδευτικό έργο αν είναι καθηγητής και δεν έχει προστεθεί ήδη
         $authuser = Zend_Auth::getInstance()->getStorage()->read();
         if(!$this->userInEduProject($authuser)) {
-            echo 'need to add';
-            die();
+            $this->createEduContract($authuser);
         }
 
         $this->_helper->layout->disableLayout();
@@ -110,6 +109,32 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
             }
         }
         return false;
+    }
+
+    protected function createEduContract(Application_Model_User $user) {
+        $options = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOptions();
+        $project = Zend_Registry::get('entityManager')->getRepository('Erga_Model_Project')->find($options['project']['educational']);
+        // Get the deliverable
+        $subprojects = $project->get_subprojects();
+        $workpackages = $subprojects[0]->get_workpackages();
+        $deliverables = $workpackages[0]->get_deliverables();
+        $deliverable = $deliverables[0];
+        var_dump($deliverable);
+        die();
+        // End get the deliverable
+        $semployee = new Erga_Model_SubItems_SubProjectEmployee();
+        $semployee->set_employee($employee);
+        $semployee->set_startdate(new EDateTime('-1000 years'));
+        $semployee->set_enddate(new EDateTime('+1000 years'));
+        $author = new Erga_Model_SubItems_Author();
+        $author->set_deliverable($deliverable);
+        $author->set_employee($semployee);
+
+        // Collections
+        $semployee->get_isauthor()->add($author);
+        $deliverable->get_authors()->add($author);
+        $workpackage->get_deliverables()->add($deliverable);
+        return $semployee;
     }
 }
 ?>
