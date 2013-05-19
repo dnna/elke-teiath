@@ -35,6 +35,13 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
             $qb->andWhere('suspu._userid = :supervisoruserid OR spv._userid = :supervisoruserid');
             $qb->setParameter('supervisoruserid', $filters['supervisoruserid']);
         }
+        // Αγνοούμε το educational project
+        if(!isset($filters['includeEduProject']) || $filters['includeEduProject'] != true) {
+            $options = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOptions();
+            $qb->join('t._project', 'igp');
+            $qb->andWhere('igp._projectid != :eduprojectid');
+            $qb->setParameter('eduprojectid', $options['project']['educational']);
+        }
 
         return $this->getResult($qb);
     }

@@ -11,7 +11,8 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
     public function indexAction() {
         $authuser = Zend_Auth::getInstance()->getStorage()->read();
         $this->view->entries = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->findTimesheets(array(
-            'userid' => $authuser->get_userid()
+            'userid' => $authuser->get_userid(),
+            'includeEduProject' => true,
         ));
     }
 
