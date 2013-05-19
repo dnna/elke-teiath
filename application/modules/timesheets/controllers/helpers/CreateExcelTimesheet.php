@@ -27,7 +27,7 @@ class Timesheets_Action_Helper_CreateExcelTimesheet extends Zend_Controller_Acti
         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->generateId());
         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->get_employee()->__toString());
         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->get_employee()->get_employee()->get_afm());
-        if($timesheet->get_project()->get_projectid() !== 'eke') {
+        if($timesheet->get_project()->get_projectid() !== 'EKE') {
             $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->get_project()->get_basicdetails()->get_mis());
             $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->get_employee()->get_contractnum());
             $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->get_employee()->get_startdate().' — '.$timesheet->get_employee()->get_enddate());
