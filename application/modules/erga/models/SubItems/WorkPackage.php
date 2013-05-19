@@ -31,6 +31,11 @@ class Erga_Model_SubItems_WorkPackage extends Application_Model_SubObject {
      */
     protected $_hasoverduedeliverables;
 
+    public function __construct($options = array()) {
+        $this->_deliverables = new Doctrine\Common\Collections\ArrayCollection;
+        parent::__construct($options);
+    }
+
     public function get_subproject() {
         return $this->_subproject;
     }

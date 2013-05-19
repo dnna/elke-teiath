@@ -65,6 +65,11 @@ class Erga_Model_SubItems_Deliverable extends Application_Model_SubObject {
 
     protected $__duration;
 
+    public function __construct($options = array()) {
+        $this->_authors = new Doctrine\Common\Collections\ArrayCollection;
+        parent::__construct($options);
+    }
+
     public function get_workpackage() {
         return $this->_workpackage;
     }
