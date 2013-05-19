@@ -58,6 +58,10 @@ class Erga_Model_Repositories_Projects extends Application_Model_Repositories_Ba
         if(isset($filters['search']) && $filters['search'] != "") {
             $this->addSearchFilter($qb, $filters['search']);
         }
+        // Αγνοούμε το educational project
+        $options = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOptions();
+        $qb->andWhere('p._projectid != :eduprojectid');
+        $qb->setParameter('eduprojectid', $options['project']['educational']);
 
         // Ordering
         $sort = Zend_Controller_Front::getInstance()->getRequest()->getParam('sort');
