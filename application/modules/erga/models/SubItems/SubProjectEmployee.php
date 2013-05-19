@@ -64,11 +64,6 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
      */
     protected $_timesheets;
 
-    public function __construct($options = array()) {
-        $this->_isauthor = new Doctrine\Common\Collections\ArrayCollection;
-        parent::__construct($options);
-    }
-
     public function get_subproject() {
         return $this->_subproject;
     }
@@ -100,9 +95,9 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
             throw new Exception('Η συγκεκριμένη σύμβαση δεν έχει συνδεθεί ούτε με έργο ούτε με υποέργο!');
         }
     }
-
+    
     /**
-     * Επιστρέφει το αν η συγκεκριμένη σύμβαση ανήκει σε ενεργό έργο/υποέργο
+     * Επιστρέφει το αν η συγκεκριμένη σύμβαση ανήκει σε ενεργό έργο/υποέργο 
      */
     public function wasActive($month = null, $year = null) {
         if(!isset($month)) {
@@ -164,11 +159,7 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
     }
 
     public function set_startdate($_startdate) {
-        if(!$_startdate instanceof EDateTime) {
-            $this->_startdate = EDateTime::create($_startdate);
-        } else {
-            $this->_startdate = $_startdate;
-        }
+        $this->_startdate = EDateTime::create($_startdate);
     }
 
     public function get_enddate() {
@@ -176,11 +167,7 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
     }
 
     public function set_enddate($_enddate) {
-        if(!$_enddate instanceof EDateTime) {
-            $this->_enddate = EDateTime::create($_enddate);
-        } else {
-            $this->_enddate = $_enddate;
-        }
+        $this->_enddate = EDateTime::create($_enddate);
     }
 
     public function get_manmonths() {
@@ -298,30 +285,6 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
             }
         }
         return ($al > $bl) ? +1 : -1;
-    }
-
-    public static function createEducationalEmployee(Application_Model_Employee $employee, $month, $year) {
-        $semployee = new Erga_Model_SubItems_SubProjectEmployee();
-        $semployee->set_employee($employee);
-        $semployee->set_startdate(new EDateTime('-1000 years'));
-        $semployee->set_enddate(new EDateTime('+1000 years'));
-        $workpackage = new Erga_Model_SubItems_WorkPackage();
-        $workpackage->set_workpackagecodename('Εκ.Ε');
-        $workpackage->set_workpackagename('Εκπαιδευτικό Έργο');
-        $deliverable = new Erga_Model_SubItems_Deliverable();
-        $deliverable->set_codename('Εκ.Ε');
-        $deliverable->set_title('Εκπαιδευτικό Έργο');
-        $deliverable->set_startdate(new EDateTime('first day of '.date("F", mktime(0, 0, 0, $month, 10)).' '.$year));
-        $deliverable->set_enddate(new EDateTime('last day of '.date("F", mktime(0, 0, 0, $month, 10)).' '.$year));
-        $author = new Erga_Model_SubItems_Author();
-        $author->set_deliverable($deliverable);
-        $author->set_employee($semployee);
-
-        // Collections
-        $semployee->get_isauthor()->add($author);
-        $deliverable->get_authors()->add($author);
-        $workpackage->get_deliverables()->add($deliverable);
-        return $semployee;
     }
 
     public function __toString() {

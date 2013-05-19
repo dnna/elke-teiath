@@ -23,30 +23,14 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
                 $timesheet = new Timesheets_Model_Timesheet();
                 $timesheet->setOptions($form->getValues());
                 $employee = $timesheet->get_employee();
-                // Αν η σύμβαση είναι κένη και ο χρήστης είναι καθηγητής θεωρούμε ότι πρόκειται για το εκπαιδευτικό έργο
-                if(!isset($employee)) {
-                    $authuser = Zend_Auth::getInstance()->getStorage()->read();
-                    $contracts = $authuser->get_contracts();
-                    if(count($contracts) > 0) {
-                        $authemployee = $contracts[0]->get_employee();
-                        $project = Erga_Model_Project::createEducationalProject();
-                        $employee = Erga_Model_SubItems_SubProjectEmployee::createEducationalEmployee($authemployee, $timesheet->get_month(), $timesheet->get_year());
-                        $timesheet->set_employee($employee);
-                    } else {
-                        throw new Exception('Ο χρήστης πρέπει να έχει οριστεί σε τουλάχιστον ένα έργο για να χρησιμοποιήσει τα φύλλα χρονοχρέωσης');
-                    }
+                if($employee->get_project() != null) {
+                    $timesheet->set_project($timesheet->get_employee()->get_project());
+                } else if($employee->get_subproject() != null) {
+                    $timesheet->set_project($timesheet->get_employee()->get_subproject()->get_parentproject());
                 } else {
-                    if($employee->get_project() != null) {
-                        $project = $timesheet->get_employee()->get_project();
-                        $timesheet->set_project();
-                    } else if($employee->get_subproject() != null) {
-                        $project = $timesheet->get_employee()->get_subproject()->get_parentproject();
-                        $timesheet->set_project($project);
-                    } else {
-                        throw new Exception('Η συγκεκριμένη σύμβαση δεν έχει συνδεθεί ούτε με έργο ούτε με υποέργο!');
-                    }
+                    throw new Exception('Η συγκεκριμένη σύμβαση δεν έχει συνδεθεί ούτε με έργο ούτε με υποέργο!');
                 }
-                $this->_helper->createExcelTimesheet($this, $timesheet, 'mfp_mis'.$project->get_basicdetails()->get_mis().'_afm'.$employee->get_employee()->get_afm().'_'.$timesheet->get_month().'_'.$timesheet->get_year().'.xlsx');
+                $this->_helper->createExcelTimesheet($this, $timesheet, 'mfp_mis'.$timesheet->get_project()->get_basicdetails()->get_mis().'_afm'.$timesheet->get_employee()->get_employee()->get_afm().'_'.$timesheet->get_month().'_'.$timesheet->get_year().'.xlsx');
             }
         }
         $this->view->tplselectform = $form;

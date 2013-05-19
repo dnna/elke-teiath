@@ -14,10 +14,6 @@ class Timesheets_Form_TemplateSelect extends Dnna_Form_FormBase {
             $authuser = Zend_Auth::getInstance()->getStorage()->read();
             $entries = array();
             foreach($authuser->get_contracts() as $curContract) {
-                // Οι καθηγητές έχουν επιπλέον πρόσβαση και στο εκπαιδευτικό έργο
-                if($authuser->hasRole('professor')) {
-                    $entries[0] = 'Εκπαιδευτικό Έργο';
-                }
                 $entries[$curContract->get_recordid()] = $curContract->getProjectName().' '.$curContract->get_startdate().'–'.$curContract->get_enddate();
             }
             $this->addElement('select', 'employee', array(

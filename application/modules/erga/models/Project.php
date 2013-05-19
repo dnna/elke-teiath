@@ -555,17 +555,6 @@ class Erga_Model_Project extends Erga_Model_EmployeeContainer {
         return $this->get_projectid();
     }
 
-    // Δημιουργεί το εκπαιδευτικό έργο για καταχώρηση φύλλων χρονοχρέωσης
-    public static function createEducationalProject() {
-        $project = new Erga_Model_Project();
-        $project->set_projectid('EKE');
-        $basicdetails = new Erga_Model_ProjectBasicDetails();
-        $basicdetails->set_project($project);
-        $basicdetails->set_title('Εκπαιδευτικό Έργο');
-        $project->set_basicdetails($basicdetails);
-        return $project;
-    }
-
     public function __toString() {
         if($this->get_shorttitle() != '') {
             return $this->get_shorttitle();
