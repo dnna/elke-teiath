@@ -114,6 +114,8 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
     protected function createEduContract(Application_Model_User $user) {
         $options = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOptions();
         $project = Zend_Registry::get('entityManager')->getRepository('Erga_Model_Project')->find($options['project']['educational']);
+        $category = Zend_Registry::get('entityManager')->getRepository('Application_Model_Lists_EmployeeCategory')->find('A1');
+        $specialty = Zend_Registry::get('entityManager')->getRepository('Application_Model_Lists_EmployeeSpecialty')->find('B4');
         // Get the deliverable
         $subprojects = $project->get_subprojects();
         $workpackages = $subprojects[0]->get_workpackages();
@@ -129,9 +131,13 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
         }
         // End find the employee entity
         $semployee = new Erga_Model_SubItems_SubProjectEmployee();
+        $semployee->set_project($project);
         $semployee->set_employee($employee);
         $semployee->set_startdate(new EDateTime('-1000 years'));
         $semployee->set_enddate(new EDateTime('+1000 years'));
+        $semployee->set_category($category);
+        $semployee->set_specialty($specialty);
+        $semployee->set_comments('');
         $author = new Erga_Model_SubItems_Author();
         $author->set_deliverable($deliverable);
         $author->set_employee($semployee);
