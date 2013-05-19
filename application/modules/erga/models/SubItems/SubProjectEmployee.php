@@ -64,6 +64,11 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
      */
     protected $_timesheets;
 
+    public function __construct($options) {
+        $this->_isauthor = new Doctrine\Common\Collections\ArrayCollection;
+        parent::__construct($options);
+    }
+
     public function get_subproject() {
         return $this->_subproject;
     }
@@ -299,6 +304,11 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
         $author = new Erga_Model_SubItems_Author();
         $author->set_deliverable($deliverable);
         $author->set_employee($semployee);
+
+        // Collections
+        $semployee->get_isauthor()->add($author);
+        $deliverable->get_authors()->add($author);
+        $workpackage->get_deliverables()->add($deliverable);
         return $semployee;
     }
 
