@@ -299,6 +299,7 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
         $author = new Erga_Model_SubItems_Author();
         $author->set_deliverable($deliverable);
         $author->set_employee($semployee);
+        return $semployee;
     }
 
     public function __toString() {
