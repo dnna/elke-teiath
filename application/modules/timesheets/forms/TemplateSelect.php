@@ -14,7 +14,12 @@ class Timesheets_Form_TemplateSelect extends Dnna_Form_FormBase {
             $authuser = clone Zend_Auth::getInstance()->getStorage()->read();
             $entries = array();
             foreach($authuser->get_contracts() as $curContract) {
-                $entries[$curContract->get_recordid()] = $curContract->getProjectName().' '.$curContract->get_startdate().'–'.$curContract->get_enddate();
+                $options = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOptions();
+                if($curContract->get_project() != null && $curContract->get_project()->get_projectid() == $options['project']['educational']) {
+                    $entries[$curContract->get_recordid()] = $curContract->getProjectName();
+                } else {
+                    $entries[$curContract->get_recordid()] = $curContract->getProjectName().' '.$curContract->get_startdate().'–'.$curContract->get_enddate();
+                }
             }
             $this->addElement('select', 'employee', array(
                 'label' =>  'Σύμβαση: ',

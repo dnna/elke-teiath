@@ -104,7 +104,7 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
     protected function userInEduProject(Application_Model_User $user) {
         $options = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOptions();
         foreach($user->get_contracts() as $curContract) {
-            if($curContract->get_project() != null && $curContract->get_project() == $options['project']['educational']) {
+            if($curContract->get_project() != null && $curContract->get_project()->get_projectid() == $options['project']['educational']) {
                 return true;
             }
         }
