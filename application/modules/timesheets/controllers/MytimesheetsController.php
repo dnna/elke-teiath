@@ -31,6 +31,7 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
                         $authemployee = $contracts[0]->get_employee();
                         $project = Erga_Model_Project::createEducationalProject();
                         $employee = Erga_Model_SubItems_SubProjectEmployee::createEducationalEmployee($authemployee);
+                        $timesheet->set_employee($employee);
                     } else {
                         throw new Exception('Ο χρήστης πρέπει να έχει οριστεί σε τουλάχιστον ένα έργο για να χρησιμοποιήσει τα φύλλα χρονοχρέωσης');
                     }
