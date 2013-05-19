@@ -136,10 +136,10 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
         $author->set_deliverable($deliverable);
         $author->set_employee($semployee);
 
-        // Collections
-        $semployee->get_isauthor()->add($author);
-        $deliverable->get_authors()->add($author);
-        return $semployee;
+        $em = Zend_Registry::get('entityManager');
+        $em->persist($semployee);
+        $em->persist($author);
+        $em->flush();
     }
 }
 ?>
