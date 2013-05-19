@@ -26,14 +26,13 @@ class Timesheets_Action_Helper_CreateExcelTimesheet extends Zend_Controller_Acti
         $objPHPExcel->getActiveSheet()->SetCellValue('D3', $timesheet->generateId());
         $objPHPExcel->getActiveSheet()->SetCellValue('D4', $timesheet->get_employee()->__toString());
         $objPHPExcel->getActiveSheet()->SetCellValue('D5', $timesheet->get_employee()->get_employee()->get_afm());
+        $objPHPExcel->getActiveSheet()->SetCellValue('D6', $timesheet->get_project()->get_basicdetails()->get_mis());
         // Educational project stuff
         $options = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOptions();
         if($timesheet->get_project() != null && $timesheet->get_project()->get_projectid() == $options['project']['educational']) {
-            $objPHPExcel->getActiveSheet()->SetCellValue('D6', 'Εκπαιδευτικό Έργο');
-            $objPHPExcel->getActiveSheet()->SetCellValue('D7', '');
+            $objPHPExcel->getActiveSheet()->SetCellValue('D7', 'Εκπαιδευτικό Έργο');
             $objPHPExcel->getActiveSheet()->SetCellValue('D8', '');
         } else {
-            $objPHPExcel->getActiveSheet()->SetCellValue('D6', $timesheet->get_project()->get_basicdetails()->get_mis());
             $objPHPExcel->getActiveSheet()->SetCellValue('D7', $timesheet->get_employee()->get_contractnum());
             $objPHPExcel->getActiveSheet()->SetCellValue('D8', $timesheet->get_employee()->get_startdate().' — '.$timesheet->get_employee()->get_enddate());
         }
