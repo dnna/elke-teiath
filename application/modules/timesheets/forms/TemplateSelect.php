@@ -11,7 +11,7 @@ class Timesheets_Form_TemplateSelect extends Dnna_Form_FormBase {
         $this->setMethod('GET');
         $auth = Zend_Auth::getInstance();
         if($this->_mytimesheet == true) {
-            $authuser = Zend_Auth::getInstance()->getStorage()->read();
+            $authuser = clone Zend_Auth::getInstance()->getStorage()->read();
             $entries = array();
             foreach($authuser->get_contracts() as $curContract) {
                 $entries[$curContract->get_recordid()] = $curContract->getProjectName().' '.$curContract->get_startdate().'–'.$curContract->get_enddate();

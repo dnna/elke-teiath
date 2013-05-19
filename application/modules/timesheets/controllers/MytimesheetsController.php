@@ -17,7 +17,7 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
 
     public function downloadtemplateAction() {
         // Προσθήκη του απασχολούμενου στο εκπαιδευτικό έργο αν είναι καθηγητής και δεν έχει προστεθεί ήδη
-        $authuser = Zend_Auth::getInstance()->getStorage()->read();
+        $authuser = clone Zend_Auth::getInstance()->getStorage()->read();
         if(!$this->userInEduProject($authuser)) {
             $this->createEduContract($authuser);
         }
