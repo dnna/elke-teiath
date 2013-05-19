@@ -558,6 +558,7 @@ class Erga_Model_Project extends Erga_Model_EmployeeContainer {
     // Δημιουργεί το εκπαιδευτικό έργο για καταχώρηση φύλλων χρονοχρέωσης
     public static function createEducationalProject() {
         $project = new Erga_Model_Project();
+        $project->set_projectid('eke');
         $basicdetails = new Erga_Model_ProjectBasicDetails();
         $basicdetails->set_project($project);
         $basicdetails->set_title('Εκπαιδευτικό Έργο');

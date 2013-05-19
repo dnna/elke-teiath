@@ -23,14 +23,21 @@ class Timesheets_Action_Helper_CreateExcelTimesheet extends Zend_Controller_Acti
         $objPHPExcel = $objReader->load(APPLICATION_PATH.'/../public/documents/timesheet.xlsx');
 
         // Add some data
-        $objPHPExcel->getActiveSheet()->SetCellValue('D3', $timesheet->generateId());
-        $objPHPExcel->getActiveSheet()->SetCellValue('D4', $timesheet->get_employee()->__toString());
-        $objPHPExcel->getActiveSheet()->SetCellValue('D5', $timesheet->get_employee()->get_employee()->get_afm());
-        $objPHPExcel->getActiveSheet()->SetCellValue('D6', $timesheet->get_project()->get_basicdetails()->get_mis());
-        $objPHPExcel->getActiveSheet()->SetCellValue('D7', $timesheet->get_employee()->get_contractnum());
-        $objPHPExcel->getActiveSheet()->SetCellValue('D8', $timesheet->get_employee()->get_startdate().' — '.$timesheet->get_employee()->get_enddate());
-        $objPHPExcel->getActiveSheet()->SetCellValue('D9', $timesheet->get_year());
-        $objPHPExcel->getActiveSheet()->SetCellValue('D10', $timesheet->get_month());
+        $i = 3;
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->generateId());
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->get_employee()->__toString());
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->get_employee()->get_employee()->get_afm());
+        if($timesheet->get_project()->get_projectid() !== 'eke') {
+            $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->get_project()->get_basicdetails()->get_mis());
+            $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->get_employee()->get_contractnum());
+            $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->get_employee()->get_startdate().' — '.$timesheet->get_employee()->get_enddate());
+        } else {
+            $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, '');
+            $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, 'Εκπαιδευτικό Έργο');
+            $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, '');
+        }
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->get_year());
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i++, $timesheet->get_month());
 
         $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
 
