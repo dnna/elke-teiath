@@ -16,6 +16,13 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
     }
 
     public function downloadtemplateAction() {
+        // Προσθήκη του απασχολούμενου στο εκπαιδευτικό έργο αν είναι καθηγητής και δεν έχει προστεθεί ήδη
+        $authuser = Zend_Auth::getInstance()->getStorage()->read();
+        if(!$this->userInEduProject($authuser)) {
+            echo 'need to add';
+            die();
+        }
+
         $this->_helper->layout->disableLayout();
         $form = new Timesheets_Form_TemplateSelect($this->view, true);
         if($this->_request->getParam('month') != null) {
@@ -93,6 +100,16 @@ class Timesheets_MytimesheetsController extends Zend_Controller_Action {
         } else {
             return $this->_helper->deleteHelper($this, 'id', 'Timesheets_Model_Timesheet', 'timesheet');
         }
+    }
+
+    protected function userInEduProject(Application_Model_User $user) {
+        $options = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOptions();
+        foreach($user->get_contracts() as $curContract) {
+            if($curContract->get_project() != null && $curContract->get_project() == $options['project']['educational']) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 ?>
