@@ -64,6 +64,11 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
      */
     protected $_timesheets;
 
+    public function __construct(array $options = null) {
+        $this->_isauthor = new \Doctrine\Common\Collections\ArrayCollection();
+        parent::__construct($options);
+    }
+
     public function get_subproject() {
         return $this->_subproject;
     }
