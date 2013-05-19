@@ -12,7 +12,7 @@ class Timesheets_Action_Helper_ImportExcelTimesheet extends Zend_Controller_Acti
         }
         $timesheet->set_employee($employee);
 
-        $project = Zend_Registry::get('entityManager')->getRepository('Erga_Model_Project')->findProjects(array('mis' => $data['mis']));
+        $project = Zend_Registry::get('entityManager')->getRepository('Erga_Model_Project')->findProjects(array('mis' => $data['mis'], 'includeEduProject' => true));
         if(!isset($project) || count($project) <= 0) {
             return array('error' => true, 'errorRow' => 1, 'formElements' => array(), 'message' => 'Δεν βρέθηκε το έργο.');
         }
