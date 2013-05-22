@@ -74,7 +74,7 @@ class Timesheets_Action_Helper_CreateExcelOverview extends Zend_Controller_Actio
     }
 
     protected function addSubprojectHeaders(PHPExcel &$objPHPExcel) {
-        if($project instanceof Erga_Model_Project) {
+        if($this->_project instanceof Erga_Model_Project) {
             $subprojects = $this->_project->get_subprojects();
         } else {
             $subprojects = array($this->_project);
