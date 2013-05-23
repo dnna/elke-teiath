@@ -10,8 +10,9 @@ class Timesheets_AdmineyController extends Zend_Controller_Action {
 
     public function indexAction() {
         $authuser = Zend_Auth::getInstance()->getStorage()->read();
+        $filters = $this->_helper->filterHelper($this, 'Timesheets_Form_TimesheetFilters');
         $entries = array();
-        $entries = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->findTimesheets(array(
+        $entries = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->findTimesheets($filters+array(
             'supervisoruserid' => $authuser->get_userid()
         ));
         $this->view->entries = $entries;

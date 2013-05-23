@@ -9,7 +9,8 @@ class Timesheets_AdminelkeController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        $this->view->entries = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->findAll();
+        $filters = $this->_helper->filterHelper($this, 'Timesheets_Form_TimesheetFilters');
+        $this->view->entries = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->findTimesheets($filters);
     }
 
     public function downloadtemplateAction() {

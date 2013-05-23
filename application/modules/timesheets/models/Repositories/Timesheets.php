@@ -6,6 +6,8 @@ use DoctrineExtensions\Paginate\Paginate;
  */
 class Timesheets_Model_Repositories_Timesheets extends Application_Model_Repositories_BaseRepository
 {
+    protected $projectJoined = false;
+
     /**
      * @return Timesheets_Model_Timesheet
      */
@@ -24,9 +26,7 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
         }
         // Κωδικός Χρήστη
         if(isset($filters['supervisoruserid'])) {
-            $qb->join('t._project', 'p');
-            $qb->join('p._basicdetails', 'bd');
-            $qb->join('bd._supervisor', 'spv');
+            $this->joinProject($qb);
             // Subproject
             $qb->join('t._employee', 'sue');
             $qb->leftJoin('sue._subproject', 'susp');
@@ -34,6 +34,24 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
             // Conditions
             $qb->andWhere('suspu._userid = :supervisoruserid OR spv._userid = :supervisoruserid');
             $qb->setParameter('supervisoruserid', $filters['supervisoruserid']);
+        }
+        // Ετος
+        if(isset($filters['year'])) {
+            $qb->andWhere('t._year = :year');
+            $qb->setParameter('year', $filters['year']);
+        }
+        // Τίτλος Έργου
+        if(isset($filters['projectSearch'])) {
+            $this->joinProject($qb);
+            $qb->andWhere('(bd._mis LIKE :searchterms OR bd._title LIKE :searchterms OR bd._titleen LIKE :searchterms)');
+            $qb->setParameter('searchterms', '%'.$filters['projectSearch'].'%');
+        }
+        // Όνομα Απασχολούμενου
+        if(isset($filters['employeeSearch'])) {
+            $qb->join('t._employee', 'esbn');
+            $qb->join('esbn._employee', 'eesbn');
+            $qb->andWhere('eesbn._firstname LIKE :employeeSearch OR eesbn._surname LIKE :employeeSearch OR eesbn._afm LIKE :employeeSearch');
+            $qb->setParameter('employeeSearch', '%'.$filters['employeeSearch'].'%');
         }
         // Αγνοούμε το educational project
         if(!isset($filters['includeEduProject']) || $filters['includeEduProject'] != true) {
@@ -219,6 +237,15 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
         $qb->innerJoin('author._employee', 'employee');
         $qb->andWhere('remployee._recordid = employee._recordid');
         /////////////////////////////////////////////////////////////////////
+    }
+
+    protected function joinProject(Doctrine\ORM\QueryBuilder &$qb) {
+        if($this->projectJoined == false) {
+            $qb->join('t._project', 'p');
+            $qb->join('p._basicdetails', 'bd');
+            $qb->join('bd._supervisor', 'spv');
+            $this->projectJoined = true;
+        }
     }
 }
 ?>
