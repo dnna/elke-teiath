@@ -14,15 +14,18 @@ class Timesheets_Form_TimesheetFilters extends Dnna_Form_FormBase {
         $subform->setLegend('Φίλτρα/Αναζήτηση');
         $subform->addElement('text', 'year', array(
             'label' => 'Έτος',
+            'placeholder' => 'πχ. 2012',
         ));
 
         $subform->addElement('text', 'employeeSearch', array(
-            'label' => 'Απασχολούμενος',
+            'label' => 'Επώνυμο απασχολούμενου',
+            'placeholder' => 'πχ. Καραπετρίδης',
         ));
 
         // Αναζήτηση
         $subform->addElement('text', 'projectSearch', array(
             'label' => 'Έργο',
+            'placeholder' => 'πχ. Ψηφιακές Υπηρεσίες ΤΕΙ Αθήνας',
         ));
 
         // Add the submit button
