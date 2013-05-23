@@ -36,18 +36,18 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
             $qb->setParameter('supervisoruserid', $filters['supervisoruserid']);
         }
         // Ετος
-        if(isset($filters['year'])) {
+        if(isset($filters['year']) && $filters['year'] != '') {
             $qb->andWhere('t._year = :year');
             $qb->setParameter('year', $filters['year']);
         }
         // Τίτλος Έργου
-        if(isset($filters['projectSearch'])) {
+        if(isset($filters['projectSearch']) && $filters['projectSearch'] != '') {
             $this->joinProject($qb);
             $qb->andWhere('(bd._mis LIKE :searchterms OR bd._title LIKE :searchterms OR bd._titleen LIKE :searchterms)');
             $qb->setParameter('searchterms', '%'.$filters['projectSearch'].'%');
         }
         // Όνομα Απασχολούμενου
-        if(isset($filters['employeeSearch'])) {
+        if(isset($filters['employeeSearch']) && $filters['employeeSearch'] != '') {
             $qb->join('t._employee', 'esbn');
             $qb->join('esbn._employee', 'eesbn');
             $qb->andWhere('eesbn._firstname LIKE :employeeSearch OR eesbn._surname LIKE :employeeSearch OR eesbn._afm LIKE :employeeSearch');
