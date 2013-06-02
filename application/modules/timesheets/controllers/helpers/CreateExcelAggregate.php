@@ -17,7 +17,7 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
      * @var Timesheets_Model_Timesheet
      */
     protected $_employee;
-    protected $_symvaseis;
+    protected $_symvaseis = array();
     protected $_year;
 
     public function direct(Zend_Controller_Action $controller, Application_Model_Employee $employee, $year, $attachmentName) {
@@ -26,7 +26,7 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
         $overview = Zend_Registry::get('entityManager')->getRepository('Erga_Model_SubItems_SubProjectEmployee')->getOverview($this->_employee, array('year' => $this->_year));
         foreach($overview['symvaseis'] as $curContract) { // Φιλτράρουμε τις συμβάσεις ώστε να κρατήσουμε μόνο όσες έχουν ΜΦΠ
             if(count($curContract->get_timesheetsApproved()) > 0) {
-                $this->_symvaseis = $overview['symvaseis'];
+                $this->_symvaseis[] = $curContract;
             }
         }
         $objReader = PHPExcel_IOFactory::createReader('Excel2007');
