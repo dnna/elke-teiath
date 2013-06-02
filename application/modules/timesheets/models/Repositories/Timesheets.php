@@ -60,6 +60,12 @@ class Timesheets_Model_Repositories_Timesheets extends Application_Model_Reposit
             $qb->andWhere('igp._projectid != :eduprojectid');
             $qb->setParameter('eduprojectid', $options['project']['educational']);
         }
+        $qb->join('t._employee', 'oe');
+        $qb->addOrderBy('oe._employee', 'DESC');
+        $qb->addOrderBy('t._project', 'DESC');
+        $qb->addOrderBy('oe._subproject', 'DESC');
+        $qb->addOrderBy('t._year', 'DESC');
+        $qb->addOrderBy('t._month', 'DESC');
 
         return $this->getResult($qb);
     }
