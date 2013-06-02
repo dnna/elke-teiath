@@ -92,7 +92,7 @@ class Timesheets_AdminelkeController extends Zend_Controller_Action {
             'afm'   =>  $timesheet->get_employee()->get_employee()->get_afm(),
             'year'  =>  $timesheet->get_year(),
         ));
-        $subform->getElement('hoursbefore')->setValue(round($workinghours[0]['hours']));
+        $subform->getElement('hoursbefore')->setValue(round($workinghours[0]['hours'], 2));
         if($timesheet->get_approved() == Timesheets_Model_Timesheet::APPROVED) {
             $subform->getElement('hoursafter')->setValue($subform->getElement('hoursbefore')->getValue());
         } else {

@@ -47,7 +47,7 @@ $workpackages = $this->tworkpackages;
            <?php echo $sumamount; ?>
         </td>
         <td>
-           <?php echo round($curWorkPackage['hours']); ?>
+           <?php echo round($curWorkPackage['hours'], 2); ?>
         </td>
         <td>
            <?php echo Zend_Locale_Format::toNumber($curWorkPackage['paidamount'],array('precision' => 2,'locale' => Zend_Registry::get('Zend_Locale'))); ?>

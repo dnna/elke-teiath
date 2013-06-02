@@ -60,7 +60,7 @@
             Συνολικές Δεδουλευμένες Ώρες:
         </td>
         <td>
-            <?php echo round($this->totalhours[0]['hours']); ?>
+            <?php echo round($this->totalhours[0]['hours'], 2); ?>
         </td>
     </tr>
     <tr>
@@ -97,7 +97,7 @@
                 <?php echo $this->getMonthName($curMonth['month']); ?>
             </td>
             <td>
-                <?php echo round($curMonth['hours']); ?>
+                <?php echo round($curMonth['hours'], 2); ?>
             </td>
             <td>
                 <?php echo Zend_Locale_Format::toNumber($curMonth['paidamount'],array('precision' => 2,'locale' => Zend_Registry::get('Zend_Locale'))); ?>
@@ -132,7 +132,7 @@
                 <?php echo $curProject['timesheet']->get_project(); ?>
             </td>
             <td>
-                <?php echo round($curProject['hours']); ?>
+                <?php echo round($curProject['hours'], 2); ?>
             </td>
             <td>
                 <?php echo Zend_Locale_Format::toNumber($curProject['paidamount'],array('precision' => 2,'locale' => Zend_Registry::get('Zend_Locale'))); ?>
