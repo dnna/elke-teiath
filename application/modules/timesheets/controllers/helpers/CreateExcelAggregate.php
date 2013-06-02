@@ -24,7 +24,11 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
         $this->_employee = $employee;
         $this->_year = $year;
         $overview = Zend_Registry::get('entityManager')->getRepository('Erga_Model_SubItems_SubProjectEmployee')->getOverview($this->_employee, array('year' => $this->_year));
-        $this->_symvaseis = $overview['symvaseis'];
+        foreach($overview['symvaseis'] as $curContract) { // Φιλτράρουμε τις συμβάσεις ώστε να κρατήσουμε μόνο όσες έχουν ΜΦΠ
+            if(count($curContract->get_timesheetsApproved()) > 0) {
+                $this->_symvaseis = $overview['symvaseis'];
+            }
+        }
         $objReader = PHPExcel_IOFactory::createReader('Excel2007');
         $objPHPExcel = $objReader->load(APPLICATION_PATH.'/../public/documents/timesheet.xlsx');
 
@@ -74,14 +78,11 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
         $sheet[0] = array();
         $this->blueCell($objPHPExcel, 'A'.self::STARTROW);
         foreach($this->_symvaseis as $curContract) {
-            $timesheets = $curContract->get_timesheetsApproved($this->_year);
-            if(count($timesheets) > 0) {
-                $newcol = self::STARTCOL; for($k = 0; $k < $i; $k++) { $newcol++; }
-                $this->addActivities($objPHPExcel, $curContract, $newcol);
-                $this->blueCell($objPHPExcel, $newcol.self::STARTROW);
-                $sheet[0][$i] = $curContract->getProjectName().' '.$curContract->get_startdate().'–'.$curContract->get_enddate();
-                $i++;
-            }
+            $newcol = self::STARTCOL; for($k = 0; $k < $i; $k++) { $newcol++; }
+            $this->addActivities($objPHPExcel, $curContract, $newcol);
+            $this->blueCell($objPHPExcel, $newcol.self::STARTROW);
+            $sheet[0][$i] = $curContract->getProjectName().' '.$curContract->get_startdate().'–'.$curContract->get_enddate();
+            $i++;
         }
         $objPHPExcel->getActiveSheet()->fromArray($sheet, null, self::STARTCOL.self::STARTROW);
     }
