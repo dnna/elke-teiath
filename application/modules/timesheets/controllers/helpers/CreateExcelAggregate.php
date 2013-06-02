@@ -25,7 +25,7 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
         $this->_year = $year;
         $overview = Zend_Registry::get('entityManager')->getRepository('Erga_Model_SubItems_SubProjectEmployee')->getOverview($this->_employee, array('year' => $this->_year));
         foreach($overview['symvaseis'] as $curContract) { // Φιλτράρουμε τις συμβάσεις ώστε να κρατήσουμε μόνο όσες έχουν ΜΦΠ
-            if(count($curContract->get_timesheetsApproved()) > 0) {
+            if(count($curContract->get_timesheetsApproved($this->_year)) > 0) {
                 $this->_symvaseis[] = $curContract;
             }
         }
