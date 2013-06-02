@@ -9,7 +9,7 @@ require_once APPLICATION_PATH.'/../library/PHPExcel/PHPExcel.php';
 class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Action_Helper_Abstract
 {
     const STARTCOL = 'B';
-    const STARTROW = 12;
+    const STARTROW = 7;
 
     protected $dayRows = array();
 
@@ -30,11 +30,12 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
             }
         }
         $objReader = PHPExcel_IOFactory::createReader('Excel2007');
-        $objPHPExcel = $objReader->load(APPLICATION_PATH.'/../public/documents/timesheet.xlsx');
+        $objPHPExcel = $objReader->load(APPLICATION_PATH.'/../public/documents/timesheet_aggregate.xlsx');
 
         // Add some data
-        $objPHPExcel->getActiveSheet()->SetCellValue('D4', $employee->__toString());
-        $objPHPExcel->getActiveSheet()->SetCellValue('D5', $employee->get_afm());
+        $objPHPExcel->getActiveSheet()->SetCellValue('D3', $employee->__toString());
+        $objPHPExcel->getActiveSheet()->SetCellValue('D4', $employee->get_afm());
+        $objPHPExcel->getActiveSheet()->SetCellValue('D5', $this->_year);
 
         $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
 
