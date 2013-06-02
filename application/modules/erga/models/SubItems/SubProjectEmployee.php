@@ -1,4 +1,7 @@
 <?php
+
+use Doctrine\Common\Collections\Criteria;
+
 /**
  * @author Dimosthenis Nikoudis <dnna@dnna.gr>
  * @Entity (repositoryClass="Erga_Model_Repositories_SubProjectEmployees") @Table(name="elke_erga.employees")
@@ -238,14 +241,15 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
         $this->_timesheets = $_timesheets;
     }
 
-    public function get_timesheetsApproved() {
-        $result = array();
-        foreach($this->_timesheets as $curTimesheet) {
-            if($curTimesheet->get_approved() == Timesheets_Model_Timesheet::APPROVED) {
-                $result[] = $curTimesheet;
-            }
+    public function get_timesheetsApproved($year = null) {
+        $criteria = Criteria::create()
+            ->andWhere(Criteria::expr()->eq("_approved", Timesheets_Model_Timesheet::APPROVED))
+            ->orderBy(array('_year' => 'ASC', '_month' => 'ASC'))
+        ;
+        if(isset($year)) {
+            $criteria->andWhere(Criteria::expr()->eq("_year", $year));
         }
-        return $result;
+        return $this->_timesheets->matching($criteria)->toArray();
     }
 
     public function get_afm() {

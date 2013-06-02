@@ -258,6 +258,12 @@ class Erga_Model_SubItems_Deliverable extends \Erga_Model_SubItems_Deliverable i
         return parent::setOwner($owner);
     }
 
+    public function getEmployeePayment(\Application_Model_Employee $employee)
+    {
+        $this->__load();
+        return parent::getEmployeePayment($employee);
+    }
+
     public function resetIsComplete()
     {
         $this->__load();

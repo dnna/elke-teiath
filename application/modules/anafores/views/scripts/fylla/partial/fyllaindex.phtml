@@ -2,6 +2,7 @@
 <table id="apasxoloumenoitable" class="thinTable">
     <thead>
         <tr>
+            <th>&nbsp;</th>
             <th><?php echo $this->getOrderLink('surname', 'Ονοματεπώνυμο'); ?></th>
             <th><?php echo $this->getOrderLink('hours', 'Δεδουλευμένες Ώρες'); ?></th>
             <th><?php echo $this->getOrderLink('hours', 'Συνολική Αμοιβή'); ?></th>
@@ -13,6 +14,7 @@
             // Η μορφή του $curEmployee είναι στο documentation της κλάσης Erga_Model_Repositories_SubProjectEmployees
             // στη μέθοδο getTotalEmployeesList
             echo '<tr>';
+            echo '<td><a href="'.$this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'aggregatemfp', 'afm' => $curEmployee[0]->get_afm(), 'year' => $this->filters['year']), null, true).'"><img src="'.$this->baseUrl('images/icons/excelIcon.jpg').'" alt="mfpreview" title="Συγκεντρωτικό ΜΦΠ" /></a></td>';
             echo '<td><a href="'.$this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'overview', 'afm' => $curEmployee[0]->get_afm(), 'year' => $this->filters['year']), null, true).'" title="Επισκόπηση απασχολούμενου">
                           <img src="'.$this->baseUrl('images/overview.png').'" alt="review" /> '.$curEmployee[0]->get_name().'
                        </a>

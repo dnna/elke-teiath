@@ -34,6 +34,7 @@ class Timesheets_Model_Timesheet extends Dnna_Model_Object {
     protected $_year;
     /**
      * @OneToMany (targetEntity="Timesheets_Model_Activity", mappedBy="_timesheet", cascade={"all"})
+     * @OrderBy({"_day" = "ASC"})
      * @var Timesheets_Model_Activity
      */
     protected $_activities;

@@ -228,10 +228,10 @@ class Erga_Model_SubItems_SubProjectEmployee extends \Erga_Model_SubItems_SubPro
         return parent::set_timesheets($_timesheets);
     }
 
-    public function get_timesheetsApproved()
+    public function get_timesheetsApproved($year = NULL)
     {
         $this->__load();
-        return parent::get_timesheetsApproved();
+        return parent::get_timesheetsApproved($year);
     }
 
     public function get_afm()
