@@ -117,6 +117,12 @@ class Erga_Model_SubProject extends \Erga_Model_SubProject implements \Doctrine\
         return parent::set_subprojecttitleen($_subprojecttitleen);
     }
 
+    public function get_subprojectshorttitle()
+    {
+        $this->__load();
+        return parent::get_subprojectshorttitle();
+    }
+
     public function get_subprojectsupervisor()
     {
         $this->__load();

@@ -108,7 +108,7 @@ class Erga_Model_SubItems_SubProjectEmployee extends Application_Model_SubObject
         if(isset($this->_project)) {
             return $this->_project->get_shorttitle();
         } else if(isset($this->_subproject)) {
-            return $this->_subproject->__toString();
+            return $this->_subproject->get_subprojectshorttitle();
         } else {
             throw new Exception('Η συγκεκριμένη σύμβαση δεν έχει συνδεθεί ούτε με έργο ούτε με υποέργο!');
         }

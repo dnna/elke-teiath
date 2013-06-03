@@ -164,6 +164,10 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
         $this->_subprojecttitleen = $_subprojecttitleen;
     }
 
+    public function get_subprojectshorttitle() {
+        return $this->_parentproject->get_shorttitle().' Υ'.$this->get_subprojectnumber();
+    }
+
     public function get_subprojectsupervisor() {
         return $this->_subprojectsupervisor;
     }
