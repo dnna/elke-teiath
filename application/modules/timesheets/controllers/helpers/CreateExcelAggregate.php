@@ -19,10 +19,12 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
     protected $_employee;
     protected $_symvaseis = array();
     protected $_year;
+    protected $_type;
 
-    public function direct(Zend_Controller_Action $controller, Application_Model_Employee $employee, $year, $attachmentName) {
+    public function direct(Zend_Controller_Action $controller, Application_Model_Employee $employee, $year, $type, $attachmentName) {
         $this->_employee = $employee;
         $this->_year = $year;
+        $this->_type = $type;
         $overview = Zend_Registry::get('entityManager')->getRepository('Erga_Model_SubItems_SubProjectEmployee')->getOverview($this->_employee, array('year' => $this->_year));
         foreach($overview['symvaseis'] as $curContract) { // Φιλτράρουμε τις συμβάσεις ώστε να κρατήσουμε μόνο όσες έχουν ΜΦΠ
             if(count($curContract->get_timesheetsApproved($this->_year)) > 0) {
@@ -124,8 +126,13 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
         $timesheets = $curContract->get_timesheetsApproved($this->_year);
         foreach($timesheets as $curTimesheet) {
             foreach($curTimesheet->get_activities() as $curActivity) {
-                $hours = $curActivity->get_startAsDate()->format('H:i').'-'.$curActivity->get_endAsDate()->format('H:i');
-                $objPHPExcel->getActiveSheet()->SetCellValue($col.$this->getRowForActivity($curActivity), $hours);
+                //if($objPHPExcel->getActiveSheet()->getCell($col.$this->getRowForActivity($curActivity))->getValue() == '')
+                if($this->_type == 'schedule') {
+                    $hours = $curActivity->get_startAsDate()->format('H:i').'-'.$curActivity->get_endAsDate()->format('H:i');
+                } else {
+                    $hours = $curActivity->getHours();
+                }
+                $objPHPExcel->getActiveSheet()->SetCellValue($col.$this->getRowForActivity($curActivity), round($hours, 2));
                 if($this->isWeekend($curActivity->get_date())) {
                     $this->pinkCell($objPHPExcel, $col.$this->getRowForActivity($curActivity));
                 } else {
