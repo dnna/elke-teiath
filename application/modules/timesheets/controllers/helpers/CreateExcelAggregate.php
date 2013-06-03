@@ -133,7 +133,7 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
                     if($objPHPExcel->getActiveSheet()->getCell($col.$this->getRowForActivity($curActivity))->getValue() == '') {
                         $hours = $curActivity->get_startAsDate()->format('H:i').'-'.$curActivity->get_endAsDate()->format('H:i');
                     } else {
-                        $hours = $hours.', '.$curActivity->get_startAsDate()->format('H:i').'-'.$curActivity->get_endAsDate()->format('H:i');
+                        $hours = $hours.','.$curActivity->get_startAsDate()->format('H:i').'-'.$curActivity->get_endAsDate()->format('H:i');
                     }
                 } else {
                     if($objPHPExcel->getActiveSheet()->getCell($col.$this->getRowForActivity($curActivity))->getValue() == '') {
