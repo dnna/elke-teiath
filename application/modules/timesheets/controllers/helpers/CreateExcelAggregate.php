@@ -85,7 +85,7 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
             $newcol = self::STARTCOL; for($k = 0; $k < $i; $k++) { $newcol++; }
             $this->addActivities($objPHPExcel, $curContract, $newcol);
             $this->blueCell($objPHPExcel, $newcol.self::STARTROW);
-            $sheet[0][$i] = $curContract->getProjectName().' '.$curContract->get_startdate().'–'.$curContract->get_enddate();
+            $sheet[0][$i] = $curContract->getShortProjectName().' '.$curContract->get_startdate().'–'.$curContract->get_enddate();
             $i++;
         }
         $sheet[0][$i] = 'Σύνολο';
@@ -149,10 +149,20 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
 
     protected function addSumRows(PHPExcel &$objPHPExcel) {
         $newcol = 'A'; for($i = 0; $i < (count($this->_symvaseis)+1); $i++) { $newcol++; };
+        $monthSums = array();
+        // Display day totals
         foreach($this->dayRows as $curMonth => $curMonthValue) {
+            $monthSums[$curMonth] = 0;
             foreach($curMonthValue as $curDay => $curDayValue) {
                 $objPHPExcel->getActiveSheet()->SetCellValue($newcol.$curDayValue['row'], $curDayValue['sum']);
+                $monthSums[$curMonth] = $monthSums[$curMonth] + $curDayValue['sum'];
             }
+        }
+        // Display month totals
+        foreach($this->dayRows as $curMonth => $curMonthValue) {
+            $firstDay = reset($curMonthValue);
+            $objPHPExcel->getActiveSheet()->SetCellValue($newcol.($firstDay['row']-1), $monthSums[$curMonth]);
+            $this->lightgrayCell($objPHPExcel, $newcol.($firstDay['row']-1));
         }
     }
 
@@ -167,11 +177,11 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
         $this->dayRows[$curActivity->get_timesheet()->get_month()][$curActivity->get_day()]['sum'] = $this->dayRows[$curActivity->get_timesheet()->get_month()][$curActivity->get_day()]['sum'] + $curActivity->getHours();
     }
 
-    protected function grayCell(PHPExcel &$objPHPExcel, $cell) {
+    protected function lightgrayCell(PHPExcel &$objPHPExcel, $cell) {
         $style_header = array(
                 'fill' => array(
                         'type' => PHPExcel_Style_Fill::FILL_SOLID,
-                        'color' => array('rgb'=>'808080'),
+                        'color' => array('rgb'=>'CCCCCC'),
                 ),
             );
         $objPHPExcel->getActiveSheet()->getStyle($cell)->applyFromArray($style_header);
