@@ -44,6 +44,7 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
         // Add day and deliverable headers
         $this->addDayRows($objPHPExcel);
         $this->addProjectHeaders($objPHPExcel);
+        $this->addSumRows($objPHPExcel);
         $this->setBorders($objPHPExcel);
         $toCol = 'A'; for($i = 0; $i < count($this->_symvaseis); $i++) { $toCol++; };
         for($i = 'B'; $i <= $toCol; $i++) {
@@ -87,6 +88,7 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
             $sheet[0][$i] = $curContract->getProjectName().' '.$curContract->get_startdate().'–'.$curContract->get_enddate();
             $i++;
         }
+        $sheet[0][$i] = 'Σύνολο';
         $objPHPExcel->getActiveSheet()->fromArray($sheet, null, self::STARTCOL.self::STARTROW);
     }
 
@@ -114,7 +116,7 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
                     $this->blueCell($objPHPExcel, 'A'.$row);
                 }
                 $day->add(date_interval_create_from_date_string('1 day'));
-                $this->dayRows[$m][$i] = $row;
+                $this->dayRows[$m][$i]['row'] = $row;
                 $row++;
                 $i++;
             }
@@ -139,13 +141,30 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
                     $this->blueCell($objPHPExcel, $col.$this->getRowForActivity($curActivity));
                 }
                 $objPHPExcel->getActiveSheet()->getStyle($col.$this->getRowForActivity($curActivity))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $this->addToSumForRow($curActivity);
             }
         }
         //$objPHPExcel->getActiveSheet()->fromArray($sheet, null, 'A'.(self::STARTROW+1));
     }
 
+    protected function addSumRows(PHPExcel &$objPHPExcel) {
+        $newcol = 'A'; for($i = 0; $i < (count($this->_symvaseis)+1); $i++) { $newcol++; };
+        foreach($this->dayRows as $curMonth => $curMonthValue) {
+            foreach($curMonthValue as $curDay => $curDayValue) {
+                $objPHPExcel->getActiveSheet()->SetCellValue($newcol.$curDayValue['row'], $curDayValue['sum']);
+            }
+        }
+    }
+
     protected function getRowForActivity(Timesheets_Model_Activity $curActivity) {
-        return $this->dayRows[$curActivity->get_timesheet()->get_month()][$curActivity->get_day()];
+        return $this->dayRows[$curActivity->get_timesheet()->get_month()][$curActivity->get_day()]['row'];
+    }
+
+    protected function addToSumForRow(Timesheets_Model_Activity $curActivity) {
+        if(!isset($this->dayRows[$curActivity->get_timesheet()->get_month()][$curActivity->get_day()]['sum'])) {
+            $this->dayRows[$curActivity->get_timesheet()->get_month()][$curActivity->get_day()]['sum'] = 0;
+        }
+        $this->dayRows[$curActivity->get_timesheet()->get_month()][$curActivity->get_day()]['sum'] = $this->dayRows[$curActivity->get_timesheet()->get_month()][$curActivity->get_day()]['sum'] + $curActivity->getHours();
     }
 
     protected function grayCell(PHPExcel &$objPHPExcel, $cell) {
@@ -201,7 +220,7 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
 
     protected function setBorders(PHPExcel &$objPHPExcel) {
         $topleft = 'A'.self::STARTROW;
-        $newcol = 'A'; for($i = 0; $i < count($this->_symvaseis); $i++) { $newcol++; };
+        $newcol = 'A'; for($i = 0; $i < (count($this->_symvaseis)+1); $i++) { $newcol++; };
         $bottomright = $newcol.(self::STARTROW+$this->getArrCount($this->dayRows, 2));
         $default_border = array(
                 'style' => PHPExcel_Style_Border::BORDER_THIN,
