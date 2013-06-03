@@ -130,9 +130,17 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
             foreach($curTimesheet->get_activities() as $curActivity) {
                 //if($objPHPExcel->getActiveSheet()->getCell($col.$this->getRowForActivity($curActivity))->getValue() == '')
                 if($this->_type === 'schedule') {
-                    $hours = $curActivity->get_startAsDate()->format('H:i').'-'.$curActivity->get_endAsDate()->format('H:i');
+                    if($objPHPExcel->getActiveSheet()->getCell($col.$this->getRowForActivity($curActivity))->getValue() == '') {
+                        $hours = $curActivity->get_startAsDate()->format('H:i').'-'.$curActivity->get_endAsDate()->format('H:i');
+                    } else {
+                        $hours = $hours.', '.$curActivity->get_startAsDate()->format('H:i').'-'.$curActivity->get_endAsDate()->format('H:i');
+                    }
                 } else {
-                    $hours = round($curActivity->getHours(), 2);
+                    if($objPHPExcel->getActiveSheet()->getCell($col.$this->getRowForActivity($curActivity))->getValue() == '') {
+                        $hours = round($curActivity->getHours(), 2);
+                    } else {
+                        $hours = round($hours + $curActivity->getHours(), 2);
+                    }
                 }
                 $objPHPExcel->getActiveSheet()->SetCellValue($col.$this->getRowForActivity($curActivity), $hours);
                 if($this->isWeekend($curActivity->get_date())) {
