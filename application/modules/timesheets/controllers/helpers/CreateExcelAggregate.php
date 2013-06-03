@@ -127,12 +127,12 @@ class Timesheets_Action_Helper_CreateExcelAggregate extends Zend_Controller_Acti
         foreach($timesheets as $curTimesheet) {
             foreach($curTimesheet->get_activities() as $curActivity) {
                 //if($objPHPExcel->getActiveSheet()->getCell($col.$this->getRowForActivity($curActivity))->getValue() == '')
-                if($this->_type == 'schedule') {
+                if($this->_type === 'schedule') {
                     $hours = $curActivity->get_startAsDate()->format('H:i').'-'.$curActivity->get_endAsDate()->format('H:i');
                 } else {
-                    $hours = $curActivity->getHours();
+                    $hours = round($curActivity->getHours(), 2);
                 }
-                $objPHPExcel->getActiveSheet()->SetCellValue($col.$this->getRowForActivity($curActivity), round($hours, 2));
+                $objPHPExcel->getActiveSheet()->SetCellValue($col.$this->getRowForActivity($curActivity), $hours);
                 if($this->isWeekend($curActivity->get_date())) {
                     $this->pinkCell($objPHPExcel, $col.$this->getRowForActivity($curActivity));
                 } else {
