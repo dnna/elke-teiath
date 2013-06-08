@@ -14,7 +14,12 @@ class Timesheets_Action_Helper_CheckApprovalValidity extends Zend_Controller_Act
             'afm'   =>  $timesheet->get_employee()->get_employee()->get_afm(),
             'year'  =>  $timesheet->get_year(),
         ));
-        $newhours = $currenthours[0]['hours'] + $timesheet->getTotalHours();
+        if($timesheet->get_approved() != Timesheets_Model_Timesheet::APPROVED) {
+            $timesheethours = $timesheet->getTotalHours();
+        } else {
+            $timesheethours = 0;
+        }
+        $newhours = $currenthours[0]['hours'] + $timesheethours;
         $allowedhours = (int)$timesheet->get_employee()->get_employee()->get_maxhours();
         if($newhours > $allowedhours) {
             throw new Exception('Σφάλμα: Με την υποβολή/έγκριση του συγκεκριμένου φύλλου ο συνολικός αριθμός ωρών ('.$newhours.') θα ξεπερνάει το ετήσιο όριο για τον απασχολούμενο ('.$allowedhours.').');
