@@ -18,7 +18,7 @@ class Erga_View_Helper_ViewErga extends Zend_View_Helper_Abstract
         $that = $this;
         $headerLink = function($property, $text) use($showOrderLinks, $that) {
             if($showOrderLinks) {
-                return $this->view->getOrderLink($property, $text);
+                return $that->view->getOrderLink($property, $text);
             } else {
                 return $text;
             }
