@@ -15,7 +15,8 @@ class Erga_View_Helper_ViewErga extends Zend_View_Helper_Abstract
             <input type="checkbox" name="showcompletes" value="1" checked>Ολοκληρωμένα
             <input type="checkbox" name="showcompletes" value="1" checked>Έχουν εκπρόθεσμα παραδοτέα
             </form>';*/
-        $headerLink = function($property, $text) use($showOrderLinks, $this) {
+        $that = $this;
+        $headerLink = function($property, $text) use($showOrderLinks, $that) {
             if($showOrderLinks) {
                 return $this->view->getOrderLink($property, $text);
             } else {
