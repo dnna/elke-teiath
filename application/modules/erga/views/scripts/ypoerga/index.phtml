@@ -19,6 +19,9 @@
         <th width="450">
             Τίτλος
         </th>
+        <th width="200">
+            Επιστημονικά Υπεύθυνος
+        </th>
         <th width="54">
             Ποσό
         </th>
@@ -33,8 +36,10 @@
             <?php echo $this->getCompletionIcon($this->project); ?>
         </td>
         <td>
-
             <?php echo $this->project->get_basicdetails()->get_title(); ?>
+        </td>
+        <td>
+            <?php echo $this->project->get_basicdetails()->get_supervisor()->get_realname(); ?>
         </td>
         <td>
             <?php echo $this->project->get_financialdetails()->get_budgetWithFPA(); ?>
@@ -61,6 +66,9 @@
                     <?php echo $curSubProject->get_subprojecttitle(); ?>
                 </a>
                 (<?php echo $curSubProject->get_subprojectnumber(); ?>)
+            </td>
+            <td>
+                <?php echo $curSubProject->get_subprojectsupervisor()->get_realname(); ?>
             </td>
             <td>
                 <?php echo $curSubProject->get_subprojectbudgetWithFPA(); ?>
