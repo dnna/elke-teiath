@@ -75,7 +75,7 @@ class Application_Model_Employee extends Dnna_Model_Object {
     }
 
     public function get_firstnameInitial() {
-        return substr($this->_firstname, 0, 1);
+        return mb_substr($this->_firstname, 0, 1, 'UTF8');
     }
 
     public function get_surname() {

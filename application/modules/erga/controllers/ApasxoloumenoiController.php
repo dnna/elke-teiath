@@ -14,7 +14,7 @@ class Erga_ApasxoloumenoiController extends Zend_Controller_Action {
             }
         }
         if($subproject != null) {
-            $this->view->pageTitle .= '<BR>Υποέργο '.$subproject->get_subprojectnumber();
+            $this->view->pageTitle .= '<BR>Υποέργο '.$subproject->get_subprojectnumber().' ('.$subproject->get_subprojectsupervisor()->get_realnameLowercase().')';
         }
     }
 

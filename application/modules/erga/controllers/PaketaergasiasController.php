@@ -7,7 +7,7 @@ class Erga_PaketaergasiasController extends Zend_Controller_Action {
         $this->view->pageTitle = "Διαχείριση Παραδοτέων - ".$this->view->getProject();
         if($this->getRequest()->getParam('workpackageid') != null || $this->getRequest()->getParam('deliverableid') != null) {
             $subproject = $this->view->getSubProject();
-            $this->view->pageTitle .= '<BR>Υποέργο '.$subproject->get_subprojectnumber();
+            $this->view->pageTitle .= '<BR>Υποέργο '.$subproject->get_subprojectnumber().' ('.$subproject->get_subprojectsupervisor()->get_realnameLowercase().')';
         }
     }
 

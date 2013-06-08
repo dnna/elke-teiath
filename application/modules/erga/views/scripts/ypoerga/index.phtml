@@ -39,7 +39,7 @@
             <?php echo $this->project->get_basicdetails()->get_title(); ?>
         </td>
         <td>
-            <?php echo $this->project->get_basicdetails()->get_supervisor()->get_realname(); ?>
+            <?php echo $this->project->get_basicdetails()->get_supervisor()->get_realnameLowercase(); ?>
         </td>
         <td>
             <?php echo $this->project->get_financialdetails()->get_budgetWithFPA(); ?>
@@ -68,7 +68,7 @@
                 (<?php echo $curSubProject->get_subprojectnumber(); ?>)
             </td>
             <td>
-                <?php echo $curSubProject->get_subprojectsupervisor()->get_realname(); ?>
+                <?php echo $curSubProject->get_subprojectsupervisor()->get_realnameLowercase(); ?>
             </td>
             <td>
                 <?php echo $curSubProject->get_subprojectbudgetWithFPA(); ?>
