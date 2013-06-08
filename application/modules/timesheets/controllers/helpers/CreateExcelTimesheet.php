@@ -46,6 +46,12 @@ class Timesheets_Action_Helper_CreateExcelTimesheet extends Zend_Controller_Acti
         $this->addDayRows($objPHPExcel);
         $this->setBorders($objPHPExcel);
 
+        $toCol = 'A'; for($i = 0; $i < $this->_deliverablesCount; $i++) { $toCol++; };
+        for($i = 'B'; $i <= $toCol; $i++) {
+            $objPHPExcel->getActiveSheet()->getColumnDimension($i)->setAutoSize(true);
+        }
+        $objPHPExcel->getActiveSheet()->calculateColumnWidths();
+
         // Save Excel 2007 file
         $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
         $tmpfname = tempnam(Zend_Registry::get('cachePath'), 'elkeexcel');
@@ -124,7 +130,12 @@ class Timesheets_Action_Helper_CreateExcelTimesheet extends Zend_Controller_Acti
             $sheet[$i][$col] = '';
             foreach($this->_timesheet->get_activitiesForDeliverable($deliverable) as $curActivity) {
                 if($i == $curActivity->get_day()) {
-                    $sheet[$i][$col] = $curActivity->get_startAsDate()->format('H:i').'-'.$curActivity->get_endAsDate()->format('H:i');
+                    $hours = $curActivity->get_startAsDate()->format('H:i').'-'.$curActivity->get_endAsDate()->format('H:i');
+                    if(!isset($sheet[$i][$col]) || $sheet[$i][$col] == '') {
+                        $sheet[$i][$col] = $hours;
+                    } else {
+                        $sheet[$i][$col] .= ','.$hours;
+                    }
                 }
             }
             $day = new EDateTime($this->_timesheet->get_year().'-'.$this->_timesheet->get_month().'-'.$i);

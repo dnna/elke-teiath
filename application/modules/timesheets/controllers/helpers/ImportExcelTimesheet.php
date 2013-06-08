@@ -26,33 +26,37 @@ class Timesheets_Action_Helper_ImportExcelTimesheet extends Zend_Controller_Acti
         for($i = 1; $i <= $timesheet->get_monthAsDate()->format('t'); $i++) {
             $data = array();
             $value = $worksheet->getCell($delcolumn.$row)->getCalculatedValue();
-            if(strpos($value, '-') !== false) {
-                $hours = explode('-', $value);
-            } else if($value != '') {
-                throw new Exception('Τα δεδομένα πρέπει να εισάγονται σε μορφή ωραρίου (πχ. 14-16) στο κελί '.$delcolumn.$row);
-            }
-            if(isset($hours) && is_array($hours) && $hours[0] != '') {
-                $data['start'] = $hours[0];
-                $data['end'] = $hours[1];
-                $form = new Timesheets_Form_Activity();
-                if($form->isValid($data)) {
-                    if(strpos($data['start'], ':') !== false) { $start = new DateTime($data['start']); } else { $start = new DateTime($data['start'].':00'); }
-                    if(strpos($data['end'], ':') !== false) { $end = new DateTime($data['end']); } else { $end = new DateTime($data['end'].':00'); }
-                    if($end < $start) {
-                        throw new Exception('Κελί '.$delcolumn.$row.': Η ώρα έναρξης δεν μπορεί να είναι μεταγενέστερη της ώρας λήξης');
-                    }
-                    $activity = new Timesheets_Model_Activity();
-                    $activity->set_timesheet($timesheet);
-                    $activity->set_day($i);
-                    $activity->set_start($data['start']);
-                    $activity->set_end($data['end']);
-                    $activity->set_deliverable($deliverable);
-                    $timesheet->get_activities()->add($activity);
-                } else {
-                    throw new Exception('Μη-έγκυρα δεδομένα στο κελί '.$delcolumn.$row);
+            $valueArray = explode(',', $value);
+            foreach($valueArray as $value) {
+                $value = trim($value);
+                if(strpos($value, '-') !== false) {
+                    $hours = explode('-', $value);
+                } else if($value != '') {
+                    throw new Exception('Τα δεδομένα πρέπει να εισάγονται σε μορφή ωραρίου (πχ. 14-16) στο κελί '.$delcolumn.$row);
                 }
+                if(isset($hours) && is_array($hours) && $hours[0] != '') {
+                    $data['start'] = $hours[0];
+                    $data['end'] = $hours[1];
+                    $form = new Timesheets_Form_Activity();
+                    if($form->isValid($data)) {
+                        if(strpos($data['start'], ':') !== false) { $start = new DateTime($data['start']); } else { $start = new DateTime($data['start'].':00'); }
+                        if(strpos($data['end'], ':') !== false) { $end = new DateTime($data['end']); } else { $end = new DateTime($data['end'].':00'); }
+                        if($end < $start) {
+                            throw new Exception('Κελί '.$delcolumn.$row.': Η ώρα έναρξης δεν μπορεί να είναι μεταγενέστερη της ώρας λήξης');
+                        }
+                        $activity = new Timesheets_Model_Activity();
+                        $activity->set_timesheet($timesheet);
+                        $activity->set_day($i);
+                        $activity->set_start($data['start']);
+                        $activity->set_end($data['end']);
+                        $activity->set_deliverable($deliverable);
+                        $timesheet->get_activities()->add($activity);
+                    } else {
+                        throw new Exception('Μη-έγκυρα δεδομένα στο κελί '.$delcolumn.$row);
+                    }
+                }
+                unset($hours);
             }
-            unset($hours);
             $row++;
         }
     }
