@@ -28,6 +28,8 @@ class Timesheets_Action_Helper_ImportExcelTimesheet extends Zend_Controller_Acti
             $value = $worksheet->getCell($delcolumn.$row)->getCalculatedValue();
             if(strpos($value, '-') !== false) {
                 $hours = explode('-', $value);
+            } else if($value != '') {
+                throw new Exception('Τα δεδομένα πρέπει να εισάγονται σε μορφή ωραρίου (πχ. 14-16) στο κελί '.$delcolumn.$row);
             }
             if(isset($hours) && is_array($hours) && $hours[0] != '') {
                 $data['start'] = $hours[0];

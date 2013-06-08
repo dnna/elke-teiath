@@ -72,6 +72,12 @@ class Erga_Model_SubItems_SubProjectEmployee extends \Erga_Model_SubItems_SubPro
         return parent::getProjectName();
     }
 
+    public function getShortProjectName()
+    {
+        $this->__load();
+        return parent::getShortProjectName();
+    }
+
     public function wasActive($month = NULL, $year = NULL)
     {
         $this->__load();
