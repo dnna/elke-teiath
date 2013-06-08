@@ -93,6 +93,12 @@ class Application_Model_Employee extends \Application_Model_Employee implements 
         return parent::set_firstname($_firstname);
     }
 
+    public function get_firstnameInitial()
+    {
+        $this->__load();
+        return parent::get_firstnameInitial();
+    }
+
     public function get_surname()
     {
         $this->__load();

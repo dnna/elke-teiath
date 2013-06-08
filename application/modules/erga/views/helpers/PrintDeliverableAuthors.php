@@ -19,7 +19,7 @@ class Erga_View_Helper_PrintDeliverableAuthors extends Zend_View_Helper_Abstract
         } else if($curDeliverable->get_authors() != null && $curDeliverable->get_authors()->count() > 0) {
             $authors = array();
             foreach($curDeliverable->get_authors() as $curKey => $curAuthor) {
-                $authors[$curKey] = $curAuthor->get_employee()->get_employee()->get_surname().$curAuthor->get_rateOrAmount();
+                $authors[$curKey] = $curAuthor->get_employee()->get_employee()->get_firstnameInitial().'.'.$curAuthor->get_employee()->get_employee()->get_surname().$curAuthor->get_rateOrAmount();
             }
             $output = implode(', ', $authors);
         } else {

@@ -74,6 +74,10 @@ class Application_Model_Employee extends Dnna_Model_Object {
         }
     }
 
+    public function get_firstnameInitial() {
+        return substr($this->_firstname, 0, 1);
+    }
+
     public function get_surname() {
         return $this->_surname;
     }
