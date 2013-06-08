@@ -5,7 +5,7 @@
 <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'atom', 'token' => $this->user->get_token())); ?>" class="feed"><img src="<?php echo $this->baseUrl('images/atom.png'); ?>" alt="Atom" title="Atom" /></a>
 </div>
 <h1>Τα έργα μου</h1>
-<?php echo $this->viewErga($this->entries, $this->type, false); ?>
+<?php echo $this->viewErga($this->entries, $this->type, false, false); ?>
 <br/>
 <?php if(!is_array($this->filters)) { $this->filters = array(); } ?>
 <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'export')); ?>" class="excel">Εξαγωγή πίνακα σε Excel</a>

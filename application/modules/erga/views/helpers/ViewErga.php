@@ -9,28 +9,35 @@ class Erga_View_Helper_ViewErga extends Zend_View_Helper_Abstract
         $this->view = $view;
     }
 
-    public function viewErga($entries, $type, $edit = true) {
+    public function viewErga($entries, $type, $edit = true, $showOrderLinks = true) {
         /*$return = '
             <form>
             <input type="checkbox" name="showcompletes" value="1" checked>Ολοκληρωμένα
             <input type="checkbox" name="showcompletes" value="1" checked>Έχουν εκπρόθεσμα παραδοτέα
             </form>';*/
+        $headerLink = function($property, $text) use($showOrderLinks) {
+            if($showOrderLinks) {
+                return $this->view->getOrderLink($property, $text);
+            } else {
+                return $text;
+            }
+        };
         $return = '';
         $return .= '
             <table class="fatTable">
                 <thead>
                 <tr>
-                    <th>'.$this->view->getOrderLink('status', 'Κατάσταση').'</th>
+                    <th>'.$headerLink('status', 'Κατάσταση').'</th>
                     <th></th>
                     <th></th>
-                    <th>'.$this->view->getOrderLink('basicdetails_title', 'Τίτλος').'</th>';
+                    <th>'.$headerLink('basicdetails_title', 'Τίτλος').'</th>';
         if($edit == true) {
-            $return .= '<th>'.$this->view->getOrderLink('basicdetails_supervisor_realname', 'Επιστημονικά Υπεύθυνος').'</th>';
+            $return .= '<th>'.$headerLink('basicdetails_supervisor_realname', 'Επιστημονικά Υπεύθυνος').'</th>';
         }
-            $return .=  '<th>'.$this->view->getOrderLink('financialdetails_budget', 'Προϋπολογισμός').'</th>
-                    <th>'.$this->view->getOrderLink('basicdetails_startdate', 'Ημ/νία Έναρξης').'</th>
-                    <th>'.$this->view->getOrderLink('basicdetails_category_name', 'Κατηγορία').'</th>
-                    <th>'.$this->view->getOrderLink('basicdetails_opprogramme_opprogrammeid', 'Ε.Π.').'</th>
+            $return .=  '<th>'.$headerLink('financialdetails_budget', 'Προϋπολογισμός').'</th>
+                    <th>'.$headerLink('basicdetails_startdate', 'Ημ/νία Έναρξης').'</th>
+                    <th>'.$headerLink('basicdetails_category_name', 'Κατηγορία').'</th>
+                    <th>'.$headerLink('basicdetails_opprogramme_opprogrammeid', 'Ε.Π.').'</th>
                 </tr>
                 </thead>
                 <tbody>';
