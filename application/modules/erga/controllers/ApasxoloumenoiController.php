@@ -5,6 +5,17 @@
 class Erga_ApasxoloumenoiController extends Zend_Controller_Action {
     public function postDispatch() {
         $this->view->pageTitle = "Διαχείριση Απασχολούμενων/Αναδόχων - ".$this->view->getProject();
+        if($this->getRequest()->getParam('subprojectid', null) != null) {
+            $subproject = Zend_Registry::get('entityManager')->getRepository('Erga_Model_SubProject')->find($this->getRequest()->getParam('subprojectid', null));
+        } else if($this->getRequest()->getParam('employeeid', null)) {
+            $employee = Zend_Registry::get('entityManager')->getRepository('Erga_Model_SubItems_SubProjectEmployee')->find($this->getRequest()->getParam('employeeid', null));
+            if($employee != null) {
+                $subproject = $employee->get_subproject();
+            }
+        }
+        if($subproject != null) {
+            $this->view->pageTitle .= '<BR>Υποέργο '.$subproject->get_subprojectnumber();
+        }
     }
 
     public function indexAction() {
