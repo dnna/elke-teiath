@@ -42,6 +42,15 @@ class Anafores_Professor_FyllaController extends Zend_Controller_Action {
             ), 'project');
     }
 
+    public function aggregatemfpAction() {
+        $this->_helper->layout->disableLayout();
+        $employee = Zend_Registry::get('entityManager')->getRepository('Application_Model_Employee')->findEmployees(array('afm' => $this->_request->getUserParam('afm')));
+        if(!isset($employee) || count($employee) < 1) {
+            throw new Exception('Ο απασχολούμενος δεν βρέθηκε.');
+        }
+        $this->_helper->createExcelAggregate($this, $employee[0], $this->_request->getParam('year'), $this->_request->getParam('type', 'schedule'), 'aggregatemfp.xlsx');
+    }
+
     public function exportAction() {
         $filters = $this->getRequest()->getParam('filters');
         $auth = Zend_Auth::getInstance();
