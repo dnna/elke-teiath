@@ -65,10 +65,12 @@ class Erga_Model_Repositories_SubProjectEmployees extends Application_Model_Repo
     }
 
     protected function addSupervisorFilter(Doctrine\ORM\QueryBuilder &$qb, $supervisoruserid) {
-        $qb->join('p._basicdetails', 'bd');
+        $qb->leftJoin('p._basicdetails', 'bd');
         $qb->leftJoin('bd._supervisor', 'supervisor');
         $qb->leftJoin('sp._subprojectsupervisor', 'spsupervisor');
-        $qb->andWhere('supervisor._userid = :supervisoruserid OR spsupervisor._userid = :supervisoruserid');
+        $qb->leftJoin('ep._basicdetails', 'ebd');
+        $qb->leftJoin('ebd._supervisor', 'epsupervisor');
+        $qb->andWhere('supervisor._userid = :supervisoruserid OR epsupervisor._userid = :supervisoruserid OR spsupervisor._userid = :supervisoruserid');
         $qb->setParameter('supervisoruserid', $supervisoruserid);
     }
 
