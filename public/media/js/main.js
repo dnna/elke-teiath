@@ -46,6 +46,7 @@ $(document).ready(function() {
             format:"#,###.00", 
             locale:"gr"
         });
+        $(this).h5Validate('isValid');
     });
 
 
@@ -181,6 +182,7 @@ $('#descriptionText').fadeOut(0).slideDown(900);
                 $(this).attr('required', 'required');
             }
         });
+        $('.formatFloat').attr('pattern', '\\$?\\d+(\\.\\d{3})*(,\\d*)?');
         $('form').h5Validate();
     }, 100);
 
