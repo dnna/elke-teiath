@@ -4,7 +4,7 @@ $userObject = $this->getUserInfo();
 $front = Zend_Controller_Front::getInstance();
 $config = $front->getParam('bootstrap')->getOptions();
 $request = $front->getRequest();
-$this->messages = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getMessages();
+$this->messages = array_merge(Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getMessages(), Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getCurrentMessages());
 ?>
 
 <html>
@@ -32,6 +32,7 @@ $this->messages = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMes
             $this->headScript()->prependFile($this->baseUrl("media/js/main.js"));
             $this->headScript()->prependFile($this->baseUrl("media/js/jquery.idle-timer.js"));
             $this->headScript()->prependFile($this->baseUrl("media/js/jquery.dropdownPlain.js"));
+            $this->headScript()->prependFile($this->baseUrl("media/js/jquery.h5validate.js"));
             $this->headScript()->prependFile($this->baseUrl("media/js/jquery.tabify.js"));
             $this->headScript()->prependFile($this->baseUrl("media/js/jquery.qtip.js"));
 			$this->headScript()->prependFile($this->baseUrl("media/js/jquery.numberformatter-1.2.2.min.js"));

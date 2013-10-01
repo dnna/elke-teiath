@@ -171,8 +171,18 @@ $('#descriptionText').fadeOut(0).slideDown(900);
     });
     //     $('#fieldset-employees').collapse({ closed : determineFieldsetCollapsibleStatus($('#fieldset-employees')) });
 
-
     $("#default-label").hide();
+
+    // Fix the required attribute
+    setTimeout(function() {
+        $('input:visible, textarea:visible').each(function() {
+            var required = $(this).parent().parent().find('label[for="'+$(this).attr('id')+'"]').hasClass('required');
+            if(required) {
+                $(this).attr('required', 'required');
+            }
+        });
+        $('form').h5Validate();
+    }, 100);
 
 }); //document ready
 

@@ -131,19 +131,23 @@ class Erga_PaketaergasiasController extends Zend_Controller_Action {
         if ($this->getRequest()->isPost()) {
             // Η φόρμα έχει σταλθεί. Ελέγχουμε αν ειναι έγκυρη.
             if ($form->isValid($this->getRequest()->getPost())) {
-                // Η φόρμα ΕΙΝΑΙ έγκυρη. Αποθηκεύουμε στη βάση και στέλνουμε το χρήστη στη σελίδα επιβεβαίωσης.
-                $deliverable->setOptions($form->getValues());
-                if($deliverable->get_workpackage() == null) {
-                    throw new Exception('Δεν έχει επιλεχθεί πατρικό πακέτο εργασίας.');
+                try {
+                    // Η φόρμα ΕΙΝΑΙ έγκυρη. Αποθηκεύουμε στη βάση και στέλνουμε το χρήστη στη σελίδα επιβεβαίωσης.
+                    $deliverable->setOptions($form->getValues());
+                    if($deliverable->get_workpackage() == null) {
+                        throw new Exception('Δεν έχει επιλεχθεί πατρικό πακέτο εργασίας.');
+                    }
+                    $deliverable->save();
+                    if($this->getRequest()->getPost('submitcontinue') != null) {
+                        $this->_helper->redirector($this->_request->getActionName(), $this->_request->getControllerName(), $this->_request->getModuleName(), $this->_request->getUserParams());
+                    } else {
+                        $this->_helper->flashMessenger->addMessage('Το παραδοτέο καταχωρήθηκε με επιτυχία.');
+                        $this->_helper->redirector('index', 'Paketaergasias', 'erga', array('projectid' => $this->view->getProjectId()));
+                    }
+                    return;
+                } catch(\Exception $e) {
+                    $this->getHelper('flashMessenger')->addMessage(array('error' => $e->getMessage()));
                 }
-                $deliverable->save();
-                if($this->getRequest()->getPost('submitcontinue') != null) {
-                    $this->_helper->redirector($this->_request->getActionName(), $this->_request->getControllerName(), $this->_request->getModuleName(), $this->_request->getUserParams());
-                } else {
-                    $this->_helper->flashMessenger->addMessage('Το παραδοτέο καταχωρήθηκε με επιτυχία.');
-                    $this->_helper->redirector('index', 'Paketaergasias', 'erga', array('projectid' => $this->view->getProjectId()));
-                }
-                return;
             }
         }
         // Η φόρμα δεν έχει σταλθεί ή δεν είναι έγκυρη. Τη στέλνουμε στο view και σταματάμε.
@@ -170,15 +174,19 @@ class Erga_PaketaergasiasController extends Zend_Controller_Action {
         if ($this->getRequest()->isPost()) {
             // Η φόρμα έχει σταλθεί. Ελέγχουμε αν ειναι έγκυρη.
             if ($form->isValid($this->getRequest()->getPost())) {
-                // Η φόρμα ΕΙΝΑΙ έγκυρη. Αποθηκεύουμε στη βάση και στέλνουμε το χρήστη στη σελίδα επιβεβαίωσης.
-                $deliverable->setOptions($form->getValues());
-                if($deliverable->get_workpackage() == null) {
-                    throw new Exception('Δεν έχει επιλεχθεί πατρικό πακέτο εργασίας.');
+                try {
+                    // Η φόρμα ΕΙΝΑΙ έγκυρη. Αποθηκεύουμε στη βάση και στέλνουμε το χρήστη στη σελίδα επιβεβαίωσης.
+                    $deliverable->setOptions($form->getValues());
+                    if($deliverable->get_workpackage() == null) {
+                        throw new Exception('Δεν έχει επιλεχθεί πατρικό πακέτο εργασίας.');
+                    }
+                    $deliverable->save();
+                    $this->_helper->flashMessenger->addMessage('Το παραδοτέο αναθεωρήθηκε με επιτυχία.');
+                    $this->_helper->redirector('index', 'Paketaergasias', 'erga', array('projectid' => $this->view->getProjectId()));
+                    return;
+                } catch(\Exception $e) {
+                    $this->getHelper('flashMessenger')->addMessage(array('error' => $e->getMessage()));
                 }
-                $deliverable->save();
-                $this->_helper->flashMessenger->addMessage('Το παραδοτέο αναθεωρήθηκε με επιτυχία.');
-                $this->_helper->redirector('index', 'Paketaergasias', 'erga', array('projectid' => $this->view->getProjectId()));
-                return;
             }
         }
         // Η φόρμα δεν έχει σταλθεί ή δεν είναι έγκυρη. Τη στέλνουμε στο view και σταματάμε.
