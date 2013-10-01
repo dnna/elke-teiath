@@ -10,7 +10,7 @@ $.fn.preventDoubleSubmit = function() {
     jQuery(this).submit(function() {
         if (this.beenSubmitted) {
             return false;
-        } else {
+        } else if(jQuery(this).h5Validate('allValid')) {
             this.beenSubmitted = true;
             return true;
         }

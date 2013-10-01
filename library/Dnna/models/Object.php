@@ -420,6 +420,7 @@ abstract class Dnna_Model_Object {
                 return $newcollection;
             }
         }
+        return $newcollection;
     }
 }
 ?>
