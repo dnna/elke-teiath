@@ -39,6 +39,7 @@ class Erga_Form_Subforms_Author extends Dnna_Form_SubFormBase {
         // Ποσό
         $this->addElement('text', 'amount', array(
             'label' => 'Ποσό:',
+            'class' => 'formatFloat',
         ));
     }
 }

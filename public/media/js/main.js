@@ -38,6 +38,9 @@ $(document).ready(function() {
     $('.submenu').hide().slideDown('slow');
 
     $(".formatFloat").blur(function() {
+        if($(this).val().length <= 0) {
+            return false;
+        }
         var usfloat = parseFloat($(this).val().ReplaceAll(".","").ReplaceAll(",","."));
         if(usfloat != 0) {
             $(this).val(usfloat);
