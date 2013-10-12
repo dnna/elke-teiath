@@ -14,7 +14,7 @@ abstract class Erga_Model_EmployeeContainer extends Dnna_Model_Object {
     public function get_employeesAs2dArray() {
         $array = array();
         foreach($this->_employees as $curEmployee) {
-            $array[$curEmployee->get_recordid()] = $curEmployee->get_employee()->get_name().' '.$curEmployee->get_startdate().'–'.$curEmployee->get_enddate().' '.$curEmployee->get_contractnum();
+            $array[$curEmployee->get_recordid()] = $curEmployee->get_employee()->get_name().' ||| '.$curEmployee->get_startdate().'–'.$curEmployee->get_enddate().' ||| '.$curEmployee->get_contractnum();
         }
         return $array;
     }
