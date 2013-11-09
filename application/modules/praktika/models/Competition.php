@@ -106,11 +106,8 @@ class Praktika_Model_Competition extends Application_Model_SubObject {
         return $this->_subproject;
     }
 
-    public function set_subproject($_subproject, $setCompetition = false) {
+    public function set_subproject($_subproject) {
         $this->_subproject = $_subproject;
-        if($_subproject != null && $setCompetition == true) {
-            $_subproject->get_competitions()->add($this);
-        }
     }
     
     public function get_project() {

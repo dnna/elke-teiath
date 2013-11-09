@@ -387,8 +387,8 @@ abstract class Dnna_Model_Object {
                                     }
                                 }
                                 if($containsnonscalar) {
-                                    $oldcollection->removeElement($oldItem);
-                                    $oldcollection->add($newItem);
+                                    /*$oldcollection->removeElement($oldItem);
+                                    $oldcollection->add($newItem);*/
                                 } else {
                                     $em->merge($newItem);
                                 }
