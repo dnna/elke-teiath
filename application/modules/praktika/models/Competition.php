@@ -1,4 +1,6 @@
 <?php
+require_once(__DIR__.'/../../erga/models/SubProject.php');
+
 /**
  * @author Dimosthenis Nikoudis <dnna@dnna.gr>
  * @Entity (repositoryClass="Praktika_Model_Repositories_Competitions") @Table(name="elke_praktika.competitions")
@@ -77,6 +79,16 @@ class Praktika_Model_Competition extends Application_Model_SubObject {
     protected $_noticedate; //Ημερομνία Προκήρυξης
     /** @Column (name="execdate", type="date") */
     protected $_execdate; // Ημερομνία Διενέργειας
+    /** @Column (name="result", type="string") */
+    protected $_result = self::RESULT_PENDING; // Αποτέλεσμα Διαγωνισμού
+    const RESULT_PENDING = 'PENDING'; // Εκκρεμεί
+    const RESULT_AWARDED = 'AWARDED'; // Ολική Κατακύρωση
+    const RESULT_PARTIALLY_AWARDED = 'PARTIAL_AWARDED'; // Μερική Κατακύρωση
+    const RESULT_BARREN = 'BARREN'; // Άγονος
+    /** @Column (name="refnumresultapproved", type="string") */
+    protected $_refnumresultapproved; // Απόφαση Έγκρισης Αποτελέσματος
+    /** @Column (name="resultapproveddate", type="date") */
+    protected $_resultapproveddate; // Ημερομνία Απόφασης Έγκρισης Αποτελέσματος
     /** @Column (name="refnumaward", type="string") */
     protected $_refnumaward; // Απόφαση Κατακύρωσης
     /** @Column (name="awarddate", type="date") */
@@ -271,6 +283,32 @@ class Praktika_Model_Competition extends Application_Model_SubObject {
         }
     }
 
+    public function get_result() {
+        return $this->_result;
+    }
+
+    public function set_result($_result) {
+        $this->_result = $_result;
+    }
+
+    public function get_refnumresultapproved() {
+        return $this->_refnumresultapproved;
+    }
+
+    public function set_refnumresultapproved($_refnumresultapproved) {
+        $this->_refnumresultapproved = $_refnumresultapproved;
+    }
+
+    public function get_resultapproveddate() {
+        return $this->_resultapproveddate;
+    }
+
+    public function set_resultapproveddate($_resultapproveddate) {
+        if($_resultapproveddate != null) {
+            $this->_resultapproveddate = EDateTime::create($_resultapproveddate);
+        }
+    }
+
     public function get_refnumaward() {
         return $this->_refnumaward;
     }
@@ -345,6 +383,15 @@ class Praktika_Model_Competition extends Application_Model_SubObject {
             $i++;
         }
         return $types;
+    }
+
+    public static function getResults() {
+        return array(
+            self::RESULT_PENDING => 'Εκκρεμεί',
+            self::RESULT_AWARDED => 'Ολική Κατακύρωση',
+            self::RESULT_PARTIALLY_AWARDED => 'Μερική Κατακύρωση',
+            self::RESULT_BARREN => 'Άγονος',
+        );
     }
 
     public function setOwner($owner) {

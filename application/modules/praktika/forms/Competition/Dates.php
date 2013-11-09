@@ -47,6 +47,23 @@ class Praktika_Form_Competition_Dates extends Dnna_Form_SubFormBase {
             ),
             'class' => 'usedatepicker',
         ));
+        // Αποτέλεσμα Διαγωνισμού
+        $this->addElement('select', 'result', array(
+            'label' => 'Αποτέλεσμα Διαγωνισμού:',
+            'multiOptions' => Praktika_Model_Competition::getResults(),
+        ));
+        // Απόφαση Έγκρισης Αποτελέσματος
+        $this->addElement('text', 'refnumresultapproved', array(
+            'label' => 'Απόφαση Έγκρισης Αποτελέσματος:',
+        ));
+        // Ημ/νία Απόφασης Έγκρισης Αποτελέσματος
+        $this->addElement('text', 'resultapproveddate', array(
+            'label' => 'Ημ/νία Απόφ. Έγκρισης Αποτελ.:',
+            'validators' => array(
+                array('validator' => 'Date')
+            ),
+            'class' => 'usedatepicker',
+        ));
         // Απόφαση Κατακύρωσης
         $this->addElement('text', 'refnumaward', array(
             'label' => 'Απόφαση Κατακύρωσης:',
