@@ -52,12 +52,12 @@ $(document).ready(function() {
     });
     calculateBudgetWithFPA(); // Μια φορά στο load της σελίδας
 
-    var origfundingframework = $.extend(true, {}, $("#financialdetails-default-fundingframework-fundingframeworkid").val());
-    var origopprogramme = $.extend(true, {}, $("#financialdetails-default-opprogramme-opprogrammeid").val());
+    var origfundingframework = $("#financialdetails-default-fundingframework-fundingframeworkid").val();
+    var origopprogramme = $("#financialdetails-default-opprogramme-opprogrammeid").val();
     $("#financialdetails-default-fundingframework-fundingframeworkid").change(function(){
-        updateOpProgrammes(this, false, origfundingframework[0], origopprogramme[0]);
+        updateOpProgrammes(this, false, origfundingframework, origopprogramme);
     });
-    updateOpProgrammes($("#financialdetails-default-fundingframework-fundingframeworkid"), true, origfundingframework[0], origopprogramme[0]);
+    updateOpProgrammes($("#financialdetails-default-fundingframework-fundingframeworkid"), true, origfundingframework, origopprogramme);
 
     $.Calculation.setDefaults({
             // a regular expression for detecting European-style formatted numbers
