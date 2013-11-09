@@ -126,14 +126,6 @@ class Erga_Form_Ypoerga_Ypoerga extends Erga_Form_Ypoerga_FormBase {
                 '0' => 'Διαγωνισμός',
                 )
         ));
-        // Διαγωνισμός
-        $subform->addSubForm(new Praktika_Form_Competition_Dates(), 'competition');
-        $subform->getSubForm('competition')->setLegend('Στοιχεία Διαγωνισμού');
-
-        if($createSubform) {
-            $this->addSubForm($subform, 'default');
-        }
-
         // Σχόλια
         $subform->addElement('textarea', 'comments', array(
             'label' => 'Γενικές Πληροφορίες:',
@@ -143,6 +135,31 @@ class Erga_Form_Ypoerga_Ypoerga extends Erga_Form_Ypoerga_FormBase {
             'rows' => $this->_textareaRows,
             'cols' => $this->_textareaCols,
         ));
+        // Διαγωνισμός
+        $this->addCompetitionFields($subform);
+
+        if($createSubform) {
+            $this->addSubForm($subform, 'default');
+        }
+    }
+
+    protected function addCompetitionFields(&$baseform = null, &$subform = null) {
+        if($subform == null) {
+            $subform = new Dnna_Form_SubFormBase();
+        }
+        // Αντικείμενα 1-10
+        for($i = 1; $i <= 10; $i++) {
+            //$subform->addSubForm(new Erga_Form_Subforms_FundingReceipt($i, $this->_view), $i, null, 'financialdetails-fundingreceipts');
+            $subform->addSubForm(new Praktika_Form_Competition_Dates($i, $this->_view), $i, null, 'default-competitions');
+            $subform->getSubForm($i)->setLegend('Διαγωνισμός '.$i);
+        }
+
+        $subform->addElement('button', 'addCompetition', array(
+            'label' => 'Προσθήκη Διαγωνισμού',
+            'class' => 'competitionbuttons addButton',
+        ));
+        $baseform->addSubForm($subform, 'competitions');
+        $baseform->getSubForm('competitions')->setLegend('Διαγωνισμοί');
     }
 
     public function __construct($_defaultSupervisor = null, $view = null, $subproject = null) {

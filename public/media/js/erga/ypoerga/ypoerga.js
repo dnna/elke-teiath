@@ -1,4 +1,17 @@
 $(document).ready(function() {
+        var items = new Array();
+        var item = {
+            addButtonName: 'default-competitions-addCompetition',
+            firstPart: 'default-competitions',
+            fields: ['recordid'],
+            fieldToCheck: 'recordid',
+            itemCount: 10,
+            startItem: 2
+        }
+        items = pushToArray(items, item);
+
+        setupItems(jQuery.extend(true, {}, items));
+
         $("#default-subprojectbudget").blur(function(){
             calculateBudgetWithFPA();
         });
@@ -32,10 +45,15 @@ $(document).ready(function() {
             updateCompetitionVisibility(this);
         });
 
-        updateCompetitionFieldsVisibility($("#default-competition-competitiontype"));
-        $("#default-competition-competitiontype").change(function() {
-            updateCompetitionFieldsVisibility(this);
-        });
+        $.each($('#fieldset-competitions dl > *'), function() {
+            var id = $(this).attr('id');
+            var idarr = id.split('-');
+            var num = idarr[idarr.length - 1];
+            updateCompetitionFieldsVisibility($("#default-competitions-"+num+"-competitiontype"), num);
+            $("#default-competitions-"+num+"-competitiontype").change(function() {
+                updateCompetitionFieldsVisibility($(this), num);
+            });
+        })
 });
 
 function calculateBudgetWithFPA() {
@@ -53,30 +71,53 @@ function calculateBudgetWithFPA() {
 }
 
 function updateCompetitionVisibility(item) {
+    // Fix the isVisible property to make sure we don't get false competitions in
+    var isVisibleOff = function() {
+        $.each($('#fieldset-competitions dl > *'), function() {
+            var id = $(this).attr('id');
+            var idarr = id.split('-');
+            var num = idarr[idarr.length - 1];
+            $('#default-competitions-'+num+'-isvisible').data('old-isVisible', $('#default-competitions-1-isvisible').val());
+            $('#default-competitions-'+num+'-isvisible').val('0');
+        });
+    };
+    var isVisibleOn = function() {
+        $.each($('#fieldset-competitions dl > *'), function() {
+            var id = $(this).attr('id');
+            var idarr = id.split('-');
+            var num = idarr[idarr.length - 1];
+            if(typeof $('#default-competitions-'+num+'-isvisible').data('old-isVisible') != 'undefined') {
+                $('#default-competitions-'+num+'-isvisible').val($('#default-competitions-'+num+'-isvisible').data('old-isVisible'));
+                $('#default-competitions-'+num+'-isvisible').removeData('old-isVisible');
+            }
+        });
+    };
     if($(item).val() == 1) {
-        $("#fieldset-competition").hide();
+        $("#fieldset-competitions").hide();
+        isVisibleOff();
     } else {
-        $("#fieldset-competition").show();
+        $("#fieldset-competitions").show();
+        isVisibleOn();
     }
 }
 
-function updateCompetitionFieldsVisibility(item) {
+function updateCompetitionFieldsVisibility(item, num) {
     if($(item).val() == 1) {
-        $("#default-competition-refnumassignment-div").show();
-        $("#default-competition-assignmentdate-div").show();
-        $("#default-competition-refnumnotice-div").hide();
-        $("#default-competition-noticedate-div").hide();
-        $("#default-competition-execdate-div").hide();
-        $("#default-competition-refnumaward-div").hide();
-        $("#default-competition-awarddate-div").hide();
+        $("#default-competitions-"+num+"-refnumassignment-div").show();
+        $("#default-competitions-"+num+"-assignmentdate-div").show();
+        $("#default-competitions-"+num+"-refnumnotice-div").hide();
+        $("#default-competitions-"+num+"-noticedate-div").hide();
+        $("#default-competitions-"+num+"-execdate-div").hide();
+        $("#default-competitions-"+num+"-refnumaward-div").hide();
+        $("#default-competitions-"+num+"-awarddate-div").hide();
     } else {
-        $("#default-competition-refnumassignment-div").hide();
-        $("#default-competition-assignmentdate-div").hide();
-        $("#default-competition-refnumnotice-div").show();
-        $("#default-competition-noticedate-div").show();
-        $("#default-competition-execdate-div").show();
-        $("#default-competition-refnumaward-div").show();
-        $("#default-competition-awarddate-div").show();
+        $("#default-competitions-"+num+"-refnumassignment-div").hide();
+        $("#default-competitions-"+num+"-assignmentdate-div").hide();
+        $("#default-competitions-"+num+"-refnumnotice-div").show();
+        $("#default-competitions-"+num+"-noticedate-div").show();
+        $("#default-competitions-"+num+"-execdate-div").show();
+        $("#default-competitions-"+num+"-refnumaward-div").show();
+        $("#default-competitions-"+num+"-awarddate-div").show();
     }
 }
 

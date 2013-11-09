@@ -1,5 +1,13 @@
 <?php
 class Praktika_Form_Competition_Dates extends Dnna_Form_SubFormBase {
+    protected $_i;
+
+    // IMPORTANT: $i can be null here
+    public function __construct($i = null, $view = null) {
+        $this->_i = $i;
+        parent::__construct($view);
+    }
+
     public function init() {
         // Recordid
         $this->addElement('hidden', 'recordid', array());

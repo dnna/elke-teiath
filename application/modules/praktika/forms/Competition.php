@@ -26,7 +26,7 @@ class  Praktika_Form_Competition extends Dnna_Form_FormBase {
         $subform = new Dnna_Form_AutoForm('Praktika_Model_Competition', $this->_view);
         $subform->initSubform();
         $subform->removeElement('submit');
-        $datessubform = new Praktika_Form_Competition_Dates($this->_view);
+        $datessubform = new Praktika_Form_Competition_Dates(null, $this->_view);
         foreach($datessubform->getElements() as $curElement) {
             $subform->addElement($curElement, null, array('order' => 0));
         }

@@ -255,6 +255,7 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
 
     public function set_subprojectdirectlabor($_subprojectdirectlabor) {
         $this->_subprojectdirectlabor = $_subprojectdirectlabor;
+        // If the project becomes directlabor then remove all competitions
         if($_subprojectdirectlabor == 1) {
             foreach($this->_competitions as $curCompetition) {
                 $this->_competitions->removeElement($curCompetition);
@@ -269,13 +270,13 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
         if(!isset($this->_competitions)) {
             $this->_competitions = new ArrayCollection();
         }
-        if($this->get_subprojectdirectlabor() != 1 && $this->_competitions->get(0) == null) {
+        /*if($this->get_subprojectdirectlabor() != 1 && $this->_competitions->get(0) == null) {
             $this->_competitions = new ArrayCollection();
             $competition = $this->newCompetition();
             Zend_Registry::get('entityManager')->persist($competition);
             Zend_Registry::get('entityManager')->flush(); // Για να έχει id
             $this->_competitions->add($competition);
-        }
+        }*/
         return $this->_competitions;
     }
 
