@@ -389,6 +389,7 @@ abstract class Dnna_Model_Object {
                                 if($containsnonscalar) {
                                     /*$oldcollection->removeElement($oldItem);
                                     $oldcollection->add($newItem);*/
+                                    $em->merge($newItem); // Why was this disabled??
                                 } else {
                                     $em->merge($newItem);
                                 }
