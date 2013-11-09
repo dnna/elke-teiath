@@ -225,16 +225,22 @@ class Erga_Model_SubProject extends \Erga_Model_SubProject implements \Doctrine\
         return parent::set_subprojectdirectlabor($_subprojectdirectlabor);
     }
 
-    public function get_competition()
+    public function get_competitions()
     {
         $this->__load();
-        return parent::get_competition();
+        return parent::get_competitions();
     }
 
-    public function set_competition($_competition)
+    public function get_competitionAs2dArray()
     {
         $this->__load();
-        return parent::set_competition($_competition);
+        return parent::get_competitionAs2dArray();
+    }
+
+    public function set_competitions($_competitions)
+    {
+        $this->__load();
+        return parent::set_competitions($_competitions);
     }
 
     public function get_employees()
@@ -472,7 +478,7 @@ class Erga_Model_SubProject extends \Erga_Model_SubProject implements \Doctrine\
 
     public function __sleep()
     {
-        return array('__isInitialized__', '_subprojectid', '_isvirtual', '_subprojectnumber', '_subprojecttitle', '_subprojecttitleen', '_subprojectdescription', '_subprojectbudget', '_subprojectbudgetfpa', '_subprojectstartdate', '_subprojectenddate', '_subprojecttype', '_subprojectdirectlabor', '_comments', '_iscomplete', '_hasoverduedeliverables', '_parentproject', '_subprojectsupervisor', '_competition', '_employees', '_contractors', '_workpackages');
+        return array('__isInitialized__', '_subprojectid', '_isvirtual', '_subprojectnumber', '_subprojecttitle', '_subprojecttitleen', '_subprojectdescription', '_subprojectbudget', '_subprojectbudgetfpa', '_subprojectstartdate', '_subprojectenddate', '_subprojecttype', '_subprojectdirectlabor', '_comments', '_iscomplete', '_hasoverduedeliverables', '_parentproject', '_subprojectsupervisor', '_competitions', '_employees', '_contractors', '_workpackages');
     }
 
     public function __clone()

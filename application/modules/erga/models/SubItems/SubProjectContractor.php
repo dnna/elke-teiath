@@ -20,6 +20,12 @@ class Erga_Model_SubItems_SubProjectContractor extends Application_Model_SubObje
     /** @Column (name="contractnum", type="string") */
     protected $_contractnum = ""; // Αριθμός Σύμβασης
     /**
+     * @ManyToOne (targetEntity="Praktika_Model_Competition")
+     * @JoinColumn (name="competitionid", referencedColumnName="recordid")
+     * @var Praktika_Model_Competition
+     */
+    protected $_competition;
+    /**
      * @Column (name="contact", type="string")
      */
     protected $_contact;
@@ -102,6 +108,14 @@ class Erga_Model_SubItems_SubProjectContractor extends Application_Model_SubObje
 
     public function set_contractnum($_contractnum) {
         $this->_contractnum = $_contractnum;
+    }
+
+    public function get_competition() {
+        return $this->_competition;
+    }
+
+    public function set_competition(Praktika_Model_Competition $_competition) {
+        $this->_competition = $_competition;
     }
 
     public function get_contact() {

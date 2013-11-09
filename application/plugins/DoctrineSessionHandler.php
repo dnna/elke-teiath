@@ -73,8 +73,8 @@ class Application_Plugin_DoctrineSessionHandler implements Zend_Session_SaveHand
         public function gc($maxlifetime)
         {
                 $this->_em->createQuery('DELETE Application_Plugin_DoctrineSession s WHERE s.modified < ('.time().' - s.lifetime)')->execute();
-                include_once(APPLICATION_PATH.'/modules/praktika/models/Competition.php');
-                $this->_em->createQuery('DELETE Praktika_Model_Competition c WHERE c._subproject IS NULL AND c._aitisi IS NULL')->execute();
+                /*include_once(APPLICATION_PATH.'/modules/praktika/models/Competition.php');
+                $this->_em->createQuery('DELETE Praktika_Model_Competition c WHERE c._subproject IS NULL AND c._aitisi IS NULL')->execute();*/
                 $orphanedconsultants = $this->_em->createQuery('SELECT c FROM Application_Model_Consultant c LEFT JOIN c._astechnicalconsultant atc LEFT JOIN c._asresponsibleperson arp WHERE atc IS NULL AND arp IS NULL')->getResult();
                 foreach($orphanedconsultants as &$curOrphan) {
                     $this->_em->remove($curOrphan);

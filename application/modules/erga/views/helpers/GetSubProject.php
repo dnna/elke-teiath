@@ -21,7 +21,9 @@ class Erga_View_Helper_GetSubProject extends Zend_View_Helper_Abstract
         } else if(isset($this->view->deliverable)) {
             $subproject = $this->view->deliverable->get_workpackage()->get_subproject();
         } else if(isset($this->view->employee)) {
-            $project = $this->view->employee->get_subproject();
+            $subproject = $this->view->employee->get_subproject();
+        } else if(isset($this->view->contractor)) {
+            $subproject = $this->view->contractor->get_subproject();
         } else {
             throw new Exception('Δεν μπόρεσε να ανακτηθεί το subproject.');
         }

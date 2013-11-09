@@ -37,6 +37,17 @@ class Erga_Form_Apasxoloumenoi_Contractor extends Erga_Form_Ypoerga_FormBase {
         $subform->addElement('text', 'refnumcontract', array(
             'label' => 'Αρ. Πρωτ. Σύμβασης:',
         ));
+        // Αριθμός Προκήρυξης - Διαγωνισμός
+        $subproject = $this->_view->getSubProject();
+        if($subproject->get_competitions()->count() > 0) {
+            $competitionsubform =  new Dnna_Form_SubFormBase();
+            $competitionsubform->addElement('select', 'recordid', array(
+                'label' => 'Αριθμός Προκήρυξης/Ανάθεσης:',
+                'multiOptions' => $subproject->get_competitionAs2dArray(),
+                )
+            );
+            $subform->addSubForm($competitionsubform, 'competition', false);
+        }
         // Ποσό Σύμβασης (με ΦΠΑ)
         $subform->addElement('text', 'amount', array(
             'label' => 'Ποσό Σύμβασης (με ΦΠΑ):',

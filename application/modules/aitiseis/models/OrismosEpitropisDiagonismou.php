@@ -79,7 +79,7 @@ class Aitiseis_Model_OrismosEpitropisDiagonismou extends Aitiseis_Model_AitisiBa
         if(isset($this->_objectioncommittee)) {
             $this->_objectioncommittee->set_active(true);
         }
-        if(($competition = $this->_subproject->get_competition()) != null && $competition != $this->_competition) {
+        if(($competition = $this->_subproject->get_competitions()->get(0)) != null && $competition != $this->_competition) {
             /*// Το υποέργο έχει διαγωνισμό, οπότε τον σβήνουμε πριν προχωρήσουμε
             $oldoptions = $competition->getOptions(false, array('ignoreobjects' => true));
             $newoptions = $this->_competition->getOptions(false, array('ignoreobjects' => true));

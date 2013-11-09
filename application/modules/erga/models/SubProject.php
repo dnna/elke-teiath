@@ -83,7 +83,7 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
      * @OneToMany (targetEntity="Praktika_Model_Competition", mappedBy="_subproject", cascade={"all"})
      * @var Praktika_Model_Competition
      */
-    protected $_competition; // Αν είναι null τότε το έργο είναι αυτεπιστασία
+    protected $_competitions; // Αν είναι null τότε το έργο είναι αυτεπιστασία
 
     /**
      * @OneToMany (targetEntity="Erga_Model_SubItems_SubProjectEmployee", mappedBy="_subproject", cascade={"persist"})
@@ -256,24 +256,42 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
     public function set_subprojectdirectlabor($_subprojectdirectlabor) {
         $this->_subprojectdirectlabor = $_subprojectdirectlabor;
         if($_subprojectdirectlabor == 1) {
-            $this->set_competition(null);
+            foreach($this->_competitions as $curCompetition) {
+                $this->_competitions->removeElement($curCompetition);
+                //$curCompetition->set_subproject(null);
+                Zend_Registry::get('entityManager')->remove($curCompetition);
+            }
         }
         $this->updateEmployeesAndContractors();
     }
 
-    public function get_competition() {
-        if(isset($this->_competition)) {
-            if($this->get_subprojectdirectlabor() != 1 && $this->_competition->get(0) == null) {
-                $competition = $this->newCompetition();
-                Zend_Registry::get('entityManager')->persist($competition);
-                Zend_Registry::get('entityManager')->flush(); // Για να έχει id
-                $this->set_competition($competition);
-            }
-        } else {
-            $competition = $this->newCompetition();
-            //$this->set_competition($competition);
+    public function get_competitions() {
+        if(!isset($this->_competitions)) {
+            $this->_competitions = new ArrayCollection();
         }
-        return $this->_competition->get(0);
+        if($this->get_subprojectdirectlabor() != 1 && $this->_competitions->get(0) == null) {
+            $this->_competitions = new ArrayCollection();
+            $competition = $this->newCompetition();
+            Zend_Registry::get('entityManager')->persist($competition);
+            Zend_Registry::get('entityManager')->flush(); // Για να έχει id
+            $this->_competitions->add($competition);
+        }
+        return $this->_competitions;
+    }
+
+    public function get_competitionAs2dArray() {
+        $array = array();
+        $i = 1;
+        foreach($this->_competitions as $curCompetition) {
+            if($curCompetition->get_noticedate() != null) {
+                $append = ' '.$curCompetition->get_noticedate()->__toString();
+            } else {
+                $append = '';
+            }
+            $array[$curCompetition->get_recordid()] = $i.$append;
+            $i++;
+        }
+        return $array;
     }
 
     private function newCompetition() {
@@ -283,21 +301,8 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
 
     }
 
-    public function set_competition($_competition) {
-        if(!is_object($this->_competition)) {
-            $this->_competition = new ArrayCollection();
-        }
-        $oldcompetition = $this->_competition->get(0);
-        if($_competition == null) {
-            if($oldcompetition != null) {
-                //Zend_Registry::get('entityManager')->remove($oldcompetition);
-                // Αφαιρούμε το subproject από τον διαγωνισμό. Αν είναι ορφανό θα καθαριστεί αργότερα από το garbagecollection
-                $this->_competition->removeElement($oldcompetition);
-                $oldcompetition->set_subproject(null);
-            }
-        } else {
-            $this->_competition->set(0, $_competition);
-        }
+    public function set_competitions($_competitions) {
+        $this->_competitions = $_competitions;
     }
 
     /**
@@ -481,9 +486,11 @@ class Erga_Model_SubProject extends Erga_Model_EmployeeContainer {
     public function save() {
         if($this->get_parentproject()->get_iscomplex() == 0) {
             $workpackage = $this->getVirtualWorkPackage();
-            $workpackage->set_workpackagecodename('');
-            $workpackage->set_workpackagename($this->get_subprojecttitle());
-            $workpackage->save();
+            if($workpackage != null) {
+                $workpackage->set_workpackagecodename('');
+                $workpackage->set_workpackagename($this->get_subprojecttitle());
+                $workpackage->save();
+            }
         }
         return parent::save();
     }
