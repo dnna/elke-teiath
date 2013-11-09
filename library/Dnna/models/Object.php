@@ -401,6 +401,7 @@ abstract class Dnna_Model_Object {
                 foreach($oldcollection as &$oldItem) {
                     if(!in_array($oldItem->get_recordid(), $common)) {
                         $oldcollection->removeElement($oldItem);
+                        $em->remove($oldItem);
                     }
                 }
                 // 4. Βρίσκουμε ποια στοιχεία του newcollection δεν βρίσκονται στον πίνακα και τα προσθέτουμε
