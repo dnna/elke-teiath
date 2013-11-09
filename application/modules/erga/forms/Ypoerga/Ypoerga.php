@@ -120,10 +120,10 @@ class Erga_Form_Ypoerga_Ypoerga extends Erga_Form_Ypoerga_FormBase {
         // Αυτεπιστασία
         $subform->addElement('select', 'subprojectdirectlabor', array(
             'required' => true,
-            'label' => 'Αυτεπιστασία:',
+            'label' => 'Αυτεπιστασία/Διαγωνισμός:',
             'multiOptions' => Array(
-                '1' => 'Ναί',
-                '0' => 'Όχι - Διαγωνισμός',
+                '1' => 'Αυτεπιστασία',
+                '0' => 'Διαγωνισμός',
                 )
         ));
         // Διαγωνισμός
