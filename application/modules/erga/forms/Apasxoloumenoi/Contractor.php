@@ -30,12 +30,12 @@ class Erga_Form_Apasxoloumenoi_Contractor extends Erga_Form_Ypoerga_FormBase {
         // Αριθμός Σύμβασης
         $subform->addElement('text', 'contractnum', array(
                 'label' => 'Αριθμός Σύμβασης',
+                'required' => true,
             )
         );
         // Αρ. Πρωτ. Σύμβασης
         $subform->addElement('text', 'refnumcontract', array(
             'label' => 'Αρ. Πρωτ. Σύμβασης:',
-            'required' => true,
         ));
         // Ποσό Σύμβασης (με ΦΠΑ)
         $subform->addElement('text', 'amount', array(
