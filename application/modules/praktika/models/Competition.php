@@ -386,7 +386,7 @@ class Praktika_Model_Competition extends Application_Model_SubObject {
         return array(
             self::RESULT_PENDING => 'Εκκρεμεί',
             self::RESULT_AWARDED => 'Ολική Κατακύρωση',
-            self::RESULT_PARTIALLY_AWARDED => 'Μερική Κατακύρωση',
+            self::RESULT_PARTIALLY_AWARDED => 'Μερική Κατακύρωση (Τμήματα)',
             self::RESULT_BARREN => 'Άγονος',
         );
     }
