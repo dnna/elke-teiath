@@ -59,7 +59,7 @@ class  Erga_Form_BasicDetails extends Dnna_Form_SubFormBase {
             'validators' => array(
                 array('validator' => 'StringLength', 'options' => array(0, 50))
             ),
-            'required' => false,
+            'required' => true,
             )
         );
         // Περιγραφή
