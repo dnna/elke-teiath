@@ -10,7 +10,9 @@ if(isset($this->subproject)) {
 }
 $paidAmount = Zend_Registry::get('entityManager')->getRepository('Timesheets_Model_Timesheet')->getPaidAmount($params);
 $paidAmount = $paidAmount[0]['paidamount'];
-$paidAmount = Zend_Locale_Format::toNumber($paidAmount,array('precision' => 2,'locale' => Zend_Registry::get('Zend_Locale')));
+if($paidAmount != null && $paidAmount > 0) {
+    $paidAmount = Zend_Locale_Format::toNumber($paidAmount,array('precision' => 2,'locale' => Zend_Registry::get('Zend_Locale')));
+}
 ?>
 <tr id="employee<?php echo $this->employee->get_recordid(); ?>" class="<?php echo $class; ?>">
     <td>
