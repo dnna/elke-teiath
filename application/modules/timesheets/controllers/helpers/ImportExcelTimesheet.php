@@ -12,7 +12,7 @@ class Timesheets_Action_Helper_ImportExcelTimesheet extends Zend_Controller_Acti
         }
         $timesheet->set_employee($employee);
 
-        $project = Zend_Registry::get('entityManager')->getRepository('Erga_Model_Project')->findProjects(array('mis' => $data['mis'], 'includeEduProject' => true));
+        $project = Zend_Registry::get('entityManager')->getRepository('Erga_Model_Project')->findProjects(array('projectid' => $data['projectid'], 'includeEduProject' => true));
         if(!isset($project) || count($project) <= 0) {
             return array('error' => true, 'errorRow' => 1, 'formElements' => array(), 'message' => 'Δεν βρέθηκε το έργο.');
         }
@@ -79,6 +79,7 @@ class Timesheets_Action_Helper_ImportExcelTimesheet extends Zend_Controller_Acti
             $data['uniquecode'] = $objPHPExcel->getActiveSheet()->getCell('D3')->getCalculatedValue();
             $uniquecode = explode('-', $data['uniquecode']);
             $data['recordid'] = $uniquecode[2];
+            $data['projectid'] = $uniquecode[0];
             $data['mis'] = $objPHPExcel->getActiveSheet()->getCell('D6')->getCalculatedValue();
             $data['year'] = $objPHPExcel->getActiveSheet()->getCell('D9')->getCalculatedValue();
             $data['month'] = $objPHPExcel->getActiveSheet()->getCell('D10')->getCalculatedValue();
