@@ -25,6 +25,14 @@ class Application_Model_Contractor extends Dnna_Model_Object {
      * @FormFieldLabel Διεύθυνση
      */
     protected $_address;
+    /**
+     * @Column (name="type", type="string")
+     * @FormFieldLabel Είδος Φορέα
+     * @FormFieldType SimpleSelect
+     * @FormFieldOptions Δημόσιος, Ιδιωτικός, Ευρωπαϊκό Πρόγραμμα, Ίδιοι Πόροι, Αυτοχρηματοδότηση
+     * @FormFieldRequired
+     */
+    protected $_type;
     ///**
      //* @OneToMany (targetEntity="Erga_Model_SubItems_SubProjectContractor", mappedBy="_agency")
      //*/
@@ -64,6 +72,14 @@ class Application_Model_Contractor extends Dnna_Model_Object {
 
     public function set_address($_address) {
         $this->_address = $_address;
+    }
+
+    public function get_type() {
+        return $this->_type;
+    }
+
+    public function set_type($_type) {
+        $this->_type = $_type;
     }
 
     public function get_contracts() {
