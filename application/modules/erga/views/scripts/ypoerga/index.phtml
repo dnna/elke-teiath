@@ -75,7 +75,7 @@
 
             </td>
             <td>
-                <a href="javascript:void(0);"  onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε το υποέργο <?php echo $curSubProject->get_subprojecttitle(); ?>;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'delete', 'subprojectid' => $curSubProject->get_subprojectid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>'}">
+                <a href="javascript:void(0);"  onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε το υποέργο <?php echo addslashes($curSubProject->get_subprojecttitle()); ?>;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'delete', 'subprojectid' => $curSubProject->get_subprojectid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>'}">
                     <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή"  title="Διαγραφή <?php echo $name['gen']; ?>" />
                 </a>
             </td>

@@ -17,7 +17,7 @@
         <?php echo $this->contractor->get_amount(); ?>
     </td>
     <td>
-        <a href="javascript:void(0);" onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε τον ανάδοχο <?php echo $this->contractor->get_agency()->get_name(); ?>', 'Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Apasxoloumenoi', 'action' => 'deletecontractor', 'contractorid' => $this->contractor->get_recordid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>' }">
+        <a href="javascript:void(0);" onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε τον ανάδοχο <?php echo addslashes($this->contractor->get_agency()->get_name()); ?>', 'Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Apasxoloumenoi', 'action' => 'deletecontractor', 'contractorid' => $this->contractor->get_recordid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>' }">
             <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή" title='Διαγραφή Αναδόχου' class="alone"/>
         </a>
     </td>

@@ -26,7 +26,7 @@ if(!isset($this->enableAllagi)) {
                     </a>
                 <?php } ?>
                 <?php if($this->userCanDelete($entry, $this->enableAllagi) == true) { ?>
-                        <a href="javascript:void(0);"  onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε το <?php echo $entry; ?>;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'delete', 'id' => $entry->get_id(), 'return' => urlencode($this->getCurrentUrl()))); ?>'}">
+                        <a href="javascript:void(0);"  onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε το <?php echo addslashes($entry->__toString()); ?>;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => $this->getControllerName(), 'action' => 'delete', 'id' => $entry->get_id(), 'return' => urlencode($this->getCurrentUrl()))); ?>'}">
                             <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή Φύλλου"  title="Διαγραφή Φύλλου" />
                         </a>
                 <?php } ?>

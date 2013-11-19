@@ -71,7 +71,7 @@
                         <a href="<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'importdeliverables', 'workpackageid' => $curWorkpackage->get_recordid()), null, true); ?>">
                             <img src="<?php echo $this->baseUrl('images/icons/excelIcon.jpg'); ?>" alt="προσθήκη" title="Εισαγωγή παραδοτέων από Excel" class="addNew"/> </a>
 
-                        <a href="javascript:void(0);" onclick="if (prompt('Θέλετε σίγουρα να διαγράψετε το πακέτο εργασίας <?php echo $curWorkpackage->get_name(); ?>;', 'Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ') {
+                        <a href="javascript:void(0);" onclick="if (prompt('Θέλετε σίγουρα να διαγράψετε το πακέτο εργασίας <?php echo addslashes($curWorkpackage->get_name()); ?>;', 'Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ') {
                                     window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'delete', 'workpackageid' => $curWorkpackage->get_recordid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>'
                                 }">
                             <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή" title='Διαγραφή Πακέτου Εργασίας' />
@@ -96,7 +96,7 @@
         <?php echo $this->printDeliverableAuthors($curDeliverable); ?>
                         </td>
                         <td>
-                            <a href="javascript:void(0);" onclick="if (prompt('Θέλετε σίγουρα να διαγράψετε το παραδοτέο <?php echo $curDeliverable->get_codename(); ?>;', 'Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ') {
+                            <a href="javascript:void(0);" onclick="if (prompt('Θέλετε σίγουρα να διαγράψετε το παραδοτέο <?php echo addslashes($curDeliverable->get_codename()); ?>;', 'Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ') {
                                         window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'deletedeliverable', 'deliverableid' => $curDeliverable->get_recordid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>'
                                     }">
                                 <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή" title='Διαγραφή Παραδοτέου' class="alone"/>

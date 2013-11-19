@@ -76,7 +76,7 @@
     <?php echo $this->printDeliverableAuthors($curDeliverable); ?>
                     </td>
                     <td>
-                        <a href="javascript:void(0);" onclick="if (prompt('Θέλετε σίγουρα να διαγράψετε το παραδοτέο <?php $curDeliverable->get_codename(); ?>;', 'Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ') {
+                        <a href="javascript:void(0);" onclick="if (prompt('Θέλετε σίγουρα να διαγράψετε το παραδοτέο <?php addslashes($curDeliverable->get_codename()); ?>;', 'Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ') {
                                     window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Paketaergasias', 'action' => 'deletedeliverable', 'deliverableid' => $curDeliverable->get_recordid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>'
                                 }">
                             <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή" title='Διαγραφή Παραδοτεου' class="deleteIcon"/>

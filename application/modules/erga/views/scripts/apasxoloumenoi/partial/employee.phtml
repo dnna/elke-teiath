@@ -36,7 +36,7 @@ if($paidAmount != null && $paidAmount > 0) {
         <?php echo $paidAmount; ?>
     </td>
     <td>
-        <a href="javascript:void(0);" onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε τον απασχολούμενο <?php echo $this->employee->get_employee()->get_name(); ?>', 'Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Apasxoloumenoi', 'action' => 'delete', 'employeeid' => $this->employee->get_recordid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>' }">
+        <a href="javascript:void(0);" onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε τον απασχολούμενο <?php echo addslashes($this->employee->get_employee()->get_name()); ?>', 'Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => $this->getModuleName(), 'controller' => 'Apasxoloumenoi', 'action' => 'delete', 'employeeid' => $this->employee->get_recordid(), 'return' => urlencode($this->getCurrentUrl())), null, true); ?>' }">
             <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή" title='Διαγραφή Απασχολούμενου' class="alone"/>
         </a>
     </td>

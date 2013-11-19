@@ -54,7 +54,7 @@ if(!isset($this->showCreator)) {
                 </a>
         <?php } ?>
         <?php if($entry->isDeletable() == true) { ?>
-                <a href="javascript:void(0);"  onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε την αίτηση <?php echo $entry; ?>;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => 'aitiseis', 'controller' => 'delete', 'action' => 'index', 'aitisiid' => $entry->get_aitisiid(), 'return' => urlencode($this->getCurrentUrl()))); ?>'}">
+                <a href="javascript:void(0);"  onclick="if( prompt('Θέλετε σίγουρα να διαγράψετε την αίτηση <?php echo addslashes($entry->__toString()); ?>;','Παρακαλώ πληκτρολογήστε ΝΑΙ για να συνεχίσετε...') == 'ΝΑΙ'  ) { window.location = '<?php echo $this->url(array('module' => 'aitiseis', 'controller' => 'delete', 'action' => 'index', 'aitisiid' => $entry->get_aitisiid(), 'return' => urlencode($this->getCurrentUrl()))); ?>'}">
                     <img src="<?php echo $this->baseUrl('images/delete_x.gif'); ?>" alt="Διαγραφή"  title="Διαγραφή Αίτησης" />
                 </a>
             <?php } ?>
